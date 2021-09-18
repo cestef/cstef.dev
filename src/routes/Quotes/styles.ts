@@ -12,6 +12,13 @@ const styles: { [id: string]: SxProps<Theme> } = {
         textDecorationLine: "underline",
         textDecorationColor: (theme) => theme.palette.error.main,
     },
+    container: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "50vw",
+    },
 };
 
 export default styles;

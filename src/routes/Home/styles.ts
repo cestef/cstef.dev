@@ -12,6 +12,10 @@ const styles: { [id: string]: SxProps<Theme> } = {
     },
     root: {
         padding: 10,
+        display: ["flex", null, "inherit"],
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
     },
     content: {
         display: "flex",
@@ -30,13 +34,17 @@ const styles: { [id: string]: SxProps<Theme> } = {
     },
     button: {
         margin: 1,
-        padding: 3,
+        padding: [1, 3],
     },
     codeBlock: {
+        padding: "1.5em !important",
         borderRadius: 5,
         marginBottom: 10,
         fontSize: 20,
-        marginLeft: 10,
+        marginLeft: [null, null, 10],
+        maxWidth: 500,
+        float: [null, null, "right"],
+        display: ["none !important", null, "block !important"],
     },
 };
 export default styles;

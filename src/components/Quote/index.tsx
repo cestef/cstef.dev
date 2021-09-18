@@ -12,16 +12,22 @@ export const Quote = ({
 
     return (
         <Card
-            sx={{ minWidth: 250, maxWidth: 500, float: right ? "right" : "left", margin: 2 }}
+            sx={{
+                minWidth: 250,
+                maxWidth: 500,
+                alignSelf: ["inherit", null, right ? "flex-end" : "flex-start"],
+                margin: 2,
+                padding: 1,
+            }}
             elevation={5}
         >
             <CardContent>
-                <Typography sx={{ mb: 1.5 }} color="#aaa" variant="h5">
+                <Typography sx={{ mb: 1.5 }} color="#aaa" variant="h4">
                     <Span sx={{ color: "white" }}>”</Span>
                     {text}
                     <Span sx={{ color: "white" }}>”</Span>
                 </Typography>
-                <Typography variant="body2" align="right">
+                <Typography variant="body1" align="right">
                     - {author}
                 </Typography>
             </CardContent>

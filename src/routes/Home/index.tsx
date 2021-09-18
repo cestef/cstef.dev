@@ -1,45 +1,39 @@
 import { GitHub, Instagram, Twitter } from "@mui/icons-material";
-import { Container, IconButton, SvgIcon, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Container, IconButton, SvgIcon, Typography, useTheme } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import SH from "react-syntax-highlighter";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import styles from "./styles";
 export const Home = () => {
     const code = `class Cstef {
-        name: string;
-        age: number;
-        skills: string[];
-        constructor() {
-            this.name = "Colin";
-            this.age = 16;
-            this.skills = [
-                "typescript",
-                "react",
-                "csharp"
-            ];
-        }
+    name: string;
+    age: number;
+    skills: string[];
+    constructor() {
+        this.name = "Colin";
+        this.age = 16;
+        this.skills = [
+            "typescript",
+            "react",
+            "csharp"
+        ];
+    }
 }`;
     const Span = styled("span")({});
     const SyntaxHighlighter = styled(SH)({});
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.up("sm"));
     return (
         <Container sx={styles.root}>
-            <SyntaxHighlighter
-                language="typescript"
-                style={atomOneDark}
-                sx={styles.codeBlock}
-                customStyle={{ padding: 10 }}
-            >
+            <SyntaxHighlighter language="typescript" style={atomOneDark} sx={styles.codeBlock}>
                 {code}
             </SyntaxHighlighter>
             <Box sx={styles.content}>
                 <Typography variant="h1">Hello, World{"\u00A0"}!</Typography>
                 <Typography variant="h4" sx={styles.subtitle}>
-                    I'm a <Span sx={styles.spellerror}>developer</Span> I guess ?
+                    I'm a <Span sx={styles.spellerror}>developer</Span> I guess{"\u00A0"}?
                 </Typography>
                 <Typography variant="h5" sx={styles.paragraph}>
-                    I develop <Span sx={styles.spellerror}>fun</Span> things during my freetime.{" "}
+                    I develop <Span sx={styles.spellerror}>fun</Span> things during my freetime.
                     <br />
                 </Typography>
                 <Box sx={styles.buttons}>
