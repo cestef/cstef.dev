@@ -5,6 +5,24 @@ import { Home, Portfolio, Projects, Quotes } from "./routes/";
 
 const theme = createTheme({
     palette: { mode: "dark", primary: { main: "#79D8FF" }, secondary: { main: "#66F9E7" } },
+    components: {
+        MuiContainer: {
+            styleOverrides: {
+                root: {
+                    marginTop: 50,
+                },
+            },
+        },
+        MuiAppBar: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "transparent",
+                    backgroundImage: "none",
+                    boxShadow: "none",
+                },
+            },
+        },
+    },
 });
 
 const App = () => {

@@ -1,7 +1,7 @@
 import { GitHub, Instagram, Twitter } from "@mui/icons-material";
 import { Container, IconButton, SvgIcon, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Box, styled } from "@mui/system";
-import SyntaxHighlighter from "react-syntax-highlighter";
+import SH from "react-syntax-highlighter";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import styles from "./styles";
 export const Home = () => {
@@ -20,6 +20,7 @@ export const Home = () => {
         }
 }`;
     const Span = styled("span")({});
+    const SyntaxHighlighter = styled(SH)({});
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.up("sm"));
     return (
@@ -27,14 +28,8 @@ export const Home = () => {
             <SyntaxHighlighter
                 language="typescript"
                 style={atomOneDark}
-                customStyle={{
-                    float: isMobile ? "right" : "",
-                    padding: 20,
-                    borderRadius: 15,
-                    marginBottom: 50,
-                    fontSize: 20,
-                    marginLeft: 50,
-                }}
+                sx={styles.codeBlock}
+                customStyle={{ padding: 10 }}
             >
                 {code}
             </SyntaxHighlighter>

@@ -1,3 +1,9 @@
+import { Container, Typography } from "@mui/material";
+import styles from "./styles";
 export const Portfolio = () => {
-    return <div>Portfolio</div>;
+    return (
+        <Container sx={styles.root}>
+            <Typography variant="h3">Portfolio</Typography>
+        </Container>
+    );
 };

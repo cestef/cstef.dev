@@ -11,7 +11,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
         textDecorationColor: (theme) => theme.palette.error.main,
     },
     root: {
-        padding: 20,
+        padding: 10,
     },
     content: {
         display: "flex",
@@ -31,6 +31,12 @@ const styles: { [id: string]: SxProps<Theme> } = {
     button: {
         margin: 1,
         padding: 3,
+    },
+    codeBlock: {
+        borderRadius: 5,
+        marginBottom: 10,
+        fontSize: 20,
+        marginLeft: 10,
     },
 };
 export default styles;
