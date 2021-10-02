@@ -1,9 +1,11 @@
 import { GitHub, Instagram, Twitter } from "@mui/icons-material";
-import { Container, IconButton, SvgIcon, Typography, useTheme } from "@mui/material";
+import { Container, IconButton, SvgIcon, Typography } from "@mui/material";
 import { Box, styled } from "@mui/system";
+import { motion } from "framer-motion";
 import SH from "react-syntax-highlighter";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import styles from "./styles";
+
 export const Home = () => {
     const code = `class Cstef {
     name: string;
@@ -19,18 +21,24 @@ export const Home = () => {
         ];
     }
 }`;
-    const Span = styled("span")({});
+    const Span = styled(motion.span)({});
     const SyntaxHighlighter = styled(SH)({});
-    const theme = useTheme();
     return (
         <Container sx={styles.root}>
             <SyntaxHighlighter language="typescript" style={atomOneDark} sx={styles.codeBlock}>
                 {code}
             </SyntaxHighlighter>
+
             <Box sx={styles.content}>
-                <Typography variant="h1">Hello, World{"\u00A0"}!</Typography>
+                <motion.div animate={{ scale: [0.2, 1] }} transition={{ duration: 0.5 }}>
+                    <Typography variant="h1">Hello, World{"\u00A0"}!</Typography>
+                </motion.div>
                 <Typography variant="h4" sx={styles.subtitle}>
-                    I'm a <Span sx={styles.spellerror}>developer</Span> I guess{"\u00A0"}?
+                    I'm a{" "}
+                    <Span animate={{}} sx={styles.spellerror}>
+                        developer
+                    </Span>{" "}
+                    I guess{"\u00A0"}?
                 </Typography>
                 <Typography variant="h5" sx={styles.paragraph}>
                     I develop <Span sx={styles.spellerror}>fun</Span> things during my freetime.

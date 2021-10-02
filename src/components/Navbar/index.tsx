@@ -37,7 +37,7 @@ export const Navbar = () => {
                         <Menu />
                     </IconButton>
                     <Link to="/" sx={{ textDecoration: "none", color: "inherit" }}>
-                        <Typography variant="h5" sx={{ ml: 2, mt: 0.5 }}>
+                        <Typography variant="h5" sx={{ ml: [0, null, 2], mt: 0.5 }}>
                             cstef.dev
                         </Typography>
                     </Link>

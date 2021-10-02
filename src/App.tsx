@@ -2,7 +2,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { Home, Portfolio, Projects, Quotes } from "./routes/";
-
 const theme = createTheme({
     palette: { mode: "dark", primary: { main: "#79D8FF" }, secondary: { main: "#66F9E7" } },
     components: {

@@ -15,8 +15,6 @@ export const Quotes = () => {
                 <Quote text="cstef go clutch" author="lairr" />
                 <Quote text="what the f* did I just write" author="cstef" right />
                 <Quote text="cheese" author="Everyone should say that" />
-                <Quote text="cheese" author="Everyone should say that" right />
-                <Quote text="cheese" author="Everyone should say that" />
             </Box>
         </Container>
     );
