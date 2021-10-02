@@ -14,7 +14,8 @@ export const Quotes = () => {
                 </Typography>
                 <Quote text="cstef go clutch" author="lairr" />
                 <Quote text="what the f* did I just write" author="cstef" right />
-                <Quote text="cheese" author="Everyone should say that" />
+                <Quote text="Je suis un plant de tomates" author="My biology teacher" />
+                <Quote text="cool" author="My maths teacher" />
             </Box>
         </Container>
     );
