@@ -12,13 +12,9 @@ const theme = createTheme({
                 },
             },
         },
-        MuiAppBar: {
+        MuiPaper: {
             styleOverrides: {
-                root: {
-                    backgroundColor: "transparent",
-                    backgroundImage: "none",
-                    boxShadow: "none",
-                },
+                elevation0: { backgroundColor: "#1e1e1e" },
             },
         },
     },
