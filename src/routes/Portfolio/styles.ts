@@ -13,7 +13,9 @@ const styles: { [id: string]: SxProps<Theme> } = {
         color: "#eee",
     },
     container: {
-        mt: 5,
+        maxWidth: 600,
+        padding: 5,
+        m: 5,
     },
 };
 export default styles;

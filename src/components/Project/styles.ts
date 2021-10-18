@@ -1,8 +1,8 @@
 import { SxProps, Theme } from "@mui/system";
 const styles: { [id: string]: SxProps<Theme> } = {
     root: {
-        maxWidth: 450,
-        minWidth: 300,
+        width: 350,
+        borderRadius: 3,
     },
     image: {
         maxHeight: 200,

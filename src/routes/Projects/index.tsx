@@ -24,7 +24,9 @@ const PROJECTS: ProjectProps[] = [
     },
     {
         title: "cstef's API",
-        description: "My personal RESTful API serving endpoints to test out my packages !",
+        description:
+            "My personal RESTful API serving endpoints to test out my packages, including a documentation built with swagger-ui !",
+        image: "https://haricodes.com/static/e1bcbb481c036882e787d87ac77e6c31/756c3/swagger-ui-angular.png",
         link: "https://api.cstef.dev",
     },
     {
