@@ -29,3 +29,107 @@ body {
 #root {
     height: 100%;
 }
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,900");
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background: #0a2463;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.shape-blob {
+    background: #ed1250;
+    height: 200px;
+    width: 200px;
+    border-radius: 30% 50% 20% 40%;
+    animation: transform 20s ease-in-out infinite both alternate,
+        movement_one 40s ease-in-out infinite both;
+    opacity: 0.7;
+    position: absolute;
+    left: 75%;
+    top: 10%;
+    z-index: 0;
+}
+.shape-blob.one {
+    height: 500px;
+    width: 500px;
+    left: -150px;
+    top: 100px;
+    transform: rotate(-180deg);
+    animation: transform 30s ease-in-out infinite both alternate,
+        movement_two 60s ease-in-out infinite both;
+}
+
+.shape-blob.two {
+    height: 350px;
+    width: 350px;
+    left: 500px;
+    top: 300px;
+    transform: rotate(-180deg);
+    animation: transform 30s ease-in-out infinite both alternate,
+        movement_two 60s ease-in-out infinite both;
+}
+
+@keyframes transform {
+    0%,
+    100% {
+        border-radius: 33% 67% 70% 30% / 30% 30% 70% 70%;
+    }
+    20% {
+        border-radius: 37% 63% 51% 49% / 37% 65% 35% 63%;
+    }
+    40% {
+        border-radius: 36% 64% 64% 36% / 64% 48% 52% 36%;
+    }
+    60% {
+        border-radius: 37% 63% 51% 49% / 30% 30% 70% 70%;
+    }
+    80% {
+        border-radius: 40% 60% 42% 58% / 41% 51% 49% 59%;
+    }
+}
+
+@keyframes movement_one {
+    0%,
+    100% {
+        transform: none;
+    }
+    50% {
+        transform: translate(50%, 20%) rotateY(10deg) scale(1.2);
+    }
+}
+
+@keyframes movement_two {
+    0%,
+    500% {
+        transform: none;
+    }
+    50% {
+        transform: translate(50%, 20%) rotate(-200deg) scale(1.2);
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+pre,
+code,
+a,
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation4 {
+    position: relative;
+    z-index: 4;
+}

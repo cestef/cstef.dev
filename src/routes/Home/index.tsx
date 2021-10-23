@@ -1,4 +1,4 @@
-import { GitHub, Instagram, Twitter } from "@mui/icons-material";
+import { GitHub, Instagram, Lightbulb, Twitter } from "@mui/icons-material";
 import { Container, IconButton, SvgIcon, Typography } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import { motion } from "framer-motion";
@@ -22,12 +22,24 @@ export const Home = () => {
     }
 }`;
     const Span = styled(motion.span)({});
+    const Div = styled(motion.div)({});
     const SyntaxHighlighter = styled(SH)({});
     return (
         <Container sx={styles.root}>
-            <SyntaxHighlighter language="typescript" style={atomOneDark} sx={styles.codeBlock}>
-                {code}
-            </SyntaxHighlighter>
+            <motion.div whileHover={{ y: -10 }}>
+                <SyntaxHighlighter language="typescript" style={atomOneDark} sx={styles.codeBlock}>
+                    {code}
+                </SyntaxHighlighter>
+            </motion.div>
+            <Div sx={styles.stringContainer}>
+                <Div
+                    sx={styles.string}
+                    animate={{ rotate: [0, 4, -4, 0] }}
+                    transition={{ repeat: Infinity, duration: 10 }}
+                >
+                    <Lightbulb sx={styles.bulb} />
+                </Div>
+            </Div>
 
             <Box sx={styles.content}>
                 <motion.div animate={{ scale: [0.2, 1] }} transition={{ duration: 0.5 }}>

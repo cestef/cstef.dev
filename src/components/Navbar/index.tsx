@@ -41,8 +41,11 @@ export const Navbar = () => {
     }
     return (
         <>
+            {/* <div className="shape-blob"></div>
+            <div className="shape-blob one"></div>
+            <div className="shape-blob two"></div> */}
             <ElevationScroll>
-                <AppBar position="sticky" color="inherit">
+                <AppBar position="sticky" color="inherit" sx={{ zIndex: 10 }}>
                     <Toolbar>
                         <IconButton
                             size="large"
