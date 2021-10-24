@@ -67,8 +67,8 @@ export const Projects = () => {
     ];
     return (
         <Grid container sx={styles.root} spacing={4}>
-            {PROJECTS.map((e) => (
-                <Grid item>
+            {PROJECTS.map((e, i) => (
+                <Grid item key={i}>
                     <Project {...e} />
                 </Grid>
             ))}

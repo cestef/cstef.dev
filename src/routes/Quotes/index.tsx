@@ -16,11 +16,11 @@ export const Quotes = () => {
     return (
         <Container sx={styles.root}>
             <Box sx={styles.container}>
-                <Typography variant="h4" sx={{ mb: 3 }}>
+                <Typography variant="h4" sx={{ mb: 3, color: "text.primary" }}>
                     Hall of <Span sx={styles.spellerror}>Fame</Span>
                 </Typography>
                 {QUOTES.map((e, i) => (
-                    <Quote {...e} right={Boolean(i % 2)} />
+                    <Quote {...e} right={Boolean(i % 2)} key={i} />
                 ))}
             </Box>
         </Container>

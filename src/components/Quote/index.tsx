@@ -22,10 +22,10 @@ export const Quote = ({
             elevation={5}
         >
             <CardContent>
-                <Typography sx={{ mb: 1.5 }} color="#aaa" variant="h4">
-                    <Span sx={{ color: "white" }}>”</Span>
+                <Typography sx={{ mb: 1.5 }} color="text.primary" variant="h4">
+                    <Span sx={{ color: "background.primary" }}>”</Span>
                     {text}
-                    <Span sx={{ color: "white" }}>”</Span>
+                    <Span sx={{ color: "background.primary" }}>”</Span>
                 </Typography>
                 <Typography variant="body1" align="right">
                     - {author}

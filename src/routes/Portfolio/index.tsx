@@ -11,6 +11,7 @@ import { Container, Typography, styled, Paper } from "@mui/material";
 import { motion } from "framer-motion";
 import Twemoji from "../../components/Twemoji";
 import styles from "./styles";
+import ImageEmoji from "../../components/ImageEmoji/index";
 
 const Events: { title: string; description: string; time: string }[] = [
     {
@@ -69,7 +70,7 @@ const Events: { title: string; description: string; time: string }[] = [
 ];
 
 export const Portfolio = () => {
-    const Div = styled(motion.div, {})();
+    const Div = styled(motion.div)({});
     return (
         <Container sx={styles.root}>
             <Typography variant="h2" alignSelf="center">
@@ -85,8 +86,9 @@ export const Portfolio = () => {
                         Who am I ?
                     </Typography>
                     <Typography variant="body1" sx={styles.paragraph}>
-                        Heya ! My name is <b>Colin</b>, I'm currently living in <b>Switzerland</b>{" "}
-                        and studying in High School.
+                        Heya ! My name is <b>Colin</b>, I'm currently living in <b>Switzerland</b>
+                        {"\u00A0"}
+                        <Twemoji emoji="🇨🇭" /> and studying in High School.
                     </Typography>
                     <Typography variant="body1" sx={styles.paragraph}>
                         I love to program things to make other people's lives easier, such as
@@ -113,13 +115,24 @@ export const Portfolio = () => {
                         What do I program ?
                     </Typography>
                     <Typography variant="body1" sx={styles.paragraph}>
-                        My main programming language is without any doubts <b>Typescript</b>, I fell
-                        in love with it <b>3 years ago</b>. <br />
-                        I'm also OK with <b>Javascript</b>, but I just can't get rid of types
+                        My main programming language is without any doubts <b>Typescript</b>
+                        {"\u00A0"}
+                        <ImageEmoji src={"/images/ts-512.png"} alt="Typescript Icon" />, I fell in
+                        love with it <b>3 years ago</b>. <br />
+                        I'm also OK with <b>Javascript</b>
+                        {"\u00A0"}
+                        <ImageEmoji src={"/images/js-256.png"} alt="Javascript Icon" />, but I just
+                        can't get rid of types
                     </Typography>
                     <Typography variant="body1" sx={styles.paragraph}>
                         I am fluent in writing and understanding basic programs written in C-like
-                        languages such as <b>Java</b>, <b>C#</b> or <b>C++</b>
+                        languages such as <b>Java</b>
+                        {"\u00A0"}
+                        <ImageEmoji src={"/images/java-650.png"} alt="Java Icon" />, <b>C#</b>
+                        {"\u00A0"}
+                        <ImageEmoji src={"/images/csharp-300.png"} alt="C# Icon" /> or <b>C++</b>
+                        {"\u00A0"}
+                        <ImageEmoji src={"/images/cpp-1200.png"} alt="C++ Icon" />
                     </Typography>
                 </Paper>
             </Div>
@@ -127,8 +140,8 @@ export const Portfolio = () => {
                 My Journey
             </Typography>
             <Timeline position="alternate" sx={{ mb: 10 }}>
-                {Events.map((e) => (
-                    <TimelineItem>
+                {Events.map((e, i) => (
+                    <TimelineItem key={i}>
                         <TimelineOppositeContent
                             sx={{ m: "auto 0" }}
                             variant="body2"
