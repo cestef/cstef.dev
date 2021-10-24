@@ -14,7 +14,8 @@
     --yellow: #e9c46a;
     --orange: #f4a261;
     --red: #e76f51;
-    --background: #1e1e1e;
+    --dark-background: #1e1e1e;
+    --light-background: #fff;
     --button-text: var(--background);
 }
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
@@ -23,8 +24,12 @@ body {
     font-family: "Montserrat", sans-serif;
     height: 100%;
     margin: 0px;
-    background-color: var(--background);
-    color: #fff;
+}
+.dark {
+    background-color: var(--dark-background);
+}
+.light {
+    background-color: var(--light-background);
 }
 #root {
     height: 100%;

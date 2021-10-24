@@ -3,6 +3,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
     root: {
         display: "flex",
         flexDirection: "column",
+        color: "text.primary",
     },
     title: {
         mb: 5,
@@ -10,7 +11,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
     paragraph: {
         mb: 1,
         fontSize: 23,
-        color: "#eee",
+        color: "text.primary",
     },
     container: {
         maxWidth: 600,

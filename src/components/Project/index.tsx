@@ -1,12 +1,4 @@
-import {
-    Button,
-    Card,
-    CardActionArea,
-    CardActions,
-    CardContent,
-    CardMedia,
-    Typography,
-} from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import styles from "./styles";
 export interface ProjectProps {
     title: string;

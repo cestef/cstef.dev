@@ -3,7 +3,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
     subtitle: {
         margin: "20px 0px",
         fontSize: 34,
-        color: "#ccc",
+        color: "text.primary",
     },
     spellerror: {
         textDecorationStyle: "wavy",
@@ -27,7 +27,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
     paragraph: {
         margin: "20px 0px",
         fontSize: 30,
-        color: "#ddd",
+        color: "text.primary",
     },
     buttons: {
         marginTop: 5,
@@ -58,7 +58,6 @@ const styles: { [id: string]: SxProps<Theme> } = {
         display: ["none", null, null, "flex"],
         width: "2px",
         height: "80vh",
-        backgroundColor: "white",
         position: "relative",
         alignItems: "flex-end",
         justifyContent: "center",
@@ -70,11 +69,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
         position: "absolute",
         fontSize: "4rem",
         bottom: -54,
-        color: "#ffff50",
         cursor: "pointer",
-        ":hover": {
-            filter: "drop-shadow(0px 0px 25px #ffffc0);",
-        },
     },
 };
 export default styles;
