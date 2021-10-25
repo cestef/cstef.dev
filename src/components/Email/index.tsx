@@ -30,13 +30,32 @@ const Email = () => {
         if (values.filter(Boolean).length < 4) return;
         if (values.toString() === toGuess.current.toString()) displayEmail();
         else {
-            const result = values.map((e, i) =>
-                toGuess.current[i] === e
-                    ? "black"
-                    : toGuess.current.filter((c) => toGuess.current[i] !== c).some((c) => c === e)
-                    ? "white"
-                    : null
+            const found = values
+                .map((e, i) => ({ color: e, i }))
+                .filter((e, i) => toGuess.current[i] === e.color);
+            console.log(
+                values
+                    .map((e, i) => ({ color: e, i }))
+                    .filter((_, i) => !found.some((e) => e.i === i))
             );
+            const goodColors = values
+                .map((e, i) => ({ color: e, i }))
+                .filter((_, i) => !found.some((e) => e.i === i))
+                .filter((e) =>
+                    toGuess.current
+                        .filter((_, i) => !found.some((e) => e.i === i))
+                        .some((c) => c === e.color)
+                )
+                .map((e) => ({ ...e, origin: toGuess.current.findIndex((c) => c === e.color) }));
+            let result = [];
+            for (let i = 0; i < 4; i++)
+                result.push(
+                    found.find((e) => e.i === i)
+                        ? "black"
+                        : goodColors.find((e) => e.i === i)
+                        ? "white"
+                        : null
+                );
             setHistory((e) => [...e, { guessed: values, result }]);
             if (tries < maxTries - 1) setTries((e) => ++e);
             else {
@@ -63,7 +82,7 @@ const Email = () => {
                 {tries}/{maxTries}
             </Typography>
             {/* <Div sx={styles.answer}>
-                {toGuess.map((e) => (
+                {toGuess.current?.map((e) => (
                     <svg height="100" width="100">
                         <circle
                             cx="50"
