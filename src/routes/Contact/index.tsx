@@ -9,7 +9,7 @@ export const Contact = () => {
             </Typography>
             <Typography variant="h6" color="text.secondary">
                 Want my email ? Let's play a game then ;) <br />
-                Guess the color code in less than 12 attempts !
+                Guess the color code in less than <code>12</code> attempts !
             </Typography>
             <Email />
         </Container>
