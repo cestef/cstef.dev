@@ -113,7 +113,6 @@ const Email = () => {
                     colin@petit-suisse.fr
                 </Typography>
             </Tooltip>
-
             <Div sx={styles.history}>
                 {history.map((e, i) => (
                     <Div sx={styles.historyItem}>
