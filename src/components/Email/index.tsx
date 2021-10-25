@@ -170,7 +170,6 @@ const Email = () => {
                         <RestartAlt fontSize="large" />
                     </IconButton>
                 </Tooltip>
-
                 {new Array(length)
                     .fill(null)
                     .map((_, i) => i + 1)
