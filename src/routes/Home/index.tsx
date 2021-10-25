@@ -38,8 +38,8 @@ export const Home = ({ setTheme }) => {
                         ...styles.string,
                         backgroundColor: theme.palette.mode === "dark" ? "white" : "black",
                     }}
-                    animate={{ rotate: [4, -4, 4] }}
-                    transition={{ repeat: Infinity, duration: 10 }}
+                    animate={{ rotate: [3, -3, 3] }}
+                    transition={{ repeat: Infinity, duration: 8 }}
                 >
                     <Lightbulb
                         sx={{
@@ -63,11 +63,7 @@ export const Home = ({ setTheme }) => {
                     </Typography>
                 </motion.div>
                 <Typography variant="h4" sx={styles.subtitle}>
-                    I'm a{" "}
-                    <Span animate={{}} sx={styles.spellerror}>
-                        developer
-                    </Span>{" "}
-                    I guess{"\u00A0"}?
+                    I'm a <Span sx={styles.spellerror}>developer</Span> I guess{"\u00A0"}?
                 </Typography>
                 <Typography variant="h5" sx={styles.paragraph}>
                     I develop <Span sx={styles.spellerror}>fun</Span> things during my freetime.

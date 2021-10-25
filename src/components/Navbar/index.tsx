@@ -1,4 +1,4 @@
-import { AssignmentInd, FormatQuote, Home, Menu, Work } from "@mui/icons-material";
+import { AssignmentInd, FormatQuote, Home, Mail, Menu, Work } from "@mui/icons-material";
 import {
     AppBar,
     Drawer,
@@ -92,6 +92,12 @@ export const Navbar = () => {
                             <FormatQuote />
                         </ListItemIcon>
                         <ListItemText primary={"Quotes"} />
+                    </ListItem>
+                    <ListItem button sx={{ pl: 3, pr: 6 }} onClick={() => navigate("/contact")}>
+                        <ListItemIcon>
+                            <Mail />
+                        </ListItemIcon>
+                        <ListItemText primary={"Contact"} />
                     </ListItem>
                 </List>
             </Drawer>
