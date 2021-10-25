@@ -83,20 +83,6 @@ const Email = () => {
                 </code>{" "}
                 attempt{tries > 1 ? "s" : ""}
             </Typography>
-            {/* <Div sx={styles.answer}>
-                {toGuess.current?.map((e) => (
-                    <svg height="100" width="100">
-                        <circle
-                            cx="50"
-                            cy="50"
-                            r="20"
-                            stroke="black"
-                            stroke-width="3"
-                            fill={ColorsCodes[e]}
-                        />
-                    </svg>
-                ))}
-            </Div> */}
             <Comment text="What are you doing here, cheater !" />
             <Tooltip
                 title={<Typography variant="body1">Click to copy</Typography>}
