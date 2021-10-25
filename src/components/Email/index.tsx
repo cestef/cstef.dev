@@ -70,7 +70,6 @@ const Email = () => {
         setHistory([]);
         setGuessing({});
     };
-
     const theme = useTheme();
     useEffect(() => {
         toGuess.current = generateColors(length);
