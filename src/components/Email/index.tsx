@@ -1,6 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { Color, generateColors, ColorsCodes, Colors } from "../../functions/mastermind";
-import { FormControl, IconButton, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import {
+    FormControl,
+    IconButton,
+    InputLabel,
+    MenuItem,
+    Select,
+    Tooltip,
+    Typography,
+} from "@mui/material";
 import styles from "./styles";
 import { styled, Box } from "@mui/system";
 import { Check, RestartAlt, CheckBox } from "@mui/icons-material";
@@ -8,7 +16,7 @@ import Comment from "../Comment/index";
 import { useTheme } from "@mui/material";
 const Div = styled("div")({});
 const maxTries = 12;
-const length = 4;
+const length = 5;
 
 const Email = () => {
     const toGuess = useRef<Color[]>();
@@ -70,7 +78,10 @@ const Email = () => {
     return (
         <Div sx={styles.root}>
             <Typography color="text.primary" sx={styles.tries} variant="h5">
-                {tries}/{maxTries}
+                <code>
+                    {tries}/{maxTries}
+                </code>{" "}
+                attempt{tries > 1 ? "s" : ""}
             </Typography>
             {/* <Div sx={styles.answer}>
                 {toGuess.current?.map((e) => (
@@ -87,9 +98,22 @@ const Email = () => {
                 ))}
             </Div> */}
             <Comment text="What are you doing here, cheater !" />
-            <Typography sx={{ display: emailDisplay, mb: 3 }} variant="h4" color="text.primary">
-                colin@petit-suisse.fr
-            </Typography>
+            <Tooltip
+                title={<Typography variant="body1">Click to copy</Typography>}
+                placement="right"
+            >
+                <Typography
+                    sx={{ display: emailDisplay, mb: 3, cursor: "pointer" }}
+                    variant="h4"
+                    color="text.primary"
+                    onClick={() => {
+                        navigator.clipboard.writeText("colin@petit-suisse.fr");
+                    }}
+                >
+                    colin@petit-suisse.fr
+                </Typography>
+            </Tooltip>
+
             <Div sx={styles.history}>
                 {history.map((e, i) => (
                     <Div sx={styles.historyItem}>
@@ -98,18 +122,28 @@ const Email = () => {
                         </Typography>
                         {e.result.map((c) =>
                             c === "black" ? (
-                                <CheckBox fontSize="large" sx={{ color: "text.primary" }} />
+                                <Tooltip title={"Correct color and place"}>
+                                    <CheckBox fontSize="large" sx={{ color: "text.primary" }} />
+                                </Tooltip>
                             ) : (
-                                <svg height="32" width="32">
-                                    <circle
-                                        cx="16"
-                                        cy="16"
-                                        r="10"
-                                        stroke="black"
-                                        stroke-width="3"
-                                        fill={c}
-                                    />
-                                </svg>
+                                <Tooltip
+                                    title={
+                                        c === "white"
+                                            ? "Correct color, but wrong place"
+                                            : "Wrong color and wrong place"
+                                    }
+                                >
+                                    <svg height="32" width="32">
+                                        <circle
+                                            cx="16"
+                                            cy="16"
+                                            r="10"
+                                            stroke="black"
+                                            stroke-width="3"
+                                            fill={c}
+                                        />
+                                    </svg>
+                                </Tooltip>
                             )
                         )}
                         <Div
@@ -131,9 +165,12 @@ const Email = () => {
                 ))}
             </Div>
             <Box sx={styles.colors}>
-                <IconButton size="large" sx={styles.restart} onClick={restart}>
-                    <RestartAlt fontSize="large" />
-                </IconButton>
+                <Tooltip title={<Typography variant="body1">Start over</Typography>}>
+                    <IconButton size="large" sx={styles.restart} onClick={restart}>
+                        <RestartAlt fontSize="large" />
+                    </IconButton>
+                </Tooltip>
+
                 {new Array(length)
                     .fill(null)
                     .map((_, i) => i + 1)
@@ -164,9 +201,11 @@ const Email = () => {
                             </Select>
                         </FormControl>
                     ))}
-                <IconButton size="large" sx={styles.check} onClick={validate}>
-                    <Check fontSize="large" />
-                </IconButton>
+                <Tooltip title={<Typography variant="body1">Validate answer</Typography>}>
+                    <IconButton size="large" sx={styles.check} onClick={validate}>
+                        <Check fontSize="large" />
+                    </IconButton>
+                </Tooltip>
             </Box>
         </Div>
     );

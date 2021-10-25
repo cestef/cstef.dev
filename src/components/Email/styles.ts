@@ -12,7 +12,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
         padding: 2,
     },
     item: {
-        padding: 1,
+        padding: [0, 1],
     },
     tries: {
         my: 5,
@@ -25,11 +25,11 @@ const styles: { [id: string]: SxProps<Theme> } = {
         flexDirection: "row",
     },
     input: {
-        m: 1,
+        m: [0.5, 1],
         width: [50, 100],
     },
     check: {
-        ml: 1,
+        ml: [0, 1],
     },
     history: {
         display: "flex",
@@ -44,7 +44,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
         mt: 0.75,
     },
     restart: {
-        mr: 1,
+        mr: [0, 1],
     },
     divider: {
         height: "2em",

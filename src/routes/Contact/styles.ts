@@ -6,6 +6,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
         justifyContent: "center",
         display: "flex",
         flexDirection: "column",
+        textAlign: "center",
     },
 };
 export default styles;

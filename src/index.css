@@ -24,6 +24,7 @@ body {
     font-family: "Montserrat", sans-serif;
     height: 100%;
     margin: 0px;
+    overflow: hidden;
 }
 .dark {
     background-color: var(--dark-background);
@@ -34,12 +35,6 @@ body {
 #root {
     height: 100%;
 }
-@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,900");
-
-body {
-    margin: 0;
-    padding: 0;
-}
 
 .container {
     background: #0a2463;
@@ -48,7 +43,6 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
     position: relative;
 }
 

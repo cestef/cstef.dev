@@ -21,7 +21,8 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "build:deploy": "yarn build && rm -rf /var/www/cstef.dev && mv build /var/www/cstef.dev"
     },
     "eslintConfig": {
         "extends": [
