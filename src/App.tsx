@@ -7,7 +7,7 @@ import { Home, Portfolio, Projects, Quotes, Contact } from "./routes/";
 const App = () => {
     const [themeMode, setThemeMode] = useState<"dark" | "light">("dark");
     const theme = createTheme({
-        palette: { mode: themeMode, primary: { main: "#79D8FF" }, secondary: { main: "#66F9E7" } },
+        palette: { mode: themeMode },
         components: {
             MuiContainer: {
                 styleOverrides: {
@@ -30,7 +30,7 @@ const App = () => {
     return (
         <ThemeProvider theme={theme}>
             <Router>
-                <Navbar />
+                <Navbar setTheme={setThemeMode} theme={theme} />
                 <Switch>
                     <Route exact path="/">
                         <Home setTheme={setThemeMode} />

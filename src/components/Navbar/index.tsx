@@ -1,6 +1,7 @@
 import { AssignmentInd, FormatQuote, Home, Mail, Menu, Work } from "@mui/icons-material";
 import {
     AppBar,
+    Box,
     Drawer,
     IconButton,
     List,
@@ -15,8 +16,9 @@ import { styled } from "@mui/system";
 import { cloneElement, useState } from "react";
 import { useHistory } from "react-router";
 import { Link as L } from "react-router-dom";
+import LightSwitch from "../LightSwitch";
 
-export const Navbar = () => {
+export const Navbar = ({ setTheme, theme }) => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const history = useHistory();
     const navigate = (path: string) => {
@@ -26,9 +28,6 @@ export const Navbar = () => {
     const Link = styled(L)({});
     function ElevationScroll(props: any) {
         const { children, window } = props;
-        // Note that you normally won't need to set the window ref as useScrollTrigger
-        // will default to window.
-        // This is only being set here because the demo is in an iframe.
         const trigger = useScrollTrigger({
             disableHysteresis: true,
             threshold: 0,
@@ -41,9 +40,6 @@ export const Navbar = () => {
     }
     return (
         <>
-            {/* <div className="shape-blob"></div>
-            <div className="shape-blob one"></div>
-            <div className="shape-blob two"></div> */}
             <ElevationScroll>
                 <AppBar position="sticky" color="inherit" sx={{ zIndex: 10 }}>
                     <Toolbar>
@@ -61,6 +57,10 @@ export const Navbar = () => {
                                 cstef.dev
                             </Typography>
                         </Link>
+                        <Box sx={{ flexGrow: 1 }} />
+                        {!["/"].includes(window.location.pathname) && (
+                            <LightSwitch setTheme={setTheme} />
+                        )}
                     </Toolbar>
                 </AppBar>
             </ElevationScroll>
