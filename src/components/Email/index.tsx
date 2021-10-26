@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { Color, generateColors, ColorsCodes, Colors } from "../../functions/mastermind";
+import { useState, useEffect, useRef, useMemo } from "react";
+import { Color, generateColors, ColorsCodes, Colors } from "../../utils/mastermind";
 import {
     FormControl,
     IconButton,
@@ -14,6 +14,9 @@ import { styled, Box } from "@mui/system";
 import { Check, RestartAlt, CheckBox } from "@mui/icons-material";
 import Comment from "../Comment/index";
 import { useTheme } from "@mui/material";
+import { Confetti } from "react-confetti-cannon";
+import { Vector2 } from "../../utils/Vector2";
+
 const Div = styled("div")({});
 const maxTries = 12;
 const length = 5;
@@ -71,6 +74,16 @@ const Email = () => {
         setGuessing({});
     };
     const theme = useTheme();
+    const launchPoints = useMemo(
+        () => [
+            () => ({
+                x: window.innerWidth / 2,
+                y: window.innerHeight * 0.9,
+                angle: 0,
+            }),
+        ],
+        []
+    );
     useEffect(() => {
         toGuess.current = generateColors(length);
     }, []);
@@ -83,21 +96,49 @@ const Email = () => {
                 attempt{tries > 1 ? "s" : ""}
             </Typography>
             <Comment text="What are you doing here, cheater !" />
-            <Tooltip
-                title={<Typography variant="body1">Click to copy</Typography>}
-                placement="right"
-            >
-                <Typography
-                    sx={{ display: emailDisplay, mb: 3, cursor: "pointer" }}
-                    variant="h4"
-                    color="text.primary"
-                    onClick={() => {
-                        navigator.clipboard.writeText("colin@petit-suisse.fr");
-                    }}
+            <Box>
+                {emailDisplay === "block" && (
+                    <Confetti
+                        launchPoints={[
+                            () => ({
+                                x: window.innerWidth / 2,
+                                y: window.innerHeight,
+                                angle: 0,
+                                spreadAngle: 1,
+                            }),
+                            () => ({
+                                x: 0,
+                                y: window.innerHeight,
+                                angle: -0.5,
+                                spreadAngle: 1,
+                            }),
+                            () => ({
+                                x: window.innerWidth,
+                                y: window.innerHeight,
+                                angle: 0.5,
+                                spreadAngle: 1,
+                            }),
+                        ]}
+                        afterBurstAmount={10}
+                        gravity={new Vector2(0, 0.35)}
+                    />
+                )}
+                <Tooltip
+                    title={<Typography variant="body1">Click to copy</Typography>}
+                    placement="right"
                 >
-                    colin@petit-suisse.fr
-                </Typography>
-            </Tooltip>
+                    <Typography
+                        sx={{ display: emailDisplay, mb: 3, cursor: "pointer" }}
+                        variant="h4"
+                        color="text.primary"
+                        onClick={() => {
+                            navigator.clipboard.writeText("colin@petit-suisse.fr");
+                        }}
+                    >
+                        colin@petit-suisse.fr
+                    </Typography>
+                </Tooltip>
+            </Box>
             <Div sx={styles.history}>
                 {history.map((e, i) => (
                     <Div sx={styles.historyItem}>
@@ -166,6 +207,7 @@ const Email = () => {
                                 onChange={(e) =>
                                     setGuessing((g) => ({ ...g, [n]: e.target.value as Color }))
                                 }
+                                variant="outlined"
                             >
                                 {Colors.map((e, i) => (
                                     <MenuItem value={e} key={i}>
