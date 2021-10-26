@@ -14,8 +14,8 @@ const LightSwitch = ({ setTheme }) => {
         <AnimatePresence>
             <Div sx={styles.stringContainer}>
                 <Div
-                    animate={{ y: [0, 8, 0] }}
-                    transition={{ repeat: Infinity, duration: 4 }}
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ repeat: Infinity, duration: 3 }}
                     sx={{
                         ...styles.string,
                         backgroundColor: theme.palette.mode === "dark" ? "white" : "black",
