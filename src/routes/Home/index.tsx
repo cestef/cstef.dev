@@ -32,29 +32,6 @@ export const Home = ({ setTheme }) => {
                     {code}
                 </SyntaxHighlighter>
             </motion.div>
-            <Div sx={styles.stringContainer}>
-                <Div
-                    sx={{
-                        ...styles.string,
-                        backgroundColor: theme.palette.mode === "dark" ? "white" : "black",
-                    }}
-                    animate={{ rotate: [3, -3, 3] }}
-                    transition={{ repeat: Infinity, duration: 8 }}
-                >
-                    <Lightbulb
-                        sx={{
-                            ...styles.bulb,
-                            color: theme.palette.mode === "dark" ? "#ffff50" : "#4e4e4e",
-                            ":hover": {
-                                filter: `drop-shadow(0px 0px 25px ${
-                                    theme.palette.mode === "dark" ? " #ffffc0" : "#1e1e1e"
-                                });`,
-                            },
-                        }}
-                        onClick={() => setTheme((e) => (e === "dark" ? "light" : "dark"))}
-                    />
-                </Div>
-            </Div>
 
             <Box sx={styles.content}>
                 <motion.div animate={{ scale: [0.2, 1] }} transition={{ duration: 0.5 }}>

@@ -58,9 +58,8 @@ export const Navbar = ({ setTheme, theme }) => {
                             </Typography>
                         </Link>
                         <Box sx={{ flexGrow: 1 }} />
-                        {!["/"].includes(window.location.pathname) && (
-                            <LightSwitch setTheme={setTheme} />
-                        )}
+
+                        <LightSwitch setTheme={setTheme} />
                     </Toolbar>
                 </AppBar>
             </ElevationScroll>
