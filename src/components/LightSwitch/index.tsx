@@ -28,7 +28,7 @@ const LightSwitch = ({ setTheme }) => {
                         }
                     }}
                     onDragTransitionEnd={() => {
-                        if (switching) {
+                        if (switching.current) {
                             setTheme((e) => (e === "dark" ? "light" : "dark"));
                             switching.current = false;
                         }
