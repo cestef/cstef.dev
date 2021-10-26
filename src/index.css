@@ -24,7 +24,7 @@ body {
     font-family: "Montserrat", sans-serif;
     height: 100%;
     margin: 0px;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 .dark {
     background-color: var(--dark-background);
