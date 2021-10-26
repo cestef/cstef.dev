@@ -16,7 +16,8 @@ const styles: { [id: string]: SxProps<Theme> } = {
     container: {
         maxWidth: 600,
         padding: 5,
-        m: 5,
+        mx: [0, 5],
+        my: 5,
     },
 };
 export default styles;

@@ -14,7 +14,7 @@ import { styled, Box } from "@mui/system";
 import { Check, RestartAlt, CheckBox } from "@mui/icons-material";
 import Comment from "../Comment/index";
 import { useTheme } from "@mui/material";
-import { Confetti } from "react-confetti-cannon";
+import { Confetti } from "../Confetti";
 import { Vector2 } from "../../utils/Vector2";
 
 const Div = styled("div")({});
@@ -178,7 +178,7 @@ const Email = () => {
                                             cy="16"
                                             r="10"
                                             stroke="black"
-                                            stroke-width="3"
+                                            strokeWidth="3"
                                             fill={c}
                                         />
                                     </svg>
