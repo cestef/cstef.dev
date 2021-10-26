@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Color, generateColors, ColorsCodes, Colors } from "../../utils/mastermind";
 import {
     FormControl,
@@ -23,15 +23,21 @@ const length = 5;
 
 const Email = () => {
     const toGuess = useRef<Color[]>();
+    const [displayConfetti, setDisplayConfetti] = useState(false);
+    const [copied, setCopied] = useState(false);
     const [tries, setTries] = useState(0);
     const [history, setHistory] = useState<
         { guessed: Color[]; result: ("white" | "black" | null)[] }[]
     >([]);
     const [guessing, setGuessing] = useState<{ [index: number]: Color | null }>({});
-    const [emailDisplay, setEmailDisplay] = useState("none");
+    const [emailDisplay, setEmailDisplay] = useState(false);
     const displayEmail = () => {
         setHistory([]);
-        setEmailDisplay("block");
+        setEmailDisplay(true);
+    };
+    const timeoutCopy = () => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
     };
     const validate = () => {
         const values = Object.values(guessing);
@@ -64,26 +70,26 @@ const Email = () => {
             restart();
             return;
         }
-        if (values.toString() === toGuess.current.toString()) displayEmail();
+        if (values.toString() === toGuess.current.toString()) {
+            displayEmail();
+            setDisplayConfetti(true);
+        }
     };
     const restart = () => {
-        setEmailDisplay("none");
+        setEmailDisplay(false);
         toGuess.current = generateColors(length);
         setTries(0);
         setHistory([]);
         setGuessing({});
     };
     const theme = useTheme();
-    const launchPoints = useMemo(
-        () => [
-            () => ({
-                x: window.innerWidth / 2,
-                y: window.innerHeight * 0.9,
-                angle: 0,
-            }),
-        ],
-        []
-    );
+    const getEmail = () =>
+        [
+            99, 111, 108, 105, 110, 64, 112, 101, 116, 105, 116, 45, 115, 117, 105, 115, 115, 101,
+            46, 102, 114,
+        ]
+            .map((e) => String.fromCharCode(e))
+            .join("");
     useEffect(() => {
         toGuess.current = generateColors(length);
     }, []);
@@ -97,7 +103,7 @@ const Email = () => {
             </Typography>
             <Comment text="What are you doing here, cheater !" />
             <Box>
-                {emailDisplay === "block" && (
+                {displayConfetti && (
                     <Confetti
                         launchPoints={[
                             () => ({
@@ -121,23 +127,31 @@ const Email = () => {
                         ]}
                         afterBurstAmount={10}
                         gravity={new Vector2(0, 0.35)}
+                        onEnd={() => setDisplayConfetti(false)}
                     />
                 )}
-                <Tooltip
-                    title={<Typography variant="body1">Click to copy</Typography>}
-                    placement="right"
-                >
-                    <Typography
-                        sx={{ display: emailDisplay, mb: 3, cursor: "pointer" }}
-                        variant="h4"
-                        color="text.primary"
-                        onClick={() => {
-                            navigator.clipboard.writeText("colin@petit-suisse.fr");
-                        }}
+                {emailDisplay && (
+                    <Tooltip
+                        title={
+                            <Typography variant="body1">
+                                {copied ? "Copied !" : "Click to copy"}
+                            </Typography>
+                        }
+                        placement="right"
                     >
-                        colin@petit-suisse.fr
-                    </Typography>
-                </Tooltip>
+                        <Typography
+                            sx={{ mb: 3, cursor: "pointer" }}
+                            variant="h4"
+                            color="text.primary"
+                            onClick={() => {
+                                navigator.clipboard.writeText(getEmail());
+                                timeoutCopy();
+                            }}
+                        >
+                            {getEmail()}
+                        </Typography>
+                    </Tooltip>
+                )}
             </Box>
             <Div sx={styles.history}>
                 {history.map((e, i) => (
