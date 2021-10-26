@@ -1,4 +1,4 @@
-import { GitHub, Instagram, Lightbulb, Twitter } from "@mui/icons-material";
+import { GitHub, Instagram, Twitter } from "@mui/icons-material";
 import { Container, IconButton, SvgIcon, Typography, useTheme } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import { motion } from "framer-motion";
@@ -6,7 +6,7 @@ import SH from "react-syntax-highlighter";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import styles from "./styles";
 
-export const Home = ({ setTheme }) => {
+export const Home = () => {
     const code = `class Cstef {
     name: string;
     age: number;
@@ -22,7 +22,6 @@ export const Home = ({ setTheme }) => {
     }
 }`;
     const Span = styled(motion.span)({});
-    const Div = styled(motion.div)({});
     const SyntaxHighlighter = styled(SH)({});
     const theme = useTheme();
     return (

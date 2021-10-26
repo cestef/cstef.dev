@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { styled } from "@mui/system";
 import styles from "./styles";
-import { useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { Lightbulb } from "@mui/icons-material";
 import { useRef } from "react";
+import { styled } from "@mui/system";
 
 const Div = styled(motion.div)({});
 
@@ -12,7 +12,7 @@ const LightSwitch = ({ setTheme }) => {
     const switching = useRef(false);
     return (
         <AnimatePresence>
-            <Div sx={styles.stringContainer}>
+            <Box sx={styles.stringContainer}>
                 <Div
                     animate={{ y: [0, 10, 0] }}
                     transition={{ repeat: Infinity, duration: 3 }}
@@ -46,7 +46,7 @@ const LightSwitch = ({ setTheme }) => {
                         }}
                     />
                 </Div>
-            </Div>
+            </Box>
         </AnimatePresence>
     );
 };

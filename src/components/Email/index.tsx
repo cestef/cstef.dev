@@ -10,14 +10,13 @@ import {
     Typography,
 } from "@mui/material";
 import styles from "./styles";
-import { styled, Box } from "@mui/system";
+import { Box } from "@mui/system";
 import { Check, RestartAlt, CheckBox } from "@mui/icons-material";
 import Comment from "../Comment/index";
 import { useTheme } from "@mui/material";
 import { Confetti } from "../Confetti";
 import { Vector2 } from "../../utils/Vector2";
 
-const Div = styled("div")({});
 const maxTries = 12;
 const length = 5;
 
@@ -94,7 +93,7 @@ const Email = () => {
         toGuess.current = generateColors(length);
     }, []);
     return (
-        <Div sx={styles.root}>
+        <Box sx={styles.root}>
             <Typography color="text.primary" sx={styles.tries} variant="h5">
                 <code>
                     {tries}/{maxTries}
@@ -153,9 +152,9 @@ const Email = () => {
                     </Tooltip>
                 )}
             </Box>
-            <Div sx={styles.history}>
+            <Box sx={styles.history}>
                 {history.map((e, i) => (
-                    <Div sx={styles.historyItem}>
+                    <Box sx={styles.historyItem}>
                         <Typography color="text.primary" variant="body1" sx={{ mt: 0.5 }}>
                             {i + 1}.
                         </Typography>
@@ -185,7 +184,7 @@ const Email = () => {
                                 </Tooltip>
                             )
                         )}
-                        <Div
+                        <Box
                             sx={{ ...styles.divider, backgroundColor: theme.palette.text.primary }}
                         />
                         {e.guessed.map((c) => (
@@ -200,9 +199,9 @@ const Email = () => {
                                 />
                             </svg>
                         ))}
-                    </Div>
+                    </Box>
                 ))}
-            </Div>
+            </Box>
             <Box sx={styles.colors}>
                 <Tooltip title={<Typography variant="body1">Start over</Typography>}>
                     <IconButton size="large" sx={styles.restart} onClick={restart}>
@@ -246,7 +245,7 @@ const Email = () => {
                     </IconButton>
                 </Tooltip>
             </Box>
-        </Div>
+        </Box>
     );
 };
 
