@@ -17,7 +17,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
     },
     bulb: {
         display: ["none", null, "block"],
-        rotate: "180deg",
+        transform: "rotate(180deg)",
         position: "absolute",
         fontSize: "4rem",
         bottom: -54,
