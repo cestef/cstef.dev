@@ -33,7 +33,6 @@ export const Navbar = ({ setTheme, theme }) => {
             threshold: 0,
             target: window ? window() : undefined,
         });
-
         return cloneElement(children, {
             elevation: trigger ? 4 : 0,
         });
