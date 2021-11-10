@@ -39,7 +39,7 @@ const Email = () => {
         setTimeout(() => setCopied(false), 2000);
     };
     const validate = () => {
-        const values = Object.values(guessing);
+        const values = Object.values(guessing).map((e) => (e === "None" ? null : e));
         if (values.filter(Boolean).length < length) return;
         const found = values
             .map((e, i) => ({ color: e, i }))
@@ -79,7 +79,9 @@ const Email = () => {
         toGuess.current = generateColors(length);
         setTries(0);
         setHistory([]);
-        setGuessing({});
+        let empty = {};
+        for (let i = 0; i < length; i++) empty = { ...empty, [i]: "None" };
+        setGuessing(empty);
     };
     const theme = useTheme();
     const getEmail = () =>
@@ -92,6 +94,7 @@ const Email = () => {
     useEffect(() => {
         toGuess.current = generateColors(length);
     }, []);
+    console.log(guessing);
     return (
         <Box sx={styles.root}>
             <Typography color="text.primary" sx={styles.tries} variant="h5">
@@ -222,6 +225,7 @@ const Email = () => {
                                 }
                                 variant="outlined"
                             >
+                                <MenuItem value={"None"}>None</MenuItem>
                                 {Colors.map((e, i) => (
                                     <MenuItem value={e} key={i}>
                                         <svg height="32" width="32">

@@ -4,6 +4,7 @@ import { Box, styled } from "@mui/system";
 import { motion } from "framer-motion";
 import SH from "react-syntax-highlighter";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import SpellError from "../../components/SpellError";
 import styles from "./styles";
 
 export const Home = () => {
@@ -21,7 +22,6 @@ export const Home = () => {
         ];
     }
 }`;
-    const Span = styled(motion.span)({});
     const SyntaxHighlighter = styled(SH)({});
     const theme = useTheme();
     return (
@@ -39,10 +39,10 @@ export const Home = () => {
                     </Typography>
                 </motion.div>
                 <Typography variant="h4" sx={styles.subtitle}>
-                    I'm a <Span sx={styles.spellerror}>developer</Span> I guess{"\u00A0"}?
+                    I'm a <SpellError>developer</SpellError> I guess{"\u00A0"}?
                 </Typography>
                 <Typography variant="h5" sx={styles.paragraph}>
-                    I develop <Span sx={styles.spellerror}>fun</Span> things during my freetime.
+                    I develop <SpellError>fun</SpellError> things during my freetime.
                     <br />
                 </Typography>
                 <Box sx={styles.buttons}>

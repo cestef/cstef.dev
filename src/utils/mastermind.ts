@@ -1,4 +1,4 @@
-export type Color = "blue" | "red" | "green" | "yellow" | "orange" | "purple" | "brown";
+export type Color = "blue" | "red" | "green" | "yellow" | "orange" | "purple" | "brown" | "None";
 export const Colors: Color[] = ["blue", "red", "green", "yellow", "orange", "purple", "brown"];
 export const generateColors = (length: number) => {
     let res: Color[] = [];

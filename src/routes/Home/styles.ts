@@ -5,11 +5,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
         fontSize: 34,
         color: "text.primary",
     },
-    spellerror: {
-        textDecorationStyle: "wavy",
-        textDecorationLine: "underline",
-        textDecorationColor: (theme) => theme.palette.error.main,
-    },
+
     root: {
         padding: 10,
         display: ["flex", null, "inherit"],
