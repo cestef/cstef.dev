@@ -3,7 +3,7 @@ import { Container, IconButton, SvgIcon, Typography, useTheme } from "@mui/mater
 import { Box, styled } from "@mui/system";
 import { motion } from "framer-motion";
 import SH from "react-syntax-highlighter";
-import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { atomOneDark, atomOneLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import SpellError from "../../components/SpellError";
 import styles from "./styles";
 
@@ -27,7 +27,11 @@ export const Home = () => {
     return (
         <Container sx={styles.root}>
             <motion.div whileHover={{ y: -10 }}>
-                <SyntaxHighlighter language="typescript" style={atomOneDark} sx={styles.codeBlock}>
+                <SyntaxHighlighter
+                    language="typescript"
+                    style={theme.palette.mode === "dark" ? atomOneDark : atomOneLight}
+                    sx={styles.codeBlock}
+                >
                     {code}
                 </SyntaxHighlighter>
             </motion.div>

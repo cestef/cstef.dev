@@ -2,6 +2,7 @@ import { Container, Typography } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import { Quote } from "../../components/Quote/index";
 import styles from "./styles";
+import SpellError from "../../components/SpellError/index";
 
 const QUOTES = [
     { text: "cstef go clutch", author: "lairr" },
@@ -17,7 +18,7 @@ export const Quotes = () => {
         <Container sx={styles.root}>
             <Box sx={styles.container}>
                 <Typography variant="h4" sx={{ mb: 3, color: "text.primary" }}>
-                    Hall of <Span sx={styles.spellerror}>Fame</Span>
+                    Hall of <SpellError>Fame</SpellError>
                 </Typography>
                 {QUOTES.map((e, i) => (
                     <Quote {...e} right={Boolean(i % 2)} key={i} />

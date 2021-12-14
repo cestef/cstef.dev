@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import styles from "./styles";
 import { Box, useTheme } from "@mui/material";
-import { Lightbulb } from "@mui/icons-material";
+import { KeyboardArrowDown, Lightbulb } from "@mui/icons-material";
 import { useRef } from "react";
 import { styled } from "@mui/system";
 
@@ -14,7 +14,7 @@ const LightSwitch = ({ setTheme }) => {
         <AnimatePresence>
             <Box sx={styles.stringContainer}>
                 <Div
-                    animate={{ y: [0, 10, 0] }}
+                    animate={{ y: [0, 7, 0] }}
                     transition={{ repeat: Infinity, duration: 3 }}
                     sx={{
                         ...styles.string,
@@ -45,6 +45,13 @@ const LightSwitch = ({ setTheme }) => {
                             },
                         }}
                     />
+                    <Div
+                        animate={{ y: [0, 7, 0] }}
+                        transition={{ repeat: Infinity, duration: 3 }}
+                        sx={{ position: "absolute", bottom: -75 }}
+                    >
+                        <KeyboardArrowDown />
+                    </Div>
                 </Div>
             </Box>
         </AnimatePresence>

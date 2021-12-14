@@ -1,6 +1,6 @@
 import Project from "../../components/Project/index";
 import { ProjectProps } from "../../components/Project/index";
-import { Grid, useTheme } from "@mui/material";
+import { Grid, useTheme, Typography, Box } from "@mui/material";
 import styles from "./styles";
 
 export const Projects = () => {
@@ -66,12 +66,17 @@ export const Projects = () => {
         },
     ];
     return (
-        <Grid container sx={styles.root} spacing={4}>
-            {PROJECTS.map((e, i) => (
-                <Grid item key={i}>
-                    <Project {...e} />
-                </Grid>
-            ))}
-        </Grid>
+        <Box>
+            <Typography variant="h3" color="text.primary" textAlign="center" mt={5}>
+                Projects I made
+            </Typography>
+            <Grid container sx={styles.root} spacing={4}>
+                {PROJECTS.map((e, i) => (
+                    <Grid item key={i}>
+                        <Project {...e} />
+                    </Grid>
+                ))}
+            </Grid>
+        </Box>
     );
 };
