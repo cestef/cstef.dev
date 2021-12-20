@@ -25,7 +25,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
         paddingBottom: 8,
         backgroundPositionX: "0%",
         backgroundPositionY: "0%",
-        backgroundPosition: "2px calc(1em - 4px)",
+        backgroundPosition: "2px 1em",
         backgroundColor: "transparent",
     },
 };

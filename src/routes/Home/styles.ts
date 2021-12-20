@@ -42,6 +42,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
         float: [null, null, "right"],
         display: ["none !important", null, "block !important"],
         boxShadow: 3,
+        userSelect: "none",
     },
 };
 export default styles;

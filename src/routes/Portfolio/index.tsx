@@ -95,8 +95,8 @@ export const Portfolio = () => {
                         automation of easy repetitive tasks.
                     </Typography>
                     <Typography variant="body1" sx={styles.paragraph}>
-                        When I'm not in front of my computer, I either play the <b>Piano</b>{" "}
-                        <Twemoji emoji="🎹" /> or practice <b>Judo</b> <Twemoji emoji="🥋" />
+                        When I'm not in front of my computer, I mostly play the <b>Piano</b>{" "}
+                        <Twemoji emoji="🎹" />
                     </Typography>
                 </Paper>
             </Div>
