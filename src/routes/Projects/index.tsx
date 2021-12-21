@@ -64,6 +64,13 @@ export const Projects = () => {
             image: "/android-chrome-512x512.png",
             link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
         },
+        {
+            title: "Markdown editor",
+            description: "A quick web markdown editor and previewer built with tailwindCSS",
+            github: "https://github.com/cstefFlexin/markdown-editor",
+            image: `/images/markdown-${theme.palette.mode === "dark" ? "white" : "black"}.png`,
+            link: "https://md.cstef.dev",
+        },
     ];
     return (
         <Box>
