@@ -6,7 +6,9 @@ import { Home, Portfolio, Projects, Quotes, Contact, NotFound } from "./routes/"
 import Page from "./components/Page";
 
 const App = () => {
-    const [themeMode, setThemeMode] = useState<"dark" | "light">("dark");
+    const [themeMode, setThemeMode] = useState<"dark" | "light">(
+        (localStorage.getItem("theme") as any) || "dark"
+    );
     const theme = createTheme({
         palette: { mode: themeMode },
         components: {
@@ -28,10 +30,14 @@ const App = () => {
         document.body.classList.add(themeMode);
         document.body.classList.remove(themeMode === "dark" ? "light" : "dark");
     }, [themeMode]);
+    const setTheme = (theme) => {
+        localStorage.setItem("theme", themeMode === "dark" ? "light" : "dark");
+        setThemeMode(theme);
+    };
     return (
         <ThemeProvider theme={theme}>
             <Router>
-                <Navbar setTheme={setThemeMode} theme={theme} />
+                <Navbar setTheme={setTheme} theme={theme} />
                 <Switch>
                     <Route
                         exact

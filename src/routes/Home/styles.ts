@@ -5,7 +5,6 @@ const styles: { [id: string]: SxProps<Theme> } = {
         fontSize: 34,
         color: "text.primary",
     },
-
     root: {
         padding: 10,
         display: ["flex", null, "inherit"],
@@ -27,10 +26,6 @@ const styles: { [id: string]: SxProps<Theme> } = {
     },
     buttons: {
         marginTop: 5,
-    },
-    button: {
-        margin: 1,
-        padding: [1, 3],
     },
     codeBlock: {
         padding: "1.5em !important",

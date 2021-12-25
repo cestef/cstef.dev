@@ -10,6 +10,7 @@ import {
     ListItemText,
     Toolbar,
     Typography,
+    useMediaQuery,
     useScrollTrigger,
 } from "@mui/material";
 import { styled } from "@mui/system";
@@ -17,6 +18,7 @@ import { cloneElement, useState } from "react";
 import { useHistory } from "react-router";
 import { Link as L } from "react-router-dom";
 import LightSwitch from "../LightSwitch";
+import IOSSwitch from "../IOSSwitch/index";
 
 export const Navbar = ({ setTheme, theme }) => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -37,6 +39,7 @@ export const Navbar = ({ setTheme, theme }) => {
             elevation: trigger ? 4 : 0,
         });
     }
+    const isBig = useMediaQuery(theme.breakpoints.up("md"));
     return (
         <>
             <ElevationScroll>
@@ -58,7 +61,16 @@ export const Navbar = ({ setTheme, theme }) => {
                         </Link>
                         <Box sx={{ flexGrow: 1 }} />
 
-                        <LightSwitch setTheme={setTheme} />
+                        {isBig ? (
+                            <LightSwitch setTheme={setTheme} />
+                        ) : (
+                            <IOSSwitch
+                                onChange={(e) => {
+                                    setTheme((e) => (e === "dark" ? "light" : "dark"));
+                                }}
+                                checked={theme.palette.mode === "light"}
+                            />
+                        )}
                     </Toolbar>
                 </AppBar>
             </ElevationScroll>

@@ -75,7 +75,7 @@ export const Projects = () => {
     return (
         <Box>
             <Typography variant="h3" color="text.primary" textAlign="center" mt={5}>
-                Projects I made
+                My Projects
             </Typography>
             <Grid container sx={styles.root} spacing={4}>
                 {PROJECTS.map((e, i) => (

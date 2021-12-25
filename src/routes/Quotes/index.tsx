@@ -1,5 +1,5 @@
 import { Container, Typography } from "@mui/material";
-import { Box, styled } from "@mui/system";
+import { Box } from "@mui/system";
 import { Quote } from "../../components/Quote/index";
 import styles from "./styles";
 import SpellError from "../../components/SpellError/index";
@@ -12,8 +12,6 @@ const QUOTES = [
 ];
 
 export const Quotes = () => {
-    const Span = styled("span")({});
-
     return (
         <Container sx={styles.root}>
             <Box sx={styles.container}>
