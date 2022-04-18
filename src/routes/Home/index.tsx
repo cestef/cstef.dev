@@ -51,7 +51,7 @@ export const Home = () => {
                     <br />
                 </Typography>
                 <Box sx={styles.buttons}>
-                    <ButtonLink href="https://github.com/cstefFlexin/">
+                    <ButtonLink href="https://github.com/cestef/">
                         <GitHub fontSize="large" />
                     </ButtonLink>
                     <ButtonLink href="https://twitter.com/AkaCstef">

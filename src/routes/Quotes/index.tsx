@@ -4,11 +4,13 @@ import { Quote } from "../../components/Quote/index";
 import styles from "./styles";
 import SpellError from "../../components/SpellError/index";
 
-const QUOTES = [
+const QUOTES: { text: string; author: string }[] = [
     { text: "cstef go clutch", author: "lairr" },
     { text: "what the f* did I just write", author: "cstef" },
     { text: "Je suis un plant de tomates", author: "My biology teacher" },
     { text: "cool", author: "My maths teacher" },
+    { text: "Oh tu fais trop le mec", author: "Someone" },
+    { text: "Thanks for your opinion", author: "Doge" },
 ];
 
 export const Quotes = () => {

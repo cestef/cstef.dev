@@ -10,14 +10,14 @@ export const Projects = () => {
             title: "Spotify Card",
             description: "Generate Spotify embeds for any song !",
             image: "/images/spotify-card.png",
-            github: "https://github.com/cstefFlexin/spotify-card",
+            github: "https://github.com/cestef/spotify-card",
         },
         {
             title: "Kotlin Formatter",
             description: "Format your Kotlin code easily in VScode",
             image: "/images/kotlin-logo.png",
             link: "https://marketplace.visualstudio.com/items?itemName=cstef.kotlin-formatter",
-            github: "https://github.com/cstefFlexin/kotlin-formatter",
+            github: "https://github.com/cestef/kotlin-formatter",
         },
         {
             title: "Vintools",
@@ -39,7 +39,7 @@ export const Projects = () => {
             title: "React JSON Translator",
             description: "Quick i18n translator made in React using Material-UI ",
             image: "/images/react-logo.png",
-            github: "https://github.com/cstefFlexin/react-json-translator",
+            github: "https://github.com/cestef/react-json-translator",
         },
         {
             title: "Web Player",
@@ -47,7 +47,7 @@ export const Projects = () => {
                 "Play your favorite songs in your browser ! Supports mp3, mp4, m4v, flac, mov and ogg ",
             image: "/images/player-logo.png",
             demo: "https://player.cstef.dev",
-            github: "https://github.com/cstefFlexin/web-player",
+            github: "https://github.com/cestef/web-player",
         },
 
         {
@@ -55,19 +55,19 @@ export const Projects = () => {
             description:
                 "Update your nodejs app automatically from a remote git repo by checking the package.json version, made in Typescript",
             image: "/images/ts-512.png",
-            github: "https://github.com/cstefFlexin/auto-updater",
+            github: "https://github.com/cestef/auto-updater",
         },
         {
             title: "cstef.dev",
             description: "Basically this website.",
-            github: "https://github.com/cstefFlexin/cstef.dev",
+            github: "https://github.com/cestef/cstef.dev",
             image: "/android-chrome-512x512.png",
             link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
         },
         {
             title: "Markdown editor",
             description: "A quick web markdown editor and previewer built with tailwindCSS",
-            github: "https://github.com/cstefFlexin/markdown-editor",
+            github: "https://github.com/cestef/markdown-editor",
             image: `/images/markdown-${theme.palette.mode === "dark" ? "white" : "black"}.png`,
             link: "https://md.cstef.dev",
         },
