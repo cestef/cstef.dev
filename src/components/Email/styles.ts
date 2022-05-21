@@ -5,6 +5,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        mb: 10,
     },
     answer: {
         display: "flex",
