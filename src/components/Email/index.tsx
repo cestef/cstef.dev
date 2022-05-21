@@ -8,10 +8,14 @@ import {
     Select,
     Tooltip,
     Typography,
+    useMediaQuery,
+    Alert,
+    Slide,
+    Fade,
 } from "@mui/material";
 import styles from "./styles";
 import { Box } from "@mui/system";
-import { Check, RestartAlt, CheckBox } from "@mui/icons-material";
+import { Check, RestartAlt, CheckBox, ArrowDropDown as SelectIcon } from "@mui/icons-material";
 import Comment from "../Comment/index";
 import { useTheme } from "@mui/material";
 import { Confetti } from "../Confetti";
@@ -22,6 +26,7 @@ const length = 5;
 
 const Email = () => {
     const toGuess = useRef<Color[]>();
+    const [error, setError] = useState<string | null>(null);
     const [displayConfetti, setDisplayConfetti] = useState(false);
     const [copied, setCopied] = useState(false);
     const [tries, setTries] = useState(0);
@@ -40,7 +45,8 @@ const Email = () => {
     };
     const validate = () => {
         const values = Object.values(guessing).map((e) => (e === "None" ? null : e));
-        if (values.filter(Boolean).length < length) return;
+        if (values.filter(Boolean).length < length)
+            return displayError(`You must input ${length} colors`);
         const found = values
             .map((e, i) => ({ color: e, i }))
             .filter((e, i) => toGuess.current[i] === e.color);
@@ -94,7 +100,12 @@ const Email = () => {
     useEffect(() => {
         toGuess.current = generateColors(length);
     }, []);
-    console.log(guessing);
+    const isBig = useMediaQuery(theme.breakpoints.up("md"));
+    console.log(isBig);
+    const displayError = (message: string) => {
+        setError(message);
+        setTimeout(() => setError(null), 2000);
+    };
     return (
         <Box sx={styles.root}>
             <Typography color="text.primary" sx={styles.tries} variant="h5">
@@ -207,7 +218,14 @@ const Email = () => {
             </Box>
             <Box sx={styles.colors}>
                 <Tooltip title={<Typography variant="body1">Start over</Typography>}>
-                    <IconButton size="large" sx={styles.restart} onClick={restart}>
+                    <IconButton
+                        size="large"
+                        sx={{
+                            ...styles.restart,
+                            ...(!isBig ? { position: "absolute", bottom: 50, left: 50 } : {}),
+                        }}
+                        onClick={restart}
+                    >
                         <RestartAlt fontSize="large" />
                     </IconButton>
                 </Tooltip>
@@ -216,19 +234,22 @@ const Email = () => {
                     .map((_, i) => i + 1)
                     .map((n, i) => (
                         <FormControl sx={styles.input} key={i}>
-                            <InputLabel>Color {n}</InputLabel>
+                            <InputLabel>
+                                {isBig ? `Color` : null} {n}
+                            </InputLabel>
                             <Select
                                 value={guessing[n]}
-                                label={`Color ${n}`}
                                 onChange={(e) =>
                                     setGuessing((g) => ({ ...g, [n]: e.target.value as Color }))
                                 }
                                 variant="outlined"
+                                // if isBig is true, hide the select svg icon
+                                IconComponent={!isBig ? () => <></> : () => <SelectIcon />}
                             >
                                 <MenuItem value={"None"}>None</MenuItem>
                                 {Colors.map((e, i) => (
                                     <MenuItem value={e} key={i}>
-                                        <svg height="32" width="32">
+                                        <svg height="32" width="32" style={{ marginLeft: -5 }}>
                                             <circle
                                                 cx="16"
                                                 cy="16"
@@ -244,11 +265,25 @@ const Email = () => {
                         </FormControl>
                     ))}
                 <Tooltip title={<Typography variant="body1">Validate answer</Typography>}>
-                    <IconButton size="large" sx={styles.check} onClick={validate}>
+                    <IconButton
+                        size="large"
+                        sx={{
+                            ...styles.check,
+                            ...(!isBig ? { position: "absolute", bottom: 50, right: 50 } : {}),
+                        }}
+                        onClick={validate}
+                    >
                         <Check fontSize="large" />
                     </IconButton>
                 </Tooltip>
             </Box>
+            {error ? (
+                <Slide in={!!error} direction="up" mountOnEnter unmountOnExit>
+                    <Alert severity="error" sx={{ position: "absolute", bottom: 100 }}>
+                        {error}
+                    </Alert>
+                </Slide>
+            ) : null}
         </Box>
     );
 };

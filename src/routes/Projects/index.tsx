@@ -13,6 +13,13 @@ export const Projects = () => {
             github: "https://github.com/cestef/spotify-card",
         },
         {
+            title: "Webscraper Exporter",
+            description:
+                "A simple yet powerful prometheus exporter for website performance metrics built using puppeteer",
+            image: "/images/webscraper-exporter.png",
+            github: "https://github.com/cestef/webscraper-exporter",
+        },
+        {
             title: "Kotlin Formatter",
             description: "Format your Kotlin code easily in VScode",
             image: "/images/kotlin-logo.png",
