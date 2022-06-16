@@ -44,6 +44,7 @@ const LightSwitch = ({ setTheme }) => {
                                 });`,
                             },
                         }}
+                        id="light-switch"
                     />
                     <Div
                         animate={{ y: [0, 7, 0] }}

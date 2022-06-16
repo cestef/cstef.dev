@@ -55,7 +55,11 @@ export const Navbar = ({ setTheme, theme }) => {
                             <Menu />
                         </IconButton>
                         <Link to="/" sx={{ textDecoration: "none", color: "inherit" }}>
-                            <Typography variant="h5" sx={{ ml: [0, null, 2], mt: 0.5 }}>
+                            <Typography
+                                variant="h5"
+                                sx={{ ml: [0, null, 2], mt: 0.5, cursor: "none" }}
+                                id="title"
+                            >
                                 cstef.dev
                             </Typography>
                         </Link>
@@ -76,34 +80,54 @@ export const Navbar = ({ setTheme, theme }) => {
             </ElevationScroll>
             <Drawer anchor={"left"} open={drawerOpen} onClose={() => setDrawerOpen(false)}>
                 <List>
-                    <ListItem button sx={{ pl: 3, pr: 6 }} onClick={() => navigate("/")}>
+                    <ListItem
+                        button
+                        sx={{ pl: 3, pr: 6, cursor: "none" }}
+                        onClick={() => navigate("/")}
+                    >
                         <ListItemIcon>
                             <Home />
                         </ListItemIcon>
                         <ListItemText primary={"Home"} />
                     </ListItem>
 
-                    <ListItem button sx={{ pl: 3, pr: 6 }} onClick={() => navigate("/portfolio")}>
+                    <ListItem
+                        button
+                        sx={{ pl: 3, pr: 6, cursor: "none" }}
+                        onClick={() => navigate("/portfolio")}
+                    >
                         <ListItemIcon>
                             <AssignmentInd />
                         </ListItemIcon>
                         <ListItemText primary={"Portfolio"} />
                     </ListItem>
 
-                    <ListItem button sx={{ pl: 3, pr: 6 }} onClick={() => navigate("/projects")}>
+                    <ListItem
+                        button
+                        sx={{ pl: 3, pr: 6, cursor: "none" }}
+                        onClick={() => navigate("/projects")}
+                    >
                         <ListItemIcon>
                             <Work />
                         </ListItemIcon>
                         <ListItemText primary={"Projects"} />
                     </ListItem>
 
-                    <ListItem button sx={{ pl: 3, pr: 6 }} onClick={() => navigate("/quotes")}>
+                    <ListItem
+                        button
+                        sx={{ pl: 3, pr: 6, cursor: "none" }}
+                        onClick={() => navigate("/quotes")}
+                    >
                         <ListItemIcon>
                             <FormatQuote />
                         </ListItemIcon>
                         <ListItemText primary={"Quotes"} />
                     </ListItem>
-                    <ListItem button sx={{ pl: 3, pr: 6 }} onClick={() => navigate("/contact")}>
+                    <ListItem
+                        button
+                        sx={{ pl: 3, pr: 6, cursor: "none" }}
+                        onClick={() => navigate("/contact")}
+                    >
                         <ListItemIcon>
                             <Mail />
                         </ListItemIcon>
