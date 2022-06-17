@@ -1,10 +1,11 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { Home, Portfolio, Projects, Quotes, Contact, NotFound } from "./routes/";
 import Page from "./components/Page";
-import AnimatedCursor from "react-animated-cursor";
+import Cursor from "./components/Cursor";
+import { CursorRef } from "./components/Cursor/index";
 const App = () => {
     const [themeMode, setThemeMode] = useState<"dark" | "light">(
         (localStorage.getItem("theme") as any) || "dark"
@@ -34,12 +35,24 @@ const App = () => {
         localStorage.setItem("theme", themeMode === "dark" ? "light" : "dark");
         setThemeMode(theme);
     };
+    const cursorRef = useRef<CursorRef>(null);
+    useEffect(() => {
+        const observer = new MutationObserver((mutation) => {
+            const addedNodes = mutation
+                .flatMap((e) => (e.addedNodes.length ? [...e.addedNodes].filter(Boolean) : null))
+                .filter(Boolean);
+            if (addedNodes.length > 0) cursorRef.current?.update();
+        });
+        observer.observe(document.body, { attributes: true, subtree: true, childList: true });
+        return () => observer.disconnect();
+    }, []);
     return (
         <ThemeProvider theme={theme}>
-            <AnimatedCursor
+            <Cursor
+                ref={cursorRef}
                 innerSize={8}
                 outerSize={8}
-                color={themeMode === "dark" ? "255, 255, 255" : "110, 110, 110"}
+                color={themeMode === "dark" ? "#fff" : "#4e4e4e"}
                 outerAlpha={0.2}
                 innerScale={0.7}
                 outerScale={5}
@@ -49,22 +62,7 @@ const App = () => {
                 outerStyle={{
                     zIndex: 2001,
                 }}
-                clickables={[
-                    "a",
-                    'input[type="text"]',
-                    'input[type="email"]',
-                    'input[type="number"]',
-                    'input[type="submit"]',
-                    'input[type="image"]',
-                    "label[for]",
-                    "select",
-                    "textarea",
-                    "button",
-                    ".link",
-                    'div[role="button"]',
-                    "#light-switch",
-                    "#title",
-                ]}
+                clickables={[".link", 'div[role="button"]', "#light-switch", "#title", "#switch"]}
             />
             <Router>
                 <Navbar setTheme={setTheme} theme={theme} />

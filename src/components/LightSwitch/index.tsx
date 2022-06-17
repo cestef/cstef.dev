@@ -51,7 +51,7 @@ const LightSwitch = ({ setTheme }) => {
                         transition={{ repeat: Infinity, duration: 3 }}
                         sx={{ position: "absolute", bottom: -75 }}
                     >
-                        <KeyboardArrowDown />
+                        <KeyboardArrowDown sx={{ color: "text.primary" }} />
                     </Div>
                 </Div>
             </Box>

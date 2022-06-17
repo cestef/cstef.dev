@@ -43,7 +43,7 @@ export const Navbar = ({ setTheme, theme }) => {
     return (
         <>
             <ElevationScroll>
-                <AppBar position="sticky" color="inherit" sx={{ zIndex: 10 }}>
+                <AppBar position="sticky" color="transparent" sx={{ zIndex: 10 }}>
                     <Toolbar>
                         <IconButton
                             size="large"
@@ -54,12 +54,8 @@ export const Navbar = ({ setTheme, theme }) => {
                         >
                             <Menu />
                         </IconButton>
-                        <Link to="/" sx={{ textDecoration: "none", color: "inherit" }}>
-                            <Typography
-                                variant="h5"
-                                sx={{ ml: [0, null, 2], mt: 0.5, cursor: "none" }}
-                                id="title"
-                            >
+                        <Link to="/" sx={{ textDecoration: "none", color: "text.primary" }}>
+                            <Typography variant="h5" sx={{ ml: [0, null, 2], mt: 0.5 }} id="title">
                                 cstef.dev
                             </Typography>
                         </Link>
