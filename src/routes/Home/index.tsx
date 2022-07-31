@@ -11,15 +11,14 @@ import ButtonLink from "../../components/ButtonLink/index";
 export const Home = () => {
     const code = `class Cstef {
     name: string;
-    age: number;
     skills: string[];
     constructor() {
         this.name = "Colin";
-        this.age = 16;
         this.skills = [
             "typescript",
             "react",
-            "csharp"
+            "csharp",
+            "rust"
         ];
     }
 }`;
