@@ -11,6 +11,7 @@ const QUOTES: { text: string; author: string }[] = [
     { text: "cool", author: "My maths teacher" },
     { text: "Oh tu fais trop le mec", author: "Someone" },
     { text: "Thanks for your opinion", author: "Doge" },
+    { text:"La calvitie c'est dur mais la Turquie c'est sur...", author: "guuN" }
 ];
 
 export const Quotes = () => {
