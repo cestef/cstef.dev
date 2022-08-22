@@ -1,5 +1,9 @@
-import ReactDOM from "react-dom";
-import App from "./App";
-import "./index.css";
+import './index.css';
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import App from './App';
+import ReactDOM from 'react-dom';
+import reportWebVitals from './reportWebVitals';
+import { sendToVercelAnalytics } from './vitals';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+reportWebVitals(sendToVercelAnalytics);
