@@ -1,7 +1,4 @@
-// import "maplibre-gl/dist/maplibre-gl.css";
-
-import { Container, Link, Paper, Tooltip, Typography, styled } from "@mui/material";
-import Map, { Marker } from "react-map-gl";
+import { Container, Link, Paper, Typography, styled } from "@mui/material";
 import {
     Timeline,
     TimelineConnector,
@@ -15,7 +12,6 @@ import {
 import ImageEmoji from "../../components/ImageEmoji/index";
 import React from "react";
 import Twemoji from "../../components/Twemoji";
-import maplibregl from "maplibre-gl";
 import { motion } from "framer-motion";
 import styles from "./styles";
 
@@ -116,24 +112,7 @@ export const Portfolio = () => {
                     <Typography variant='body1' sx={styles.paragraph}>
                         Heya ! My name is <b>Colin</b>, I'm currently living in
                         {"\u00A0"}
-                        <Tooltip
-                            title={
-                                <Map
-                                    initialViewState={{
-                                        latitude: 46.5,
-                                        longitude: 7.1,
-                                        zoom: 2.75,
-                                    }}
-                                    mapLib={maplibregl}
-                                    style={{ width: 300, height: 150 }}
-                                    mapStyle='https://demotiles.maplibre.org/style.json'
-                                />
-                            }
-                        >
-                            <span>
-                                <Twemoji emoji='🇨🇭' />
-                            </span>
-                        </Tooltip>{" "}
+                        <Twemoji emoji='🇨🇭' />
                         and studying in High School.
                     </Typography>
                     <Typography variant='body1' sx={styles.paragraph}>
