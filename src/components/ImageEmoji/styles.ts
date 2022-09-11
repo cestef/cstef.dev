@@ -4,6 +4,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
         height: "1em",
         width: "auto",
         display: "inline-block",
+        mb: -0.25,
     },
 };
 export default styles;

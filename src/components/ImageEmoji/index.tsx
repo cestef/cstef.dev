@@ -1,13 +1,14 @@
+import { Tooltip, Typography, styled } from "@mui/material";
+
 import styles from "./styles";
-import { styled } from "@mui/material";
 
 const Img = styled("img")({});
 
-const ImageEmoji = ({ src, alt }: { src: string; alt: string }) => {
+const ImageEmoji = ({ src, alt, title }: { src: string; alt: string; title?: string }) => {
     return (
-        <span>
+        <Tooltip title={<Typography>{title || alt}</Typography>} arrow>
             <Img sx={styles.root} src={src} alt={alt} />
-        </span>
+        </Tooltip>
     );
 };
 
