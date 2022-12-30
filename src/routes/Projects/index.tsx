@@ -1,6 +1,7 @@
+import { Box, Grid, Typography, useTheme } from "@mui/material";
+
 import Project from "../../components/Project/index";
 import { ProjectProps } from "../../components/Project/index";
-import { Grid, useTheme, Typography, Box } from "@mui/material";
 import styles from "./styles";
 
 export const Projects = () => {
@@ -26,21 +27,21 @@ export const Projects = () => {
             link: "https://marketplace.visualstudio.com/items?itemName=cstef.kotlin-formatter",
             github: "https://github.com/cestef/kotlin-formatter",
         },
-        {
-            title: "Vintools",
-            description: "Find your favorite clothes from Vinted® easily !",
-            image:
-                theme.palette.mode === "dark"
-                    ? "/images/logo_vintools.png"
-                    : "/images/logo_vintools_dark.png",
-            link: "https://vintools.cstef.dev",
-        },
+        // {
+        //     title: "Vintools",
+        //     description: "Find your favorite clothes from Vinted® easily !",
+        //     image:
+        //         theme.palette.mode === "dark"
+        //             ? "/images/logo_vintools.png"
+        //             : "/images/logo_vintools_dark.png",
+        //     //link: "https://vintools.cstef.dev",
+        // },
         {
             title: "cstef's API",
             description:
                 "My personal RESTful API serving endpoints to test out my packages, including a documentation built with swagger-ui !",
             image: "/images/swagger-logo.png",
-            link: "https://api.cstef.dev",
+            //link: "https://api.cstef.dev",
         },
         {
             title: "React JSON Translator",
@@ -76,12 +77,12 @@ export const Projects = () => {
             description: "A quick web markdown editor and previewer built with tailwindCSS",
             github: "https://github.com/cestef/markdown-editor",
             image: `/images/markdown-${theme.palette.mode === "dark" ? "white" : "black"}.png`,
-            link: "https://md.cstef.dev",
+            //link: "https://md.cstef.dev",
         },
     ];
     return (
         <Box>
-            <Typography variant="h3" color="text.primary" textAlign="center" mt={5}>
+            <Typography variant='h3' color='text.primary' textAlign='center' mt={5}>
                 My Projects
             </Typography>
             <Grid container sx={styles.root} spacing={4}>

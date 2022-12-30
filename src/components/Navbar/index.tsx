@@ -1,4 +1,3 @@
-import { AssignmentInd, FormatQuote, Home, Mail, Menu, Work } from "@mui/icons-material";
 import {
     AppBar,
     Box,
@@ -13,12 +12,13 @@ import {
     useMediaQuery,
     useScrollTrigger,
 } from "@mui/material";
-import { styled } from "@mui/system";
+import { AssignmentInd, FormatQuote, Home, Mail, Menu, Work } from "@mui/icons-material";
+import { Link as L, useHistory } from "react-router-dom";
 import { cloneElement, useState } from "react";
-import { useHistory } from "react-router";
-import { Link as L } from "react-router-dom";
-import LightSwitch from "../LightSwitch";
+
 import IOSSwitch from "../IOSSwitch/index";
+import LightSwitch from "../LightSwitch";
+import { styled } from "@mui/system";
 
 export const Navbar = ({ setTheme, theme }) => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -43,19 +43,19 @@ export const Navbar = ({ setTheme, theme }) => {
     return (
         <>
             <ElevationScroll>
-                <AppBar position="sticky" color="transparent" sx={{ zIndex: 10 }}>
+                <AppBar position='sticky' color='transparent' sx={{ zIndex: 10 }}>
                     <Toolbar>
                         <IconButton
-                            size="large"
-                            edge="start"
-                            aria-label="menu"
+                            size='large'
+                            edge='start'
+                            aria-label='menu'
                             sx={{ mr: 2 }}
                             onClick={() => setDrawerOpen((e) => !e)}
                         >
                             <Menu />
                         </IconButton>
-                        <Link to="/" sx={{ textDecoration: "none", color: "text.primary" }}>
-                            <Typography variant="h5" sx={{ ml: [0, null, 2], mt: 0.5 }} id="title">
+                        <Link to='/' sx={{ textDecoration: "none", color: "text.primary" }}>
+                            <Typography variant='h5' sx={{ ml: [0, null, 2], mt: 0.5 }} id='title'>
                                 cstef.dev
                             </Typography>
                         </Link>

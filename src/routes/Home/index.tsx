@@ -57,9 +57,6 @@ export const Home = () => {
                     <ButtonLink href='https://twitter.com/AkaCstef'>
                         <Twitter fontSize='large' />
                     </ButtonLink>
-                    <ButtonLink href='https://www.instagram.com/cishtef'>
-                        <Instagram fontSize='large' />
-                    </ButtonLink>
                     <ButtonLink href='https://discord.com/users/699912716474777631'>
                         <SvgIcon viewBox='0 0 71 55' fontSize='large'>
                             <path
