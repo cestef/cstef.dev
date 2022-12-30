@@ -1,8 +1,9 @@
 import { Container, Typography } from "@mui/material";
+
 import { Box } from "@mui/system";
 import { Quote } from "../../components/Quote/index";
-import styles from "./styles";
 import SpellError from "../../components/SpellError/index";
+import styles from "./styles";
 
 const QUOTES: { text: string; author: string }[] = [
     { text: "cstef go clutch", author: "lairr" },
@@ -11,14 +12,17 @@ const QUOTES: { text: string; author: string }[] = [
     { text: "cool", author: "My maths teacher" },
     { text: "Oh tu fais trop le mec", author: "Someone" },
     { text: "Thanks for your opinion", author: "Doge" },
-    { text:"La calvitie c'est dur mais la Turquie c'est sur...", author: "guuN" }
+    {
+        text: "Optimism is an occupational hazard of programming: feedback is the treatment",
+        author: "Kent Beck",
+    },
 ];
 
 export const Quotes = () => {
     return (
         <Container sx={styles.root}>
             <Box sx={styles.container}>
-                <Typography variant="h4" sx={{ mb: 3, color: "text.primary" }}>
+                <Typography variant='h4' sx={{ mb: 3, color: "text.primary" }}>
                     Hall of <SpellError>Fame</SpellError>
                 </Typography>
                 {QUOTES.map((e, i) => (
