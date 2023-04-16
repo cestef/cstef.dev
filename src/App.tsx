@@ -9,9 +9,7 @@ import {
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import {
 	StyledEngineProvider,
-	Theme,
 	ThemeProvider,
-	adaptV4Theme,
 	createTheme,
 } from "@mui/material/styles";
 import { useEffect, useRef, useState } from "react";
@@ -21,36 +19,31 @@ import { CursorRef } from "./components/Cursor/index";
 import { Navbar } from "./components/Navbar";
 import Page from "./components/Page";
 
-declare module "@mui/styles/defaultTheme" {
-	// eslint-disable-next-line @typescript-eslint/no-empty-interface
-	interface DefaultTheme extends Theme {}
-}
-
 const App = () => {
 	const [themeMode, setThemeMode] = useState<"dark" | "light">(
-		(localStorage.getItem("theme") as any) || "dark",
+		(localStorage.getItem("theme") as "dark" | "light" | undefined) || "dark",
 	);
-	const theme = createTheme(
-		adaptV4Theme({
-			palette: { mode: themeMode },
-			components: {
-				MuiContainer: {
-					styleOverrides: {
-						root: {
-							marginTop: 50,
-						},
-					},
-				},
-				MuiPaper: {
-					styleOverrides: {
-						elevation0: {
-							backgroundColor: themeMode === "dark" ? "#1e1e1e" : "#fff",
-						},
+	const theme = createTheme({
+		palette: {
+			mode: themeMode,
+		},
+		components: {
+			MuiContainer: {
+				styleOverrides: {
+					root: {
+						marginTop: 50,
 					},
 				},
 			},
-		}),
-	);
+			MuiPaper: {
+				styleOverrides: {
+					elevation0: {
+						backgroundColor: themeMode === "dark" ? "#1e1e1e" : "#fff",
+					},
+				},
+			},
+		},
+	});
 	useEffect(() => {
 		document.body.classList.add(themeMode);
 		document.body.classList.remove(themeMode === "dark" ? "light" : "dark");
