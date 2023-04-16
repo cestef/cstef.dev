@@ -18,6 +18,7 @@ const styles: { [id: string]: SxProps<Theme> } = {
         padding: 5,
         mx: [0, 5],
         my: 5,
+        borderRadius: 5,
     },
 };
 export default styles;

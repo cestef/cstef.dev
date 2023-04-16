@@ -1,6 +1,6 @@
 import { Box, styled } from "@mui/system";
 import { Container, SvgIcon, Typography, useTheme } from "@mui/material";
-import { GitHub, Instagram, Twitter } from "@mui/icons-material";
+import { GitHub, Twitter } from "@mui/icons-material";
 import { atomOneDark, atomOneLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 import ButtonLink from "../../components/ButtonLink/index";

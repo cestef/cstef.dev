@@ -1,11 +1,11 @@
 import { SxProps, Theme } from "@mui/system";
 const styles: { [id: string]: SxProps<Theme> } = {
     root: {
-        width: 350,
+        width: 400,
         borderRadius: 3,
     },
     image: {
-        maxHeight: 200,
+        height: 200,
     },
 };
 export default styles;
