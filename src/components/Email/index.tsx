@@ -1,24 +1,25 @@
-import { useState, useEffect, useRef } from "react";
-import { Color, generateColors, ColorsCodes, Colors } from "../../utils/mastermind";
 import {
+    Alert,
     FormControl,
     IconButton,
     InputLabel,
     MenuItem,
     Select,
+    Slide,
     Tooltip,
     Typography,
     useMediaQuery,
-    Alert,
-    Slide,
 } from "@mui/material";
-import styles from "./styles";
+import { Check, CheckBox, RestartAlt, ArrowDropDown as SelectIcon } from "@mui/icons-material";
+import { Color, Colors, ColorsCodes, generateColors } from "../../utils/mastermind";
+import { useEffect, useRef, useState } from "react";
+
 import { Box } from "@mui/system";
-import { Check, RestartAlt, CheckBox, ArrowDropDown as SelectIcon } from "@mui/icons-material";
 import Comment from "../Comment/index";
-import { useTheme } from "@mui/material";
 import { Confetti } from "../Confetti";
 import { Vector2 } from "../../utils/Vector2";
+import styles from "./styles";
+import { useTheme } from "@mui/material";
 
 const maxTries = 12;
 const length = 5;
@@ -248,7 +249,7 @@ const Email = () => {
                             >
                                 <MenuItem value={"None"}>None</MenuItem>
                                 {Colors.map((e, i) => (
-                                    <MenuItem value={e} key={i}>
+                                    <MenuItem value={e} key={i} id="cursor">
                                         <svg height="32" width="32" style={{ marginLeft: -5 }}>
                                             <circle
                                                 cx="16"
