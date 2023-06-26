@@ -150,6 +150,7 @@ const Email = () => {
                             </Typography>
                         }
                         placement="right"
+                        id="copiable"
                     >
                         <Typography
                             sx={{ mb: 3, cursor: "pointer" }}
