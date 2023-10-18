@@ -1,49 +1,27 @@
-# cstef.dev
+# React + TypeScript + Vite
 
-This is just my personal portfolio built using [`React`](https://reactjs.org) and [`Material-Ui`](https://mui.com)
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Installing
+Currently, two official plugins are available:
 
-You can setup the project with your favorite package manager:
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-```
-npm install
-```
+## Expanding the ESLint configuration
 
-or
-```
-yarn
-```
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-## Running locally
+- Configure the top-level `parserOptions` property like this:
 
-Again, use your favorite package manager to run the npm script:
-
-```
-npm start
-```
-or 
-```
-yarn start
+```js
+   parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    tsconfigRootDir: __dirname,
+   },
 ```
 
-## Building
-
-This will produce a `build` directory containing the optimized code for production
-
-```
-npm run build
-```
-
-or 
-
-```
-yarn build
-```
-
-There is also the `build:deploy` script, but this one is mainly for my personal use, since I deploy on an [`Apache`](https://httpd.apache.org/) server.
-
-
-## Contributing
-
-As always, PRs are welcome !
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
