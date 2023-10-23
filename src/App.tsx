@@ -1,103 +1,27 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Copy, FileDown, FileText } from "lucide-react";
-import { useEffect, useState } from "react";
-import { FaDiscord, FaGithub, FaSteam, FaTwitter } from "react-icons/fa";
+import { ArrowUpRight, Copy, FileDown, Mail } from "lucide-react";
+import { useState } from "react";
 import LightSwitch from "./components/composed/light-switch";
 import { ModeToggle } from "./components/composed/mode-toggle";
 import Terminal from "./components/composed/terminal";
+import { Bold } from "./components/ui/bold";
+import { Button } from "./components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./components/ui/tooltip";
 import Twemoji from "./components/ui/twemoji";
-import { Button } from "./components/ui/button";
-import { cn } from "./lib/utils";
-
-const SOCIALS: {
-	name: string;
-	url: string;
-	icon: React.ReactNode;
-	variant: "copy" | "link";
-}[] = [
-	{
-		name: "GitHub",
-		url: "https://github.com/cestef",
-		icon: <FaGithub className="sm:w-10 sm:h-10 w-8 h-8" />,
-		variant: "link",
-	},
-	{
-		name: "Twitter",
-		url: "https://twitter.com/cishtef",
-		icon: <FaTwitter className="sm:w-10 sm:h-10 w-8 h-8 text-blue-500" />,
-		variant: "link",
-	},
-	{
-		name: "Steam",
-		url: "https://steamcommunity.com/id/cishtef",
-		icon: <FaSteam className="sm:w-10 sm:h-10 w-8 h-8 text-blue-950 dark:text-white" />,
-		variant: "link",
-	},
-	{
-		name: "Discord",
-		url: "cstef",
-		icon: <FaDiscord className="sm:w-10 sm:h-10 w-8 h-8 text-[#5865F2]" />,
-		variant: "copy",
-	},
-];
-
-interface Repository {
-	name: string;
-	url: string;
-	description: string;
-	stars: number;
-	lastUpdate: string;
-	forked: boolean;
-	language: string;
-}
+import { useRepositories } from "./lib/repositories";
+import { cn, getLanguageColor } from "./lib/utils";
+import { SOCIALS } from "./lib/constants";
+import { Timeline } from "./components/ui/timeline";
+import { Separator } from "./components/ui/separator";
 
 export default function App() {
-	const [repositories, setRepositories] = useState<Repository[]>([]);
-	const [page, setPage] = useState(1);
 	const [copied, setCopied] = useState(false);
 	const [open, setOpen] = useState<string | false>(false);
 	const [dragging, setDragging] = useState(false);
-	const [isMore, setIsMore] = useState(true);
 
-	useEffect(() => {
-		fetch(
-			`https://api.github.com/users/cestef/repos?sort=updated&direction=desc&per_page=8&page=${page}`
-		)
-			.then((res) => res.json())
-			.then((data) => {
-				if (data.length < 8) {
-					setIsMore(false);
-					return;
-				}
-				setRepositories((e) =>
-					e.concat(
-						data
-							.map(
-								(repo: {
-									name: string;
-									html_url: string;
-									description: string;
-									stargazers_count: number;
-									updated_at: string;
-									fork: boolean;
-									language: string;
-								}) => ({
-									name: repo.name,
-									url: repo.html_url,
-									description: repo.description,
-									stars: repo.stargazers_count,
-									lastUpdate: repo.updated_at,
-									forked: repo.fork,
-									language: repo.language,
-								})
-							)
-							.filter((repo: Repository) => !e.find((r) => r.name === repo.name))
-					)
-				);
-			});
-	}, [page]);
+	const { isMore, loadMore, repositories } = useRepositories("cestef");
+
 	return (
 		<>
 			<header className="flex justify-between items-center py-4 sm:py-6 px-6 sm:px-8 border-b border-gray-200 dark:border-gray-800 sticky top-0 bg-white dark:bg-background/70 z-10 mb-32">
@@ -302,15 +226,36 @@ export default function App() {
 						))}
 					</div>
 					{isMore && (
-						<Button
-							variant="outline"
-							size="jumbo"
-							onClick={() => setPage(page + 1)}
-							className="mt-10"
-						>
+						<Button variant="outline" size="jumbo" onClick={loadMore} className="mt-10">
 							Load more
 						</Button>
 					)}
+				</div>
+				<div className="mt-32 w-full flex flex-col justify-center items-center">
+					<motion.h2
+						whileInView={{ scale: [0.2, 1] }}
+						viewport={{ once: true }}
+						transition={{ type: "spring", stiffness: 300, damping: 20 }}
+						className="text-3xl sm:text-4xl font-bold mb-10"
+					>
+						About me
+					</motion.h2>
+					<Timeline />
+				</div>
+				<Separator className="my-16" />
+				<div className="w-full flex flex-row justify-center items-center gap-8">
+					<motion.h2
+						whileInView={{ scale: [0.2, 1] }}
+						viewport={{ once: true }}
+						transition={{ type: "spring", stiffness: 300, damping: 20 }}
+						className="text-2xl sm:text-4xl font-bold"
+					>
+						Get in touch !
+					</motion.h2>
+					<Button variant="outline" size="jumbo">
+						<Mail className="w-5 h-5 mr-3 inline-block" />
+						Contact me
+					</Button>
 				</div>
 			</main>
 			<footer className="flex flex-col justify-center items-center p-6 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-background/70 mt-32">
@@ -319,43 +264,5 @@ export default function App() {
 				</p>
 			</footer>
 		</>
-	);
-}
-
-function Bold({ children }: { children: React.ReactNode }) {
-	return (
-		<motion.p
-			whileHover={{ y: -3 }}
-			transition={{ type: "spring", stiffness: 400, damping: 10 }}
-			className="font-bold cursor-pointer"
-		>
-			{children}
-		</motion.p>
-	);
-}
-
-const languagesToColors = {
-	typescript: "#2b7489",
-	javascript: "#f1e05a",
-	python: "#3572a5",
-	rust: "#dea584",
-	go: "#00ADD8",
-	java: "#b07219",
-	kotlin: "#A97BFF",
-	ruby: "#701516",
-	php: "#4F5D95",
-	"c#": "#178600",
-	"c++": "#f34b7d",
-	c: "#555555",
-	"objective-c": "#438eff",
-	"objective-c++": "#6866fb",
-	shell: "#89e051",
-	swift: "#F05137",
-};
-
-function getLanguageColor(language: string) {
-	return (
-		languagesToColors[(language ?? "").toLowerCase() as keyof typeof languagesToColors] ??
-		"#00000000"
 	);
 }

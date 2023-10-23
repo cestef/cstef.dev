@@ -93,3 +93,29 @@ export const shallowDiff = <T extends Record<string, unknown>>(a: T, b: T): Part
 		};
 	}, {} as Partial<T>);
 };
+
+const languagesToColors = {
+	typescript: "#2b7489",
+	javascript: "#f1e05a",
+	python: "#3572a5",
+	rust: "#dea584",
+	go: "#00ADD8",
+	java: "#b07219",
+	kotlin: "#A97BFF",
+	ruby: "#701516",
+	php: "#4F5D95",
+	"c#": "#178600",
+	"c++": "#f34b7d",
+	c: "#555555",
+	"objective-c": "#438eff",
+	"objective-c++": "#6866fb",
+	shell: "#89e051",
+	swift: "#F05137",
+};
+
+export function getLanguageColor(language: string) {
+	return (
+		languagesToColors[(language ?? "").toLowerCase() as keyof typeof languagesToColors] ??
+		"#00000000"
+	);
+}
