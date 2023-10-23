@@ -19,25 +19,25 @@ const SOCIALS: {
 	{
 		name: "GitHub",
 		url: "https://github.com/cestef",
-		icon: <FaGithub className="w-10 h-10" />,
+		icon: <FaGithub className="sm:w-10 sm:h-10 w-8 h-8" />,
 		variant: "link",
 	},
 	{
 		name: "Twitter",
 		url: "https://twitter.com/cishtef",
-		icon: <FaTwitter className="w-10 h-10 text-blue-500" />,
+		icon: <FaTwitter className="sm:w-10 sm:h-10 w-8 h-8 text-blue-500" />,
 		variant: "link",
 	},
 	{
 		name: "Steam",
 		url: "https://steamcommunity.com/id/cishtef",
-		icon: <FaSteam className="w-10 h-10 text-blue-950 dark:text-white" />,
+		icon: <FaSteam className="sm:w-10 sm:h-10 w-8 h-8 text-blue-950 dark:text-white" />,
 		variant: "link",
 	},
 	{
 		name: "Discord",
 		url: "cstef",
-		icon: <FaDiscord className="w-10 h-10 text-[#5865F2]" />,
+		icon: <FaDiscord className="sm:w-10 sm:h-10 w-8 h-8 text-[#5865F2]" />,
 		variant: "copy",
 	},
 ];
@@ -89,9 +89,9 @@ export default function App() {
 	}, [page]);
 	return (
 		<>
-			<header className="flex justify-between items-center py-6 px-8 border-b border-gray-200 dark:border-gray-800 sticky top-0 bg-white dark:bg-background/70 z-10 mb-32">
+			<header className="flex justify-between items-center py-4 sm:py-6 px-6 sm:px-8 border-b border-gray-200 dark:border-gray-800 sticky top-0 bg-white dark:bg-background/70 z-10 mb-32">
 				<a href="/">
-					<h1 className="text-3xl font-bold">
+					<h1 className="text-2xl sm:text-3xl font-bold">
 						<Twemoji emoji="👨‍💻" className="mr-3 w-8 h-8" />
 						cstef.dev
 					</h1>
@@ -100,33 +100,34 @@ export default function App() {
 				<LightSwitch />
 			</header>
 			<main className="container mx-2 xl:mx-auto px-6 flex flex-col justify-between items-center">
-				<div className="w-full h-full">
+				<div className="w-full h-full flex lg:block flex-col items-center">
 					<div className="float-left">
 						<motion.h2
 							animate={{ scale: [0.2, 1] }}
 							transition={{ type: "spring", stiffness: 300, damping: 20 }}
-							className="text-8xl font-bold mb-10 text-center md:text-left"
+							className="text-7xl sm:text-8xl font-bold mb-10 text-center md:text-left"
 						>
 							Hello, World{"\u00A0"}!
 						</motion.h2>
-						<p className="text-4xl font-medium text-muted-foreground mb-3">
+						<p className="text-3xl sm:text-4xl font-medium text-muted-foreground mb-3">
 							<div className="flex flex-wrap gap-2 justify-center md:justify-start">
 								I'm a <Bold>developer</Bold> from{" "}
 								<Bold>
-									Switzerland <Twemoji emoji="🇨🇭" className="w-10 h-10" />
+									Switzerland{" "}
+									<Twemoji emoji="🇨🇭" className="sm:w-10 sm:h-10 w-8 h-8" />
 								</Bold>
 							</div>
 						</p>
 					</div>
-					<div className="float-right hidden lg:block">
+					<div className="lg:float-right flex items-center justify-center lg:block">
 						<Terminal />
 					</div>
 				</div>
-				<div className="mt-32 flex flex-col justify-center items-center">
+				<div className="lg:mt-32 flex flex-col justify-center items-center">
 					<motion.h2
 						animate={{ scale: [0.2, 1] }}
 						transition={{ type: "spring", stiffness: 300, damping: 20 }}
-						className="text-4xl font-bold mb-10"
+						className="text-3xl sm:text-4xl font-bold mb-10"
 					>
 						Find me on
 					</motion.h2>
@@ -193,7 +194,7 @@ export default function App() {
 						whileInView={{ scale: [0.2, 1] }}
 						viewport={{ once: true }}
 						transition={{ type: "spring", stiffness: 300, damping: 20 }}
-						className="text-4xl font-bold mb-10"
+						className="text-3xl sm:text-4xl font-bold mb-10"
 					>
 						Latest repositories
 					</motion.h2>

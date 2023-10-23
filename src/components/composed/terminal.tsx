@@ -136,12 +136,7 @@ export function Terminal({ className }: { className?: string }) {
 
 export default function MacbookTerminal() {
 	return (
-		<Canvas
-			style={{
-				height: "40vh",
-				width: "30vw",
-			}}
-		>
+		<Canvas className="lg:!w-[30vw] lg:!h-[40svh] !w-[75vw] !h-[50svh]">
 			<Element />
 		</Canvas>
 	);
