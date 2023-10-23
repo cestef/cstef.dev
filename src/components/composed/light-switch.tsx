@@ -8,7 +8,7 @@ const LightSwitch = () => {
 	const switching = useRef(false);
 	return (
 		<AnimatePresence>
-			<div className="absolute right-[10vw] top-[-40vh] z-[11]">
+			<div className="absolute right-[7.5vw] top-[-40vh] z-[11]">
 				<motion.div
 					animate={{ y: [0, 8, 0] }}
 					transition={{ repeat: Infinity, duration: 3 }}
