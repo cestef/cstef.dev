@@ -1,3 +1,5 @@
+import { ChessPuzzle } from "@react-chess-tools/react-chess-puzzle";
+import { Chess } from "chess.js";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Copy, FileDown, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -7,23 +9,21 @@ import Terminal from "./components/composed/terminal";
 import { Bold } from "./components/ui/bold";
 import { Button } from "./components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./components/ui/tooltip";
-import Twemoji from "./components/ui/twemoji";
-import { useRepositories } from "./lib/repositories";
-import { cn, getLanguageColor } from "./lib/utils";
-import { SOCIALS } from "./lib/constants";
-import { Timeline } from "./components/ui/timeline";
-import { Separator } from "./components/ui/separator";
 import {
 	Dialog,
-	DialogTrigger,
 	DialogContent,
+	DialogDescription,
 	DialogHeader,
 	DialogTitle,
-	DialogDescription,
+	DialogTrigger,
 } from "./components/ui/dialog";
-import { ChessPuzzle } from "@react-chess-tools/react-chess-puzzle";
-import { Chess, Square } from "chess.js";
+import { Separator } from "./components/ui/separator";
+import { Timeline } from "./components/ui/timeline";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./components/ui/tooltip";
+import Twemoji from "./components/ui/twemoji";
+import { SOCIALS } from "./lib/constants";
+import { useRepositories } from "./lib/repositories";
+import { cn, getLanguageColor } from "./lib/utils";
 
 export default function App() {
 	const [copied, setCopied] = useState(false);
