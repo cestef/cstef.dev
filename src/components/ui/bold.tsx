@@ -5,7 +5,7 @@ export function Bold({ children }: { children: React.ReactNode }) {
 		<motion.p
 			whileHover={{ y: -3 }}
 			transition={{ type: "spring", stiffness: 400, damping: 10 }}
-			className="font-bold cursor-pointer text-primary-foreground/80"
+			className="font-bold cursor-pointer"
 		>
 			{children}
 		</motion.p>
