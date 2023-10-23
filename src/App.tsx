@@ -50,6 +50,7 @@ interface Repository {
 	stars: number;
 	lastUpdate: string;
 	forked: boolean;
+	language: string;
 }
 
 export default function App() {
@@ -58,6 +59,7 @@ export default function App() {
 	const [copied, setCopied] = useState(false);
 	const [open, setOpen] = useState<string | false>(false);
 	const [dragging, setDragging] = useState(false);
+	const [isMore, setIsMore] = useState(true);
 
 	useEffect(() => {
 		fetch(
@@ -65,6 +67,10 @@ export default function App() {
 		)
 			.then((res) => res.json())
 			.then((data) => {
+				if (data.length < 8) {
+					setIsMore(false);
+					return;
+				}
 				setRepositories((e) =>
 					e.concat(
 						data
@@ -76,6 +82,7 @@ export default function App() {
 									stargazers_count: number;
 									updated_at: string;
 									fork: boolean;
+									language: string;
 								}) => ({
 									name: repo.name,
 									url: repo.html_url,
@@ -83,6 +90,7 @@ export default function App() {
 									stars: repo.stargazers_count,
 									lastUpdate: repo.updated_at,
 									forked: repo.fork,
+									language: repo.language,
 								})
 							)
 							.filter((repo: Repository) => !e.find((r) => r.name === repo.name))
@@ -262,11 +270,25 @@ export default function App() {
 												</CardHeader>
 												<CardContent>
 													<p className="truncate text-muted-foreground">
-														{repo.description}
+														{repo.description ?? "No description"}
 													</p>
-													<p className="mt-2">
-														{repo.stars} <Twemoji emoji="⭐" />
-													</p>
+													<div className="flex flex-row justify-between items-center mt-2">
+														<p>
+															{repo.stars} <Twemoji emoji="⭐" />
+														</p>
+														<p className="flex flex-row justify-between items-center gap-2">
+															<div
+																className="w-3 h-3 rounded-full"
+																style={{
+																	backgroundColor:
+																		getLanguageColor(
+																			repo.language
+																		),
+																}}
+															/>
+															{repo.language}
+														</p>
+													</div>
 												</CardContent>
 											</Card>
 										</motion.div>
@@ -279,14 +301,16 @@ export default function App() {
 							</Tooltip>
 						))}
 					</div>
-					<Button
-						variant="outline"
-						size="jumbo"
-						onClick={() => setPage(page + 1)}
-						className="mt-10"
-					>
-						Load more
-					</Button>
+					{isMore && (
+						<Button
+							variant="outline"
+							size="jumbo"
+							onClick={() => setPage(page + 1)}
+							className="mt-10"
+						>
+							Load more
+						</Button>
+					)}
 				</div>
 			</main>
 			<footer className="flex flex-col justify-center items-center p-6 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-background/70 mt-32">
@@ -307,5 +331,31 @@ function Bold({ children }: { children: React.ReactNode }) {
 		>
 			{children}
 		</motion.p>
+	);
+}
+
+const languagesToColors = {
+	typescript: "#2b7489",
+	javascript: "#f1e05a",
+	python: "#3572a5",
+	rust: "#dea584",
+	go: "#00ADD8",
+	java: "#b07219",
+	kotlin: "#A97BFF",
+	ruby: "#701516",
+	php: "#4F5D95",
+	"c#": "#178600",
+	"c++": "#f34b7d",
+	c: "#555555",
+	"objective-c": "#438eff",
+	"objective-c++": "#6866fb",
+	shell: "#89e051",
+	swift: "#F05137",
+};
+
+function getLanguageColor(language: string) {
+	return (
+		languagesToColors[(language ?? "").toLowerCase() as keyof typeof languagesToColors] ??
+		"#00000000"
 	);
 }
