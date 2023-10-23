@@ -13,7 +13,7 @@ interface TerminalState {
 }
 
 const useTerminalState = (): {
-	set: (key: keyof TerminalState, value: any) => void;
+	set: (key: keyof TerminalState, value: unknown) => void;
 	state: TerminalState;
 } => {
 	const [state, setState] = useState<TerminalState>({
@@ -24,7 +24,7 @@ const useTerminalState = (): {
 	});
 
 	const set = useCallback(
-		(key: keyof TerminalState, value: any) => {
+		(key: keyof TerminalState, value: unknown) => {
 			setState((state) => ({ ...state, [key]: value }));
 		},
 		[setState]
@@ -32,8 +32,7 @@ const useTerminalState = (): {
 
 	return { state, set };
 };
-
-function Terminal({ className }: { className?: string }) {
+export function Terminal({ className }: { className?: string }) {
 	const { state, set } = useTerminalState();
 
 	const commands = {
@@ -74,9 +73,9 @@ function Terminal({ className }: { className?: string }) {
 				set("historyIndex", state.history.length);
 				const [command, ...args] = state.input.split(" ");
 				const foundCommand =
-					(commands as any)[command] ??
+					commands[command as keyof typeof commands] ??
 					(() => set("output", [...state.output, `Command not found: ${command}`]));
-				foundCommand?.(...args);
+				foundCommand?.(args.join(" "));
 				set("input", "");
 			} else if (e.key === "ArrowUp") {
 				if (state.historyIndex > 0) {
@@ -109,7 +108,7 @@ function Terminal({ className }: { className?: string }) {
 			onClick={() => {
 				const input = document.querySelector("#terminal input");
 				if (input) {
-					(input as any).focus();
+					(input as HTMLInputElement).focus();
 				}
 			}}
 		>

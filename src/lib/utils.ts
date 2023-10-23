@@ -6,12 +6,12 @@ export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-interface UseLocalStorageProps<T = any> {
+interface UseLocalStorageProps<T = unknown> {
 	key: string;
 	defaultValue?: T;
 }
 
-export function useLocalStorage<T = any>({ key, defaultValue }: UseLocalStorageProps<T>) {
+export function useLocalStorage<T = unknown>({ key, defaultValue }: UseLocalStorageProps<T>) {
 	const [value, setValue] = useState<T>(() => {
 		const storedValue = localStorage.getItem(key);
 

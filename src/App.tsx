@@ -65,14 +65,23 @@ export default function App() {
 				setRepositories((e) =>
 					e.concat(
 						data
-							.map((repo: any) => ({
-								name: repo.name,
-								url: repo.html_url,
-								description: repo.description,
-								stars: repo.stargazers_count,
-								lastUpdate: repo.updated_at,
-								forked: repo.fork,
-							}))
+							.map(
+								(repo: {
+									name: string;
+									html_url: string;
+									description: string;
+									stargazers_count: number;
+									updated_at: string;
+									fork: boolean;
+								}) => ({
+									name: repo.name,
+									url: repo.html_url,
+									description: repo.description,
+									stars: repo.stargazers_count,
+									lastUpdate: repo.updated_at,
+									forked: repo.fork,
+								})
+							)
 							.filter((repo: Repository) => !e.find((r) => r.name === repo.name))
 					)
 				);

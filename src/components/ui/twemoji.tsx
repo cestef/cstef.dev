@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import { memo } from "react";
 
-//@ts-ignore
 import twemoji from "twemoji";
 
 const Twemoji = ({ emoji, className }: { emoji: string; className?: string }) => {

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext, useCallback } from "react";
+import { createContext, useCallback, useContext, useEffect } from "react";
 import { useLocalStorage } from "./utils";
 
 interface ColorSchemeContextProps {
