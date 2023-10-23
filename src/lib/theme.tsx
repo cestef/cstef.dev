@@ -48,5 +48,10 @@ export function useColorScheme() {
 	const toggleColorScheme = useCallback(() => {
 		setColorScheme(resolveColorScheme(colorScheme) === "light" ? "dark" : "light");
 	}, [colorScheme]);
-	return { colorScheme, setColorScheme, toggleColorScheme };
+	return {
+		colorScheme,
+		setColorScheme,
+		toggleColorScheme,
+		resolvedColorScheme: resolveColorScheme(colorScheme),
+	};
 }

@@ -56,3 +56,16 @@
 		@apply bg-background text-foreground transition-colors duration-200 ease-in-out;
 	}
 }
+
+@keyframes wave {
+	from {
+		background-position-x: 2px;
+	}
+	to {
+		background-position-x: 500px;
+	}
+}
+
+.spell-error:hover {
+	animation-play-state: running;
+}
