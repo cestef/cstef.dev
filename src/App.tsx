@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Copy } from "lucide-react";
+import { ArrowUpRight, Copy, FileDown, FileText } from "lucide-react";
 import { useEffect, useState } from "react";
 import { FaDiscord, FaGithub, FaSteam, FaTwitter } from "react-icons/fa";
 import LightSwitch from "./components/composed/light-switch";
@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./components/ui/tooltip";
 import Twemoji from "./components/ui/twemoji";
 import { Button } from "./components/ui/button";
+import { cn } from "./lib/utils";
 
 const SOCIALS: {
 	name: string;
@@ -56,6 +57,8 @@ export default function App() {
 	const [page, setPage] = useState(1);
 	const [copied, setCopied] = useState(false);
 	const [open, setOpen] = useState<string | false>(false);
+	const [dragging, setDragging] = useState(false);
+
 	useEffect(() => {
 		fetch(
 			`https://api.github.com/users/cestef/repos?sort=updated&direction=desc&per_page=8&page=${page}`
@@ -99,16 +102,41 @@ export default function App() {
 				<ModeToggle className="md:hidden" />
 				<LightSwitch />
 			</header>
-			<main className="container mx-2 xl:mx-auto px-6 flex flex-col justify-between items-center">
+			<main
+				className={cn(
+					"container mx-2 xl:mx-auto px-6 flex flex-col justify-between items-center",
+					{
+						"select-none": dragging,
+					}
+				)}
+			>
 				<div className="w-full h-full flex lg:block flex-col items-center">
 					<div className="float-left">
-						<motion.h2
-							animate={{ scale: [0.2, 1] }}
-							transition={{ type: "spring", stiffness: 300, damping: 20 }}
-							className="text-7xl sm:text-8xl font-bold mb-10 text-center md:text-left"
-						>
-							Hello, World{"\u00A0"}!
-						</motion.h2>
+						<div className="text-7xl sm:text-8xl font-bold mb-10 justify-center md:justify-start flex flex-wrap">
+							<motion.h2
+								animate={{ scale: [0.0, 1] }}
+								transition={{
+									type: "spring",
+									stiffness: 300,
+									damping: 20,
+									delay: 0.5,
+								}}
+							>
+								Hello,
+							</motion.h2>{" "}
+							<motion.h2
+								animate={{ scale: [0.0, 1] }}
+								transition={{
+									type: "spring",
+									stiffness: 300,
+									damping: 20,
+									delay: 1.5,
+								}}
+							>
+								World{"\u00A0"}!
+							</motion.h2>
+						</div>
+
 						<p className="text-3xl sm:text-4xl font-medium text-muted-foreground mb-3">
 							<div className="flex flex-wrap gap-2 justify-center md:justify-start">
 								I'm a <Bold>developer</Bold> from{" "}
@@ -118,9 +146,13 @@ export default function App() {
 								</Bold>
 							</div>
 						</p>
+						<Button variant="outline" size="jumbo" className="w-full mt-6">
+							<FileDown className="w-5 h-5 mr-3 inline-block" />
+							Download Resume
+						</Button>
 					</div>
 					<div className="lg:float-right flex items-center justify-center lg:block">
-						<Terminal />
+						<Terminal setDragging={setDragging} />
 					</div>
 				</div>
 				<div className="lg:mt-32 flex flex-col justify-center items-center">
@@ -204,8 +236,7 @@ export default function App() {
 								<TooltipTrigger>
 									<a href={repo.url}>
 										<motion.div
-											// whileHover={{ scale: 1.1 }}
-											// whileTap={{ scale: 0.9 }}
+											whileTap={{ scale: 0.95 }}
 											initial={{ opacity: 0 }}
 											whileInView={{ opacity: 1 }}
 											viewport={{ once: true }}
@@ -243,7 +274,7 @@ export default function App() {
 								</TooltipTrigger>
 								<TooltipContent>
 									<ArrowUpRight className="w-4 h-4 mr-2 inline-block" />
-									On GitHub
+									GitHub
 								</TooltipContent>
 							</Tooltip>
 						))}

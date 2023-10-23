@@ -134,15 +134,19 @@ export function Terminal({ className }: { className?: string }) {
 	);
 }
 
-export default function MacbookTerminal() {
+export default function MacbookTerminal({
+	setDragging,
+}: {
+	setDragging: (dragging: boolean) => void;
+}) {
 	return (
 		<Canvas className="lg:!w-[30vw] lg:!h-[40svh] !w-[75vw] !h-[50svh]">
-			<Element />
+			<Element setDragging={setDragging} />
 		</Canvas>
 	);
 }
 
-function Element() {
+function Element({ setDragging }: { setDragging: (dragging: boolean) => void }) {
 	return (
 		<>
 			<Suspense
@@ -162,6 +166,8 @@ function Element() {
 				minPolarAngle={Math.PI / 2.2}
 				maxPolarAngle={Math.PI / 2.2}
 				autoRotate
+				onStart={() => setDragging(true)}
+				onEnd={() => setDragging(false)}
 			/>
 			<PerspectiveCamera makeDefault position={[1, 1, 25]} fov={50} zoom={0.5} />
 		</>
