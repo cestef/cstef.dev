@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Copy, FileDown, Mail } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LightSwitch from "./components/composed/light-switch";
 import { ModeToggle } from "./components/composed/mode-toggle";
 import Terminal from "./components/composed/terminal";
@@ -22,14 +22,43 @@ import {
 	DialogTitle,
 	DialogDescription,
 } from "./components/ui/dialog";
+import { ChessPuzzle } from "@react-chess-tools/react-chess-puzzle";
+import { Chess, Square } from "chess.js";
 
 export default function App() {
 	const [copied, setCopied] = useState(false);
 	const [open, setOpen] = useState<string | false>(false);
+	const [hoveringEmail, setHoveringEmail] = useState(false);
 	const [dragging, setDragging] = useState(false);
-
+	const [puzzle, setPuzzle] = useState<{
+		fen: string;
+		moves: string[];
+		makeFirstMove: boolean;
+	} | null>(null);
 	const { isMore, loadMore, repositories } = useRepositories("cestef");
-
+	useEffect(() => {
+		fetch("https://lichess.org/api/puzzle/daily")
+			.then((res) => res.json())
+			.then((data) => {
+				const pgn = data.game.pgn;
+				const chess = new Chess();
+				chess.loadPgn(pgn);
+				const fen = chess.fen();
+				// data.solution is ["e1e7","f4f6","e7f6"],
+				// we need to convert it to pgn
+				const moves = data.puzzle.solution.map((move: string) => {
+					const from = move.substring(0, 2);
+					const to = move.substring(2, 4);
+					return chess.move({ from, to, promotion: "q" }).san;
+				});
+				setPuzzle({
+					fen,
+					moves,
+					makeFirstMove: data.color === "white",
+				});
+			});
+	}, []);
+	console.log(puzzle);
 	return (
 		<>
 			<header className="flex justify-between items-center py-4 sm:py-6 px-6 sm:px-8 border-b border-gray-200 dark:border-gray-800 sticky top-0 bg-white dark:bg-background/70 z-10 mb-32">
@@ -52,7 +81,7 @@ export default function App() {
 			>
 				<div className="w-full h-full flex lg:block flex-col items-center">
 					<div className="float-left">
-						<div className="text-7xl sm:text-8xl font-bold mb-10 justify-center md:justify-start flex flex-wrap">
+						<div className="text-7xl sm:text-8xl font-bold mb-10 justify-center md:justify-start flex flex-wrap gap-4">
 							<motion.h2
 								animate={{ scale: [0.0, 1] }}
 								transition={{
@@ -170,12 +199,13 @@ export default function App() {
 					>
 						Latest repositories
 					</motion.h2>
-					<div className="flex flex-wrap justify-center items-center gap-4 mx-4">
+					<div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 mx-4">
 						{repositories.map((repo, index) => (
 							<Tooltip key={index} delayDuration={0}>
 								<TooltipTrigger>
 									<a href={repo.url}>
 										<motion.div
+											whileHover={{ scale: 1.05 }}
 											whileTap={{ scale: 0.95 }}
 											initial={{ opacity: 0 }}
 											whileInView={{ opacity: 1 }}
@@ -261,7 +291,10 @@ export default function App() {
 						Get in touch !
 					</motion.h2>
 
-					<Dialog>
+					<Dialog
+						open={open === "contact"}
+						onOpenChange={(e) => setOpen(e ? "contact" : false)}
+					>
 						<DialogTrigger>
 							<Button variant="outline" size="jumbo">
 								<Mail className="w-5 h-5 mr-3 inline-block" />
@@ -272,9 +305,74 @@ export default function App() {
 							<DialogHeader>
 								<DialogTitle className="text-2xl">Are you a robot ?</DialogTitle>
 								<DialogDescription className="text-base">
-									Please complete the following game to prove you're not a robot.
+									Please solve this puzzle to prove you're not a robot.
 								</DialogDescription>
 							</DialogHeader>
+							<ChessPuzzle.Root
+								puzzle={
+									puzzle ?? {
+										fen: "4kb1r/p2r1ppp/4qn2/1B2p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 0 1",
+										moves: ["Bxd7+", "Nxd7", "Qb8+", "Nxb8", "Rd8#"],
+										makeFirstMove: false,
+									}
+								}
+								onFail={() => setOpen(false)}
+								onSolve={() => setOpen("email")}
+							>
+								<ChessPuzzle.Board arePiecesDraggable={false} />
+							</ChessPuzzle.Root>
+							<p className="text-lg text-center mt-2">
+								{puzzle?.makeFirstMove ? "White to move" : "Black to move"}
+							</p>
+						</DialogContent>
+					</Dialog>
+					<Dialog
+						open={open === "email"}
+						onOpenChange={(e) => setOpen(e ? "email" : false)}
+					>
+						<DialogContent>
+							<DialogHeader>
+								<DialogTitle className="text-2xl">
+									Congratulations <Twemoji emoji="🎉" className="ml-2 w-7 h-7" />
+								</DialogTitle>
+							</DialogHeader>
+							<div className="text-lg flex flex-col items-center gap-2 justify-center">
+								<p>Here's my email address:</p>
+								<Tooltip delayDuration={0} open={hoveringEmail}>
+									<TooltipTrigger>
+										<p
+											onPointerEnter={() => setHoveringEmail(true)}
+											onPointerLeave={() => setHoveringEmail(false)}
+											onClick={() => {
+												navigator.clipboard.writeText(
+													"99,111,108,105,110,64,112,101,116,105,116,45,115,117,105,115,115,101,46,102,114"
+														.split(",")
+														.map((char) =>
+															String.fromCharCode(parseInt(char))
+														)
+														.join("")
+												);
+												setCopied(true);
+												setTimeout(() => setCopied(false), 5000);
+											}}
+											className="text-2xl"
+										>
+											<Bold>
+												{"99,111,108,105,110,64,112,101,116,105,116,45,115,117,105,115,115,101,46,102,114"
+													.split(",")
+													.map((char) =>
+														String.fromCharCode(parseInt(char))
+													)
+													.join("")}
+											</Bold>
+										</p>
+									</TooltipTrigger>
+									<TooltipContent side="right" className="ml-2 mb-1">
+										<Copy className="w-4 h-4 mr-2 inline-block" />
+										{copied ? "Copied!" : "Copy"}
+									</TooltipContent>
+								</Tooltip>
+							</div>
 						</DialogContent>
 					</Dialog>
 				</div>
