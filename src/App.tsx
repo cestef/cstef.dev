@@ -14,6 +14,14 @@ import { cn, getLanguageColor } from "./lib/utils";
 import { SOCIALS } from "./lib/constants";
 import { Timeline } from "./components/ui/timeline";
 import { Separator } from "./components/ui/separator";
+import {
+	Dialog,
+	DialogTrigger,
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+	DialogDescription,
+} from "./components/ui/dialog";
 
 export default function App() {
 	const [copied, setCopied] = useState(false);
@@ -252,10 +260,23 @@ export default function App() {
 					>
 						Get in touch !
 					</motion.h2>
-					<Button variant="outline" size="jumbo">
-						<Mail className="w-5 h-5 mr-3 inline-block" />
-						Contact me
-					</Button>
+
+					<Dialog>
+						<DialogTrigger>
+							<Button variant="outline" size="jumbo">
+								<Mail className="w-5 h-5 mr-3 inline-block" />
+								Contact me
+							</Button>
+						</DialogTrigger>
+						<DialogContent>
+							<DialogHeader>
+								<DialogTitle className="text-2xl">Are you a robot ?</DialogTitle>
+								<DialogDescription className="text-base">
+									Please complete the following game to prove you're not a robot.
+								</DialogDescription>
+							</DialogHeader>
+						</DialogContent>
+					</Dialog>
 				</div>
 			</main>
 			<footer className="flex flex-col justify-center items-center p-6 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-background/70 mt-32">
