@@ -128,7 +128,7 @@ export default function Socials({
 										>
 											<div className="flex flex-row justify-between items-center gap-2 w-full">
 												<FaSpotify className="w-8 h-8 mr-2 inline-block" />
-												<p className="truncate text-lg">
+												<p className="truncate text-lg w-48">
 													<b>{lastFM?.name}</b> - {lastFM?.artist}
 												</p>
 												<Image

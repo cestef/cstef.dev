@@ -46,15 +46,15 @@ export const useLastFM = (
 
 	const { recenttracks } = lastFMData;
 	const { track } = recenttracks;
-	if (track[0]["@attr"] && track[0]["@attr"].nowplaying === "true" && current) {
-		const { artist, name, image, url } = track[0];
 
-		return {
-			artist: artist["#text"],
-			name,
-			image: image.find((img: { size: string }) => img.size === size)?.["#text"],
-			url,
-		};
-	}
-	return null;
+	if (track[0]["@attr"] && track[0]["@attr"].nowplaying !== "true" && current) return null;
+
+	const { artist, name, image, url } = track[0];
+
+	return {
+		artist: artist["#text"],
+		name,
+		image: image.find((img: { size: string }) => img.size === size)?.["#text"],
+		url,
+	};
 };
