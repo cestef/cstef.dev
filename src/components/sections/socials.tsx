@@ -6,6 +6,7 @@ import { FaSpotify } from "react-icons/fa";
 import { P, match } from "ts-pattern";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import Image from "../composed/image";
 
 export default function Socials({
 	open,
@@ -130,8 +131,9 @@ export default function Socials({
 												<p className="truncate text-lg">
 													<b>{lastFM?.name}</b> - {lastFM?.artist}
 												</p>
-												<img
+												<Image
 													src={lastFM?.image}
+													alt="Last.fm album cover"
 													className="rounded-sm shadow-sm w-16 h-16 ml-2"
 												/>
 											</div>

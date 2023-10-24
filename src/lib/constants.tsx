@@ -1,5 +1,6 @@
 import { Link } from "@/components/ui/link";
-import { FaDiscord, FaGithub, FaSpotify, FaSteam, FaTwitter } from "react-icons/fa";
+import { FaDiscord, FaGithub, FaSpotify, FaSteam } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 export const SOCIALS: {
 	name: string;
@@ -14,28 +15,28 @@ export const SOCIALS: {
 		variant: "link",
 	},
 	{
-		name: "Twitter",
-		url: "https://twitter.com/cishtef",
-		icon: <FaTwitter className="sm:w-10 sm:h-10 w-8 h-8 text-blue-500" />,
-		variant: "link",
-	},
-	{
-		name: "Steam",
-		url: "https://steamcommunity.com/id/cishtef",
-		icon: <FaSteam className="sm:w-10 sm:h-10 w-8 h-8 text-blue-950 dark:text-white" />,
-		variant: "link",
-	},
-	{
 		name: "Discord",
 		url: "cstef",
 		icon: <FaDiscord className="sm:w-10 sm:h-10 w-8 h-8 text-[#5865F2]" />,
 		variant: "copy",
 	},
 	{
+		name: "X",
+		url: "https://x.com/cishtef",
+		icon: <FaXTwitter className="sm:w-10 sm:h-10 w-8 h-8" />,
+		variant: "link",
+	},
+	{
 		name: "Spotify",
 		url: "https://open.spotify.com/user/dyt7pgmjts2a5u8mtttix4jho",
 		icon: <FaSpotify className="sm:w-10 sm:h-10 w-8 h-8 text-[#1DB954]" />,
 		variant: "spotify",
+	},
+	{
+		name: "Steam",
+		url: "https://steamcommunity.com/id/cishtef",
+		icon: <FaSteam className="sm:w-10 sm:h-10 w-8 h-8 text-blue-950 dark:text-white" />,
+		variant: "link",
 	},
 ];
 export const EVENTS: {

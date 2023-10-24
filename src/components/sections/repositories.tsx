@@ -71,7 +71,7 @@ export default function Repositories() {
 								</motion.div>
 							</a>
 						</TooltipTrigger>
-						<TooltipContent>
+						<TooltipContent className="mb-2">
 							<ArrowUpRight className="w-4 h-4 mr-2 inline-block" />
 							GitHub
 						</TooltipContent>

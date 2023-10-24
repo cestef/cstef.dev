@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Lightbulb } from "lucide-react";
 import { useRef } from "react";
 import { useColorScheme } from "@/lib/theme";
+import { MdLightbulb } from "react-icons/md";
 
 const LightSwitch = () => {
 	const { toggleColorScheme } = useColorScheme();
@@ -27,8 +28,8 @@ const LightSwitch = () => {
 						}
 					}}
 				>
-					<Lightbulb
-						className="hidden md:block rotate-180 absolute -bottom-[68px] cursor-pointer"
+					<MdLightbulb
+						className="hidden md:block rotate-180 absolute -bottom-[68px] cursor-pointer text-yellow-400"
 						id="light-switch"
 						size={72}
 					/>

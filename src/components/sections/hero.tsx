@@ -42,20 +42,28 @@ export default function Hero({ setDragging }: { setDragging: (dragging: boolean)
 						</Bold>
 					</div>
 				</p>
-				<Button
-					variant="outline"
-					size="jumbo"
-					className="w-full mt-6"
-					onClick={() => {
-						const el = document.getElementById("contact");
-						if (el) {
-							el.scrollIntoView({ behavior: "smooth" });
-						}
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{
+						delay: 2.5,
 					}}
 				>
-					<Mail className="w-5 h-5 mr-3 inline-block" />
-					Contact me
-				</Button>
+					<Button
+						variant="outline"
+						size="jumbo"
+						className="w-full mt-6"
+						onClick={() => {
+							const el = document.getElementById("contact");
+							if (el) {
+								el.scrollIntoView({ behavior: "smooth" });
+							}
+						}}
+					>
+						<Mail className="w-5 h-5 mr-3 inline-block" />
+						Contact me
+					</Button>
+				</motion.div>
 			</div>
 			<div className="lg:float-right flex items-center justify-center lg:block">
 				<Terminal setDragging={setDragging} />
