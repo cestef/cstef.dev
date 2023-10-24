@@ -92,13 +92,13 @@ export const EVENTS: {
 	{
 		title: "My first job",
 		description:
-			"I was able to find an internship despite COVID at a local IT company. I worked there as a field technician, even though it was pretty exhausting and a bit boring sometimes, I had a lot of fun and learned lot of things.",
+			"I was able to find an internship despite COVID at a local IT company. I worked there as a field technician, even though it was pretty exhausting and a bit boring sometimes, I had a lot of fun and learned many new things.",
 		date: "2020",
 	},
 	{
 		title: "First job as a web-dev !",
 		description:
-			"I managed to find another internship, this time at Swisscom, one of the biggest IT company in Switzerland. I helped developing a Full-Stack app using React, the team there was amazing and we got along pretty well !",
+			"I managed to find another internship, this time at Swisscom, the biggest IT company in Switzerland. I helped developing a Full-Stack app using React, the team there was amazing and we got along pretty well !",
 		date: "2021",
 	},
 	{
@@ -109,7 +109,7 @@ export const EVENTS: {
 				which lead me to join{" "}
 				<Link href="https://itch.io/jam/brackeys-8/rate/1680462">Brackey's jam</Link> and
 				collaborate with amazing people on a game. We were very proud of the result (Placed{" "}
-				<b>6th</b> out of <b>1000+</b> games) and learned a lot of things.
+				<b>6th</b> out of <b>1000+</b> games).
 			</>
 		),
 		date: "2022",
