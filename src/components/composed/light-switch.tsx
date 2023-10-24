@@ -1,7 +1,7 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, Lightbulb } from "lucide-react";
-import { useRef } from "react";
 import { useColorScheme } from "@/lib/theme";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import { useRef } from "react";
 import { MdLightbulb } from "react-icons/md";
 
 const LightSwitch = () => {
