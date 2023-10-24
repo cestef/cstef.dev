@@ -48,7 +48,7 @@ export const EVENTS: {
 	{
 		title: "Beginnings",
 		description:
-			"I was very creative as a child, I loved building Legos and thus I began imaginating systems (that never worked) and fantasizing at big constructions when shopping",
+			"I was very creative as a child, I loved building Legos and thus I began imaginating systems (that never worked) and fantasizing at big constructions when shopping.",
 		date: "2005",
 	},
 	{
@@ -56,7 +56,7 @@ export const EVENTS: {
 		description: (
 			<>
 				Where it all began. My father showed me a block-programming platform named{" "}
-				<Link href="https://scratch.mit.edu">Scratch</Link>
+				<Link href="https://scratch.mit.edu">Scratch</Link>.
 			</>
 		),
 		date: "2013",
@@ -66,7 +66,7 @@ export const EVENTS: {
 		description: (
 			<>
 				I programmed useful things for the first time in real life with{" "}
-				<Link href="https://mblock.makeblock.com">mBlock</Link>
+				<Link href="https://mblock.makeblock.com">mBlock</Link>.
 			</>
 		),
 		date: "2014",
@@ -74,7 +74,7 @@ export const EVENTS: {
 	{
 		title: 'First steps into the "Real World"',
 		description:
-			"During a trip to Italy, with the idea of a Discord bot, a raspberry PI and the TV in the hotel room, I started to create my first program in JavaScript",
+			"During a trip to Italy, with the idea of a Discord bot, a raspberry PI and the TV in the hotel room, I started to create my first program in JavaScript.",
 		date: "2018",
 	},
 	{
