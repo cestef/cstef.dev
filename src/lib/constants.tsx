@@ -86,19 +86,19 @@ export const EVENTS: {
 	{
 		title: "Mine BOT",
 		description:
-			"My first serious project. I spent too much time on this, but this allowed me to discover what having a community is like and the duty to maintain a project.",
+			"My first serious project. This took me way too long, but it also allowed me to discover what having a community is like and the duty to maintain a project.",
 		date: "2019",
 	},
 	{
 		title: "My first job",
 		description:
-			"I was able to find an internship despite COVID at a local IT company. I worked there as a field technician, even though it was pretty exhausting and a bit boring sometimes, I had a lot of fun and learned many new things.",
+			"Despite COVID, I was able to find a summer job at a local IT company. I worked there as a field technician, even though it was pretty exhausting and a bit boring sometimes, I had a lot of fun and learned many new things.",
 		date: "2020",
 	},
 	{
 		title: "First job as a web-dev !",
 		description:
-			"I managed to find another internship, this time at Swisscom, the biggest IT company in Switzerland. I helped developing a Full-Stack app using React, the team there was amazing and we got along pretty well !",
+			"I managed to find another small job, this time at Swisscom, the biggest IT company in Switzerland. My project was to develop a Full-Stack app using React, the team there was amazing and we got along pretty well !",
 		date: "2021",
 	},
 	{

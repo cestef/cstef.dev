@@ -28,7 +28,7 @@ export function Timeline() {
 							"justify-end": index % 2 === 1,
 						})}
 					>
-						<h3 className={"mb-3 font-bold text-xl text-muted-foreground"}>
+						<h3 className={"mb-3 font-bold text-2xl text-muted-foreground"}>
 							{item.date}
 						</h3>
 					</div>
