@@ -42,7 +42,7 @@ export const EVENTS: {
 		title: "Beginnings",
 		description:
 			"I was very creative as a child, I loved building Legos and thus I began imaginating systems (that never worked) and fantasizing at big constructions when shopping",
-		date: "2005-2011",
+		date: "2005",
 	},
 	{
 		title: "Messing around",
@@ -114,3 +114,9 @@ export const EVENTS: {
 		date: "Today",
 	},
 ];
+
+export const EMAIL =
+	"99,111,108,105,110,64,112,101,116,105,116,45,115,117,105,115,115,101,46,102,114"
+		.split(",")
+		.map((char) => String.fromCharCode(parseInt(char)))
+		.join("");

@@ -10,6 +10,7 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"@radix-ui/react-collapsible": "^1.0.3",
 		"@react-chess-tools/react-chess-puzzle": "^0.2.1",
 		"@react-three/drei": "^9.88.4",
 		"@react-three/fiber": "^8.15.0",
