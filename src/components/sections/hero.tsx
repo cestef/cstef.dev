@@ -52,7 +52,7 @@ export default function Hero({ setDragging }: { setDragging: (dragging: boolean)
 					<Button
 						variant="outline"
 						size="jumbo"
-						className="w-full mt-6"
+						className="w-full mt-8"
 						onClick={() => {
 							const el = document.getElementById("contact");
 							if (el) {
