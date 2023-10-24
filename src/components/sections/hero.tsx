@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
-import { FileDown } from "lucide-react";
+import Terminal from "@/components/composed/terminal";
 import { Button } from "@/components/ui/button";
 import Twemoji from "@/components/ui/twemoji";
-import Terminal from "@/components/composed/terminal";
+import { motion } from "framer-motion";
+import { Mail } from "lucide-react";
 import { Bold } from "../ui/bold";
 
 export default function Hero({ setDragging }: { setDragging: (dragging: boolean) => void }) {
@@ -42,9 +42,19 @@ export default function Hero({ setDragging }: { setDragging: (dragging: boolean)
 						</Bold>
 					</div>
 				</p>
-				<Button variant="outline" size="jumbo" className="w-full mt-6">
-					<FileDown className="w-5 h-5 mr-3 inline-block" />
-					Download Resume
+				<Button
+					variant="outline"
+					size="jumbo"
+					className="w-full mt-6"
+					onClick={() => {
+						const el = document.getElementById("contact");
+						if (el) {
+							el.scrollIntoView({ behavior: "smooth" });
+						}
+					}}
+				>
+					<Mail className="w-5 h-5 mr-3 inline-block" />
+					Contact me
 				</Button>
 			</div>
 			<div className="lg:float-right flex items-center justify-center lg:block">

@@ -1,11 +1,11 @@
 import { Link } from "@/components/ui/link";
-import { FaDiscord, FaGithub, FaSteam, FaTwitter } from "react-icons/fa";
+import { FaDiscord, FaGithub, FaSpotify, FaSteam, FaTwitter } from "react-icons/fa";
 
 export const SOCIALS: {
 	name: string;
 	url: string;
 	icon: React.ReactNode;
-	variant: "copy" | "link";
+	variant: "copy" | "link" | "spotify";
 }[] = [
 	{
 		name: "GitHub",
@@ -30,6 +30,12 @@ export const SOCIALS: {
 		url: "cstef",
 		icon: <FaDiscord className="sm:w-10 sm:h-10 w-8 h-8 text-[#5865F2]" />,
 		variant: "copy",
+	},
+	{
+		name: "Spotify",
+		url: "https://open.spotify.com/user/dyt7pgmjts2a5u8mtttix4jho",
+		icon: <FaSpotify className="sm:w-10 sm:h-10 w-8 h-8 text-[#1DB954]" />,
+		variant: "spotify",
 	},
 ];
 export const EVENTS: {

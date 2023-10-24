@@ -59,9 +59,15 @@ dependencies:
   three-stdlib:
     specifier: ^2.28.0
     version: 2.28.0(three@0.157.0)
+  ts-pattern:
+    specifier: ^5.0.5
+    version: 5.0.5
   twemoji:
     specifier: ^14.0.2
     version: 14.0.2
+  use-last-fm:
+    specifier: ^0.6.1
+    version: 0.6.1(react@18.2.0)
 
 devDependencies:
   '@radix-ui/react-alert-dialog':
@@ -2289,6 +2295,11 @@ packages:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
     dev: true
 
+  /dequal@2.0.2:
+    resolution: {integrity: sha512-q9K8BlJVxK7hQYqa6XISGmBZbtQQWVXSrRrWreHC94rMt1QL/Impruc+7p2CYSYuVIUr+YCt6hjrs1kkdJRTug==}
+    engines: {node: '>=6'}
+    dev: false
+
   /detect-gpu@5.0.37:
     resolution: {integrity: sha512-EraWs84faI4iskB4qvE39bevMIazEvd1RpoyGLOBesRLbiz6eMeJqqRPHjEFClfRByYZzi9IzU35rBXIO76oDw==}
     dependencies:
@@ -3468,6 +3479,15 @@ packages:
       react: 18.2.0
     dev: false
 
+  /swr@0.4.2(react@18.2.0):
+    resolution: {integrity: sha512-SKGxcAfyijj/lE5ja5zVMDqJNudASH3WZPRUakDVOePTM18FnsXgugndjl9BSRwj+jokFCulMDe7F2pQL+VhEw==}
+    peerDependencies:
+      react: ^16.11.0 || ^17.0.0
+    dependencies:
+      dequal: 2.0.2
+      react: 18.2.0
+    dev: false
+
   /tailwind-merge@1.14.0:
     resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}
     dev: false
@@ -3593,6 +3613,10 @@ packages:
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
+  /ts-pattern@5.0.5:
+    resolution: {integrity: sha512-tL0w8U/pgaacOmkb9fRlYzWEUDCfVjjv9dD4wHTgZ61MjhuMt46VNWTG747NqW6vRzoWIKABVhFSOJ82FvXrfA==}
+    dev: false
+
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
@@ -3666,6 +3690,16 @@ packages:
       react: 18.2.0
       tslib: 2.6.2
     dev: true
+
+  /use-last-fm@0.6.1(react@18.2.0):
+    resolution: {integrity: sha512-mbLB9NpNFC2mDpvUgylkRvjWAITjVO3j2IPgtSrdanWBEXRsjMyPaEaDUsS5rJ0wSpvYAPyOQ9XxCUve6vKqpQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=17'
+    dependencies:
+      react: 18.2.0
+      swr: 0.4.2(react@18.2.0)
+    dev: false
 
   /use-sidecar@1.1.2(@types/react@18.2.15)(react@18.2.0):
     resolution: {integrity: sha512-epTbsLuzZ7lPClpz2TyryBfztm7m+28DlEv2ZCQ3MDr5ssiwyOwGH/e5F9CkfWjJ1t4clvI58yF822/GUkjjhw==}

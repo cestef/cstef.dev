@@ -119,3 +119,5 @@ export function getLanguageColor(language: string) {
 		"#00000000"
 	);
 }
+export const truncate = (str: string, n: number) =>
+	str.length > n ? str.slice(0, n - 1) + "..." : str;
