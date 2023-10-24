@@ -7,12 +7,17 @@ import Socials from "./components/sections/socials";
 import { Separator } from "./components/ui/separator";
 import { cn } from "./lib/utils";
 import Contact from "./components/sections/contact";
+import { useKonami } from "./lib/konami";
 
 export default function App() {
 	const [copied, setCopied] = useState(false);
 	const [open, setOpen] = useState<string | false>(false);
 
 	const [dragging, setDragging] = useState(false);
+
+	useKonami(() => {
+		window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+	});
 
 	return (
 		<>
