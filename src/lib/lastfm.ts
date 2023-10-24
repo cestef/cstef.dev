@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 
 const LASTFM_API_KEY = import.meta.env.VITE_LASTFM_API_KEY;
 
-export const useLastFM = (username: string, interval: number = 5000, size: string = "large") => {
+export const useLastFM = (
+	username: string,
+	interval: number = 5000,
+	size: string = "large",
+	current: boolean = false
+) => {
 	const [lastFMData, setLastFMData] = useState<{
 		recenttracks: {
 			track: {
@@ -41,7 +46,7 @@ export const useLastFM = (username: string, interval: number = 5000, size: strin
 
 	const { recenttracks } = lastFMData;
 	const { track } = recenttracks;
-	if (track[0]["@attr"] && track[0]["@attr"].nowplaying === "true") {
+	if (track[0]["@attr"] && track[0]["@attr"].nowplaying === "true" && current) {
 		const { artist, name, image, url } = track[0];
 
 		return {
