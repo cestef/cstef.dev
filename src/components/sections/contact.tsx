@@ -16,6 +16,7 @@ import { usePuzzle } from "@/lib/puzzle";
 import { ChessPuzzle } from "@react-chess-tools/react-chess-puzzle";
 import { Bold } from "../ui/bold";
 import Twemoji from "../ui/twemoji";
+import { useToast } from "../ui/use-toast";
 
 export default function Contact({
 	open,
@@ -28,6 +29,7 @@ export default function Contact({
 	copied: boolean;
 	setCopied: (copied: boolean) => void;
 }) {
+	const { toast } = useToast();
 	const [hoveringEmail, setHoveringEmail] = useState(false);
 	const puzzle = usePuzzle();
 	return (
@@ -67,7 +69,14 @@ export default function Contact({
 									makeFirstMove: false,
 								}
 							}
-							onFail={() => setOpen(false)}
+							onFail={() => {
+								setOpen(false);
+								toast({
+									title: "You failed the puzzle",
+									description: "Please try again",
+									variant: "destructive",
+								});
+							}}
 							onSolve={() => setOpen("email")}
 						>
 							<ChessPuzzle.Board arePiecesDraggable={false} />
