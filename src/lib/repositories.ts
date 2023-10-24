@@ -16,7 +16,7 @@ export const useRepositories = (user: string) => {
 
 	useEffect(() => {
 		fetch(
-			`https://api.github.com/users/${user}/repos?sort=updated&direction=desc&per_page=8&page=${page}`
+			`https://api.github.com/users/${user}/repos?sort=pushed&direction=desc&per_page=8&page=${page}`
 		)
 			.then((res) => res.json())
 			.then((data) => {
