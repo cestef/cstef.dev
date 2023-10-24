@@ -33,18 +33,19 @@ export function Timeline() {
 						</h3>
 					</div>
 					<div className="z-20 flex items-center order-1 bg-muted-foreground shadow-xl w-6 h-6 rounded-full" />
-					<div
+					<motion.div
 						className={cn(
-							"order-1 w-5/12 px-8 py-6 rounded-lg border bg-card text-card-foreground flex flex-col justify-center",
+							"order-1 w-5/12 px-8 py-6 rounded-lg border bg-card text-card-foreground flex flex-col justify-center cursor-pointer",
 							{
 								"items-start": index % 2 === 0,
 								"items-end": index % 2 === 1,
 							}
 						)}
+						whileHover={{ scale: 1.05 }}
 					>
 						<h3 className={"mb-3 font-bold text-2xl"}>{item.title}</h3>
 						<p className={"text-muted-foreground"}>{item.description}</p>
-					</div>
+					</motion.div>
 				</motion.div>
 			))}
 		</div>

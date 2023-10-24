@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Timeline } from "../ui/timeline";
+import { Timeline } from "../composed/timeline";
 
 export default function AboutMe() {
 	return (
