@@ -127,3 +127,39 @@ export const EMAIL =
 		.split(",")
 		.map((char) => String.fromCharCode(parseInt(char)))
 		.join("");
+
+export const FILE_TREE: Dir = {
+	type: "dir",
+	name: "root",
+	children: [
+		{
+			type: "dir",
+			name: "home",
+			children: [
+				{
+					type: "dir",
+					name: "cstef",
+					children: [
+						{
+							type: "file",
+							name: "README.md",
+							content: "hemlo",
+						},
+					],
+				},
+			],
+		},
+	],
+};
+
+export interface File {
+	type: "file";
+	name: string;
+	content: string;
+}
+
+export interface Dir {
+	type: "dir";
+	name: string;
+	children: (File | Dir)[];
+}

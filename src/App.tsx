@@ -13,8 +13,6 @@ export default function App() {
 	const [copied, setCopied] = useState(false);
 	const [open, setOpen] = useState<string | false>(false);
 
-	const [dragging, setDragging] = useState(false);
-
 	useKonami(() => {
 		window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 	});
@@ -24,13 +22,10 @@ export default function App() {
 			<Header />
 			<main
 				className={cn(
-					"container mx-2 xl:mx-auto px-6 flex flex-col justify-between items-center",
-					{
-						"select-none": dragging,
-					}
+					"container mx-2 xl:mx-auto px-6 flex flex-col justify-between items-center"
 				)}
 			>
-				<Hero setDragging={setDragging} />
+				<Hero />
 				<Socials open={open} setOpen={setOpen} copied={copied} setCopied={setCopied} />
 				<Repositories />
 				<AboutMe />

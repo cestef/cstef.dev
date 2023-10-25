@@ -1,15 +1,25 @@
+import { Dir, FILE_TREE, File } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { Html, OrbitControls, PerspectiveCamera, Stage } from "@react-three/drei";
+import { Html, PerspectiveCamera, Stage } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { Loader2 } from "lucide-react";
+import path from "path";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { Model } from "./Computer";
-import { Loader2 } from "lucide-react";
 
 interface TerminalState {
 	input: string;
-	output: string[];
+	output: Output[];
 	history: string[];
 	historyIndex: number;
+	cwd: string;
+}
+
+class Output {
+	constructor(public content: React.ReactNode, public className: string = "") {}
+	toElement() {
+		return <p className={cn(this.className)}>{this.content}</p>;
+	}
 }
 
 const useTerminalState = (): {
@@ -18,9 +28,19 @@ const useTerminalState = (): {
 } => {
 	const [state, setState] = useState<TerminalState>({
 		input: "",
-		output: [],
+		output: [
+			new Output(
+				(
+					<>
+						Last login: <span className="text-green-500">Sun Sep 12 2021 12:00:00</span>{" "}
+						on ttys000
+					</>
+				)
+			),
+		],
 		history: [],
 		historyIndex: -1,
+		cwd: "/",
 	});
 
 	const set = useCallback(
@@ -32,26 +52,19 @@ const useTerminalState = (): {
 
 	return { state, set };
 };
+
+enum ControlCodes {
+	RESET,
+}
+
+interface Command {
+	name: string;
+	description: string;
+	run: (args: string[]) => ControlCodes | Output[];
+}
+
 export function Terminal({ className }: { className?: string }) {
 	const { state, set } = useTerminalState();
-
-	const commands = {
-		clear: () => {
-			set("output", []);
-		},
-		help: () => {
-			set("output", [
-				...state.output,
-				"Available commands:",
-				"- clear: clear the terminal",
-				"- help: show this help message",
-				"- echo: display a message",
-			]);
-		},
-		echo: (message: string) => {
-			set("output", [...state.output, message]);
-		},
-	};
 
 	const handleInputChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,10 +85,60 @@ export function Terminal({ className }: { className?: string }) {
 				set("history", [...state.history, state.input]);
 				set("historyIndex", state.history.length);
 				const [command, ...args] = state.input.split(" ");
-				const foundCommand =
-					commands[command as keyof typeof commands] ??
-					(() => set("output", [...state.output, `Command not found: ${command}`]));
-				foundCommand?.(args.join(" "));
+				if (command === "help") {
+					set(
+						"output",
+						[
+							...state.output,
+							new Output(`> ${state.input}`),
+							new Output("Available commands:", "font-bold"),
+						].concat(
+							[
+								new Output(
+									(
+										<>
+											<span className="text-green-400">help</span> - Display
+											this message
+										</>
+									)
+								),
+							].concat(
+								commands.map(
+									(command) =>
+										new Output(
+											(
+												<>
+													<span className="text-green-400">
+														{command.name}
+													</span>{" "}
+													- {command.description}
+												</>
+											)
+										)
+								)
+							)
+						)
+					);
+					set("input", "");
+					return;
+				}
+				const foundCommand = commands.find((e) => e.name === command);
+				if (!foundCommand) {
+					set("output", [
+						...state.output,
+						new Output(`> ${state.input}`),
+						new Output(`Command not found: ${command}`, "text-destructive"),
+					]);
+					set("input", "");
+					return;
+				}
+				const res = foundCommand.run(args);
+				if (res === ControlCodes.RESET) set("output", []);
+				else
+					set(
+						"output",
+						[...state.output, new Output(`> ${state.input}`)].concat(res ?? [])
+					);
 				set("input", "");
 			} else if (e.key === "ArrowUp") {
 				if (state.historyIndex > 0) {
@@ -92,6 +155,110 @@ export function Terminal({ className }: { className?: string }) {
 		[state, set]
 	);
 
+	const getAtPath = (path: string, dir: Dir): Dir | File | undefined => {
+		path = path.trim();
+		if (path === "/") return dir;
+		let [first, ...rest] = path.split("/");
+		if (first === "") {
+			first = rest[0];
+			rest = rest.slice(1);
+		}
+		const found = dir.children.find((e) => e.name === first);
+		if (!found) return undefined;
+		if (rest.length === 0) return found;
+		if (found.type !== "dir") return undefined;
+		return getAtPath(rest.join("/"), found);
+	};
+
+	const commands: Command[] = [
+		{
+			name: "clear",
+			description: "Clear the terminal",
+			run: () => ControlCodes.RESET,
+		},
+		{
+			name: "echo",
+			description: "Display a message",
+			run: (args) => [new Output(args.join(" "))],
+		},
+		{
+			name: "ls",
+			description: "List files and directories",
+			run: (args) => {
+				const resolvedPath = path.resolve(state.cwd, args[0] ?? ".");
+				console.log(resolvedPath);
+				const dir = getAtPath(resolvedPath, FILE_TREE);
+				if (!dir) {
+					return [
+						new Output(
+							`ls: cannot access '${args[0]}': No such file or directory`,
+							"text-destructive"
+						),
+					];
+				}
+				if (dir.type !== "dir") {
+					return [
+						new Output(
+							`ls: cannot access '${args[0]}': Not a directory`,
+							"text-destructive"
+						),
+					];
+				}
+				console.log(dir.children);
+				return dir.children.map((file) => new Output(file.name));
+			},
+		},
+		{
+			name: "cd",
+			description: "Change directory",
+			run: (args) => {
+				const resolvedPath = path.resolve(state.cwd, args[0] ?? ".");
+				console.log(resolvedPath);
+				const dir = getAtPath(resolvedPath, FILE_TREE);
+				if (!dir) {
+					return [
+						new Output(`cd: no such file or directory: ${args[0]}`, "text-destructive"),
+					];
+				}
+				if (dir.type !== "dir") {
+					return [new Output(`cd: not a directory: ${args[0]}`, "text-destructive")];
+				}
+				set("cwd", resolvedPath);
+				return [];
+			},
+		},
+		{
+			name: "cat",
+			description: "Read a file",
+			run: (args) => {
+				const resolvedPath = path.resolve(state.cwd, args[0] ?? ".");
+				console.log(resolvedPath);
+				const file = getAtPath(resolvedPath, FILE_TREE);
+				if (!file) {
+					return [
+						new Output(
+							`cat: no such file or directory: ${args[0]}`,
+							"text-destructive"
+						),
+					];
+				}
+				if (file.type !== "file") {
+					return [new Output(`cat: not a file: ${args[0]}`, "text-destructive")];
+				}
+				return [new Output(file.content)];
+			},
+		},
+		{
+			name: "pwd",
+			description: "Print working directory",
+			run: () => [new Output(state.cwd)],
+		},
+		{
+			name: "whoami",
+			description: "Print current user",
+			run: () => [new Output("root")],
+		},
+	];
 	useEffect(() => {
 		const terminal = document.getElementById("terminal");
 		if (terminal) {
@@ -101,10 +268,7 @@ export function Terminal({ className }: { className?: string }) {
 
 	return (
 		<div
-			className={cn(
-				"h-full w-full overflow-y-auto bg-accent rounded-md p-6 font-mono",
-				className
-			)}
+			className={cn("h-full w-full overflow-y-auto rounded-md font-mono", className)}
 			onClick={() => {
 				const input = document.querySelector("#terminal input");
 				if (input) {
@@ -112,14 +276,17 @@ export function Terminal({ className }: { className?: string }) {
 				}
 			}}
 		>
-			<div className="flex justify-center items-center text-gray-400">guest@cstef.dev</div>
-			<div id="terminal">
+			<div className="flex flex-col bg-background justify-center items-center text-gray-400 select-none sticky top-0">
+				root@cstef.dev
+			</div>
+			<div id="terminal" className="p-4">
 				{state.output.map((line, index) => (
-					<div key={index} className="terminal__line">
-						{line}
+					<div key={index} className="">
+						{line.toElement()}
 					</div>
 				))}
-				<div className="flex flex-row gap-3">
+				<div className="flex flex-row gap-2">
+					<span className="text-muted-foreground">{formatCWD(state.cwd)}</span>
 					<span>$</span>
 					<input
 						className="bg-transparent w-full focus:outline-none"
@@ -134,19 +301,17 @@ export function Terminal({ className }: { className?: string }) {
 	);
 }
 
-export default function MacbookTerminal({
-	setDragging,
-}: {
-	setDragging: (dragging: boolean) => void;
-}) {
+export function Macintosh() {
 	return (
-		<Canvas className="lg:!w-[30vw] lg:!h-[40svh] !w-[75vw] !h-[50svh]">
-			<Element setDragging={setDragging} />
-		</Canvas>
+		<div className="lg:!w-[30vw] lg:!h-[40svh] !w-[75vw] !h-[50svh]">
+			<Canvas className="w-full h-full">
+				<Element />
+			</Canvas>
+		</div>
 	);
 }
 
-function Element({ setDragging }: { setDragging: (dragging: boolean) => void }) {
+function Element() {
 	return (
 		<>
 			<Suspense
@@ -160,16 +325,15 @@ function Element({ setDragging }: { setDragging: (dragging: boolean) => void }) 
 					<Model />
 				</Stage>
 			</Suspense>
-			<OrbitControls
-				enablePan={false}
-				enableZoom={false}
-				minPolarAngle={Math.PI / 2.2}
-				maxPolarAngle={Math.PI / 2.2}
-				autoRotate
-				onStart={() => setDragging(true)}
-				onEnd={() => setDragging(false)}
-			/>
 			<PerspectiveCamera makeDefault position={[1, 1, 25]} fov={50} zoom={0.5} />
 		</>
 	);
 }
+
+const CWD_ALIASES = {
+	"/home/cstef": "~",
+};
+
+const formatCWD = (cwd: string) => {
+	return CWD_ALIASES[cwd as keyof typeof CWD_ALIASES] ?? cwd;
+};

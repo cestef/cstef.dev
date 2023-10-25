@@ -1,11 +1,20 @@
-import Terminal from "@/components/composed/terminal";
+import { Macintosh, Terminal } from "@/components/composed/terminal";
 import { Button } from "@/components/ui/button";
 import Twemoji from "@/components/ui/twemoji";
 import { motion } from "framer-motion";
-import { Mail } from "lucide-react";
+import { Mail, TerminalIcon } from "lucide-react";
 import { Bold } from "../ui/bold";
+import {
+	ContextMenu,
+	ContextMenuContent,
+	ContextMenuItem,
+	ContextMenuTrigger,
+} from "../ui/context-menu";
+import { useState } from "react";
+import { Dialog, DialogContent } from "../ui/dialog";
 
-export default function Hero({ setDragging }: { setDragging: (dragging: boolean) => void }) {
+export default function Hero() {
+	const [terminalOpen, setTerminalOpen] = useState(false);
 	return (
 		<div className="w-full h-full flex lg:block flex-col items-center">
 			<div className="float-left">
@@ -65,9 +74,27 @@ export default function Hero({ setDragging }: { setDragging: (dragging: boolean)
 					</Button>
 				</motion.div>
 			</div>
-			<div className="lg:float-right flex items-center justify-center lg:block">
-				<Terminal setDragging={setDragging} />
-			</div>
+			<ContextMenu>
+				<ContextMenuTrigger asChild>
+					<div
+						className="lg:float-right flex items-center justify-center lg:block"
+						// onContextMenu={(e) => e.nativeEvent.preventDefault()}
+					>
+						<Macintosh />
+					</div>
+				</ContextMenuTrigger>
+				<ContextMenuContent>
+					<ContextMenuItem onClick={() => setTerminalOpen(true)}>
+						<TerminalIcon className="w-4 h-4 mr-2 inline-block" />
+						Hack into this machine
+					</ContextMenuItem>
+				</ContextMenuContent>
+			</ContextMenu>
+			<Dialog open={terminalOpen} onOpenChange={(e) => setTerminalOpen(e)}>
+				<DialogContent className="max-w-3xl h-[35rem]">
+					<Terminal />
+				</DialogContent>
+			</Dialog>
 		</div>
 	);
 }

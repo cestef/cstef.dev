@@ -6,9 +6,7 @@ export const useKonami = (callback: () => void) => {
 
 	// After 10 seconds, reset the keys array
 	useEffect(() => {
-		console.log("setting timeout");
 		const timeoutId = setTimeout(() => {
-			console.log("resetting keys");
 			setKeys([]);
 		}, 10000);
 
@@ -17,7 +15,6 @@ export const useKonami = (callback: () => void) => {
 
 	// If the keys array matches the konami code, set konami to true
 	useEffect(() => {
-		console.log(keys.join(""));
 		if (keys.join("") === "38384040373937396665") {
 			setKonami(true);
 			callback();

@@ -19,6 +19,7 @@
 		"lucide-react": "^0.288.0",
 		"moment": "^2.29.4",
 		"nanoid": "3",
+		"path-browserify": "^1.0.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-icons": "^4.11.0",
