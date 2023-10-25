@@ -154,6 +154,12 @@ export const FILE_TREE: Dir = {
 						},
 						{
 							type: "file",
+							name: "meow.png",
+							path: "/assets/meow.png",
+							contentType: "image/png",
+						},
+						{
+							type: "file",
 							name: "README",
 							content: `Hi there 👋
 It looks like you found this file, I'm not sure how you did it but congrats !
