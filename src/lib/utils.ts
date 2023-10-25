@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { useCallback, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { Dir, File } from "./constants";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -121,3 +122,17 @@ export function getLanguageColor(language: string) {
 }
 export const truncate = (str: string, n: number) =>
 	str.length > n ? str.slice(0, n - 1) + "..." : str;
+export const getAtPath = (path: string, dir: Dir): Dir | File | undefined => {
+	path = path.trim();
+	if (path === "/") return dir;
+	let [first, ...rest] = path.split("/");
+	if (first === "") {
+		first = rest[0];
+		rest = rest.slice(1);
+	}
+	const found = dir.children.find((e) => e.name === first);
+	if (!found) return undefined;
+	if (rest.length === 0) return found;
+	if (found.type !== "dir") return undefined;
+	return getAtPath(rest.join("/"), found);
+};

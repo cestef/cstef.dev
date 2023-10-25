@@ -1,13 +1,12 @@
-import { Dir, FILE_TREE, File } from "@/lib/constants";
+import { ControlCodes, useCommands } from "@/lib/commands";
 import { cn } from "@/lib/utils";
 import { Html, PerspectiveCamera, Stage } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Loader2 } from "lucide-react";
-import path from "path";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { Model } from "./Computer";
 
-interface TerminalState {
+export interface TerminalState {
 	input: string;
 	output: Output[];
 	history: string[];
@@ -15,7 +14,7 @@ interface TerminalState {
 	cwd: string;
 }
 
-class Output {
+export class Output {
 	constructor(public content: React.ReactNode, public className: string = "") {}
 	toElement() {
 		return <p className={cn(this.className)}>{this.content}</p>;
@@ -53,19 +52,9 @@ const useTerminalState = (): {
 	return { state, set };
 };
 
-enum ControlCodes {
-	RESET,
-}
-
-interface Command {
-	name: string;
-	description: string;
-	run: (args: string[]) => ControlCodes | Output[];
-}
-
 export function Terminal({ className }: { className?: string }) {
 	const { state, set } = useTerminalState();
-
+	const commands = useCommands({ state, set });
 	const handleInputChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
 			set("input", e.target.value);
@@ -155,110 +144,6 @@ export function Terminal({ className }: { className?: string }) {
 		[state, set]
 	);
 
-	const getAtPath = (path: string, dir: Dir): Dir | File | undefined => {
-		path = path.trim();
-		if (path === "/") return dir;
-		let [first, ...rest] = path.split("/");
-		if (first === "") {
-			first = rest[0];
-			rest = rest.slice(1);
-		}
-		const found = dir.children.find((e) => e.name === first);
-		if (!found) return undefined;
-		if (rest.length === 0) return found;
-		if (found.type !== "dir") return undefined;
-		return getAtPath(rest.join("/"), found);
-	};
-
-	const commands: Command[] = [
-		{
-			name: "clear",
-			description: "Clear the terminal",
-			run: () => ControlCodes.RESET,
-		},
-		{
-			name: "echo",
-			description: "Display a message",
-			run: (args) => [new Output(args.join(" "))],
-		},
-		{
-			name: "ls",
-			description: "List files and directories",
-			run: (args) => {
-				const resolvedPath = path.resolve(state.cwd, args[0] ?? ".");
-				console.log(resolvedPath);
-				const dir = getAtPath(resolvedPath, FILE_TREE);
-				if (!dir) {
-					return [
-						new Output(
-							`ls: cannot access '${args[0]}': No such file or directory`,
-							"text-destructive"
-						),
-					];
-				}
-				if (dir.type !== "dir") {
-					return [
-						new Output(
-							`ls: cannot access '${args[0]}': Not a directory`,
-							"text-destructive"
-						),
-					];
-				}
-				console.log(dir.children);
-				return dir.children.map((file) => new Output(file.name));
-			},
-		},
-		{
-			name: "cd",
-			description: "Change directory",
-			run: (args) => {
-				const resolvedPath = path.resolve(state.cwd, args[0] ?? ".");
-				console.log(resolvedPath);
-				const dir = getAtPath(resolvedPath, FILE_TREE);
-				if (!dir) {
-					return [
-						new Output(`cd: no such file or directory: ${args[0]}`, "text-destructive"),
-					];
-				}
-				if (dir.type !== "dir") {
-					return [new Output(`cd: not a directory: ${args[0]}`, "text-destructive")];
-				}
-				set("cwd", resolvedPath);
-				return [];
-			},
-		},
-		{
-			name: "cat",
-			description: "Read a file",
-			run: (args) => {
-				const resolvedPath = path.resolve(state.cwd, args[0] ?? ".");
-				console.log(resolvedPath);
-				const file = getAtPath(resolvedPath, FILE_TREE);
-				if (!file) {
-					return [
-						new Output(
-							`cat: no such file or directory: ${args[0]}`,
-							"text-destructive"
-						),
-					];
-				}
-				if (file.type !== "file") {
-					return [new Output(`cat: not a file: ${args[0]}`, "text-destructive")];
-				}
-				return [new Output(file.content)];
-			},
-		},
-		{
-			name: "pwd",
-			description: "Print working directory",
-			run: () => [new Output(state.cwd)],
-		},
-		{
-			name: "whoami",
-			description: "Print current user",
-			run: () => [new Output("root")],
-		},
-	];
 	useEffect(() => {
 		const terminal = document.getElementById("terminal");
 		if (terminal) {
