@@ -19,7 +19,7 @@ export const useKonami = (callback: () => void) => {
 			setKonami(true);
 			callback();
 		}
-	}, [keys]);
+	}, [keys, callback]);
 
 	// Add the pressed key to the keys array
 	const handleKeyDown = (event: KeyboardEvent) => {
