@@ -144,6 +144,7 @@ export const FILE_TREE: Dir = {
 							type: "file",
 							name: "README.md",
 							content: "hemlo",
+							contentType: "text/markdown",
 						},
 					],
 				},
@@ -156,6 +157,7 @@ export interface File {
 	type: "file";
 	name: string;
 	content: string;
+	contentType?: string;
 }
 
 export interface Dir {

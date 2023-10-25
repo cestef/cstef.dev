@@ -76,10 +76,7 @@ export default function Hero() {
 			</div>
 			<ContextMenu>
 				<ContextMenuTrigger asChild>
-					<div
-						className="lg:float-right flex items-center justify-center lg:block"
-						// onContextMenu={(e) => e.nativeEvent.preventDefault()}
-					>
+					<div className="lg:float-right flex items-center justify-center lg:block">
 						<Macintosh />
 					</div>
 				</ContextMenuTrigger>
@@ -92,7 +89,7 @@ export default function Hero() {
 			</ContextMenu>
 			<Dialog open={terminalOpen} onOpenChange={(e) => setTerminalOpen(e)}>
 				<DialogContent className="max-w-3xl h-[35rem]">
-					<Terminal />
+					<Terminal onExit={() => setTerminalOpen(false)} />
 				</DialogContent>
 			</Dialog>
 		</div>

@@ -52,7 +52,7 @@ const useTerminalState = (): {
 	return { state, set };
 };
 
-export function Terminal({ className }: { className?: string }) {
+export function Terminal({ className, onExit }: { className?: string; onExit: () => void }) {
 	const { state, set } = useTerminalState();
 	const commands = useCommands({ state, set });
 	const handleInputChange = useCallback(
@@ -63,7 +63,7 @@ export function Terminal({ className }: { className?: string }) {
 	);
 
 	const handleInputKeyDown = useCallback(
-		(e: React.KeyboardEvent<HTMLInputElement>) => {
+		async (e: React.KeyboardEvent<HTMLInputElement>) => {
 			if (e.ctrlKey) {
 				if (e.key === "l") {
 					set("output", []);
@@ -74,43 +74,7 @@ export function Terminal({ className }: { className?: string }) {
 				set("history", [...state.history, state.input]);
 				set("historyIndex", state.history.length);
 				const [command, ...args] = state.input.split(" ");
-				if (command === "help") {
-					set(
-						"output",
-						[
-							...state.output,
-							new Output(`> ${state.input}`),
-							new Output("Available commands:", "font-bold"),
-						].concat(
-							[
-								new Output(
-									(
-										<>
-											<span className="text-green-400">help</span> - Display
-											this message
-										</>
-									)
-								),
-							].concat(
-								commands.map(
-									(command) =>
-										new Output(
-											(
-												<>
-													<span className="text-green-400">
-														{command.name}
-													</span>{" "}
-													- {command.description}
-												</>
-											)
-										)
-								)
-							)
-						)
-					);
-					set("input", "");
-					return;
-				}
+
 				const foundCommand = commands.find((e) => e.name === command);
 				if (!foundCommand) {
 					set("output", [
@@ -121,9 +85,11 @@ export function Terminal({ className }: { className?: string }) {
 					set("input", "");
 					return;
 				}
-				const res = foundCommand.run(args);
+				const res = await foundCommand.run(args);
 				if (res === ControlCodes.RESET) set("output", []);
-				else
+				else if (res === ControlCodes.EXIT) {
+					onExit();
+				} else
 					set(
 						"output",
 						[...state.output, new Output(`> ${state.input}`)].concat(res ?? [])
