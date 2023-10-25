@@ -1,0 +1,39 @@
+{
+	"name": "backend",
+	"version": "1.0.0",
+	"description": "This project was bootstrapped with Fastify-CLI.",
+	"main": "app.ts",
+	"directories": {
+		"test": "test"
+	},
+	"scripts": {
+		"test": "npm run build:ts && tsc -p test/tsconfig.json && tap --ts \"test/**/*.test.ts\"",
+		"start": "npm run build:ts && fastify start -l info dist/app.js",
+		"build:ts": "tsc",
+		"watch:ts": "tsc -w",
+		"dev": "npm run build:ts && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"npm:watch:ts\" \"npm:dev:start\"",
+		"dev:start": "fastify start --ignore-watch=.ts$ -w -l info -P dist/app.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@fastify/autoload": "^5.8.0",
+		"@fastify/cors": "^8.4.0",
+		"@fastify/env": "^4.2.0",
+		"@fastify/rate-limit": "^8.0.3",
+		"@fastify/sensible": "^5.5.0",
+		"dotenv": "^16.3.1",
+		"fastify": "^4.24.3",
+		"fastify-cli": "^5.8.0",
+		"fastify-plugin": "^4.5.1",
+		"zod": "^3.22.4"
+	},
+	"devDependencies": {
+		"@types/node": "^20.8.9",
+		"concurrently": "^8.2.2",
+		"fastify-tsconfig": "^2.0.0",
+		"ts-node": "^10.9.1",
+		"typescript": "^5.2.2"
+	}
+}

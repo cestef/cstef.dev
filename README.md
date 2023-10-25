@@ -1,49 +1,30 @@
-# cstef.dev
+# 👨‍💻 cstef.dev
 
-This is just my personal portfolio built using [`React`](https://reactjs.org) and [`Material-Ui`](https://mui.com)
+My personal website, built with [Vite](https://vitejs.dev/), [React](https://reactjs.org/) and [Tailwind CSS](https://tailwindcss.com/).
 
-## Installing
+View it live at [cstef.dev](https://cstef.dev/).
 
-You can setup the project with your favorite package manager:
+## Development
 
-```
-npm install
-```
+I recommend using [pnpm](https://pnpm.io/) to install the dependencies and run the scripts.
 
-or
-```
-yarn
-```
+### Install dependencies
 
-## Running locally
-
-Again, use your favorite package manager to run the npm script:
-
-```
-npm start
-```
-or 
-```
-yarn start
+```bash
+pnpm install
 ```
 
-## Building
+### Run development server
 
-This will produce a `build` directory containing the optimized code for production
-
+```bash
+pnpm dev
 ```
-npm run build
+You can then access the development server at the address displayed in the console. (or press <kbd>O</kbd> to open it in your default browser)
+
+### Build for production
+
+```bash
+pnpm build
 ```
 
-or 
-
-```
-yarn build
-```
-
-There is also the `build:deploy` script, but this one is mainly for my personal use, since I deploy on an [`Apache`](https://httpd.apache.org/) server.
-
-
-## Contributing
-
-As always, PRs are welcome !
+The build will be available in the `dist` folder.
