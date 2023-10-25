@@ -194,7 +194,6 @@ export const useCommands = ({
 					const json = (await res.json()) as {
 						statusCode?: number;
 						success: boolean;
-						error?: any;
 					};
 					if (json.statusCode === 429)
 						return [
