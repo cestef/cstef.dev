@@ -99,7 +99,19 @@ export const useCommands = ({
 				if (file.type !== "file") {
 					return [new Output(`cat: not a file: ${args[0]}`, "text-destructive")];
 				}
-				return file.content?.split("\n").map((line) => new Output(line)) ?? [];
+				if (!file.content && !file.path) {
+					return [new Output(`cat: file has no content: ${args[0]}`, "text-destructive")];
+				}
+
+				if (file.content)
+					return file.content.split("\n").map((line) => new Output(line)) ?? [];
+				else {
+					const a = document.createElement("a");
+					a.href = file.path as string;
+					a.target = "_blank";
+					a.click();
+					return [];
+				}
 			},
 		},
 		{
