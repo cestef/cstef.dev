@@ -54,7 +54,13 @@ export const useCommands = ({
 					];
 				}
 				console.log(dir.children);
-				return dir.children.map((file) => new Output(file.name));
+				return dir.children.map(
+					(file) =>
+						new Output(
+							`${file.name}${file.type === "dir" ? "/" : ""}`,
+							file.type === "dir" ? "font-bold" : ""
+						)
+				);
 			},
 		},
 		{
@@ -104,6 +110,18 @@ export const useCommands = ({
 			name: "whoami",
 			description: "Print current user",
 			run: () => [new Output("root")],
+		},
+		{
+			name: "sudo",
+			description: "Run a command as root",
+			run: () => {
+				return [
+					new Output(
+						`With great power comes great responsibility...`,
+						"text-destructive"
+					),
+				];
+			},
 		},
 	];
 
