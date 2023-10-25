@@ -142,9 +142,24 @@ export const FILE_TREE: Dir = {
 					children: [
 						{
 							type: "file",
-							name: "README.md",
-							content: "hemlo",
-							contentType: "text/markdown",
+							name: "poem.txt",
+							path: "/assets/poem.txt",
+							contentType: "text/plain",
+						},
+						{
+							type: "file",
+							name: "silly_cat.png",
+							path: "/assets/silly_cat.png",
+							contentType: "image/png",
+						},
+						{
+							type: "file",
+							name: "README",
+							content: `Hi there 👋
+It looks like you found this file, I'm not sure how you did it but congrats !
+I may or may not have hidden some other secrets in this website, try to find them all !
+Hint: Type "help" in the terminal to get started.`,
+							contentType: "text/plain",
 						},
 					],
 				},
@@ -156,7 +171,8 @@ export const FILE_TREE: Dir = {
 export interface File {
 	type: "file";
 	name: string;
-	content: string;
+	content?: string;
+	path?: string;
 	contentType?: string;
 }
 

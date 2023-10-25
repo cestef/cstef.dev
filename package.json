@@ -6,9 +6,11 @@
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
+		"concurrently": "^8.2.2",
 		"husky": "^8.0.0"
 	},
 	"scripts": {
-		"prepare": "husky install"
+		"prepare": "husky install",
+		"dev": "concurrently \"pnpm --filter=web dev\" \"pnpm --filter=backend dev\""
 	}
 }

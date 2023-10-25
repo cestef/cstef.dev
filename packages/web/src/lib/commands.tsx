@@ -99,7 +99,7 @@ export const useCommands = ({
 				if (file.type !== "file") {
 					return [new Output(`cat: not a file: ${args[0]}`, "text-destructive")];
 				}
-				return [new Output(file.content)];
+				return file.content?.split("\n").map((line) => new Output(line)) ?? [];
 			},
 		},
 		{
@@ -111,18 +111,6 @@ export const useCommands = ({
 			name: "whoami",
 			description: "Print current user",
 			run: () => [new Output("root")],
-		},
-		{
-			name: "sudo",
-			description: "Run a command as root",
-			run: () => {
-				return [
-					new Output(
-						`With great power comes great responsibility...`,
-						"text-destructive"
-					),
-				];
-			},
 		},
 		{
 			name: "help",
@@ -167,14 +155,26 @@ export const useCommands = ({
 				if (file.type !== "file") {
 					return [new Output(`download: not a file: ${args[0]}`, "text-destructive")];
 				}
-				const blob = new Blob([file.content], { type: file.contentType ?? "text/plain" });
-				const url = URL.createObjectURL(blob);
-				const a = document.createElement("a");
-				a.href = url;
-				a.download = file.name;
-				a.click();
-				URL.revokeObjectURL(url);
-				document.body.removeChild(a);
+				if (file.content) {
+					const blob = new Blob([file.content], {
+						type: file.contentType ?? "text/plain",
+					});
+					const url = URL.createObjectURL(blob);
+					const a = document.createElement("a");
+					a.href = url;
+					a.download = file.name;
+					a.click();
+					URL.revokeObjectURL(url);
+				} else if (file.path) {
+					const a = document.createElement("a");
+					a.href = file.path;
+					a.download = file.name;
+					a.click();
+				} else {
+					return [
+						new Output(`download: file has no content: ${args[0]}`, "text-destructive"),
+					];
+				}
 				return [];
 			},
 		},
@@ -182,13 +182,44 @@ export const useCommands = ({
 			name: "submit",
 			description: "Send a string to the genie",
 			run: async (args) => {
-				const string = args.join(" ");
-				const res = await fetch("/api/genie", {
-					method: "POST",
-					body: JSON.stringify({ string }),
-				});
-				const json = await res.json();
-				return [new Output(json.response)];
+				try {
+					const string = args.join(" ");
+					const res = await fetch(import.meta.env.VITE_API_URL + "/validate", {
+						method: "POST",
+						body: JSON.stringify({ flag: string }),
+						headers: {
+							"Content-Type": "application/json",
+						},
+					});
+					const json = (await res.json()) as {
+						statusCode?: number;
+						success: boolean;
+						error?: any;
+					};
+					if (json.statusCode === 429)
+						return [
+							new Output(
+								"The genie is tired. Try again in a few minutes.",
+								"text-destructive"
+							),
+						];
+
+					return [
+						new Output(
+							json.success
+								? "The genie is pleased."
+								: "The genie is displeased. Try again.",
+							json.success ? "text-green-500" : "text-destructive"
+						),
+					];
+				} catch (e) {
+					return [
+						new Output(
+							"Looks like the genie is sleeping. Try again later.",
+							"text-destructive"
+						),
+					];
+				}
 			},
 		},
 	];
