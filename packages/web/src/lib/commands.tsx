@@ -185,7 +185,7 @@ export const useCommands = ({
 		},
 		{
 			name: "submit",
-			description: "Send a string to the genie",
+			description: "Submit a flag",
 			run: async (args) => {
 				if (!user)
 					return [
@@ -216,7 +216,7 @@ export const useCommands = ({
 					if (json.statusCode === 429)
 						return [
 							new Output(
-								"The genie is tired. Try again in a few minutes.",
+								"Please wait a few minutes before submitting another flag.",
 								"text-destructive"
 							),
 						];
@@ -224,9 +224,9 @@ export const useCommands = ({
 					return [
 						new Output(
 							json.success
-								? "The genie is pleased."
+								? "The flag was accepted."
 								: json.error === "INVALID_FLAG"
-								? "The genie is displeased."
+								? "The flag was invalid."
 								: "Please submit flags in the format: flag{...}",
 							json.success ? "text-green-500" : "text-destructive"
 						),
@@ -234,7 +234,7 @@ export const useCommands = ({
 				} catch (e) {
 					return [
 						new Output(
-							"Looks like the genie is sleeping. Try again later.",
+							"An error occurred while submitting the flag. Please try again later.",
 							"text-destructive"
 						),
 					];
