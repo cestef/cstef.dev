@@ -142,7 +142,7 @@ export const FILE_TREE: Dir = {
 					children: [
 						{
 							type: "dir",
-							name: "projects",
+							name: "owo",
 							children: [
 								{
 									type: "file",
@@ -152,9 +152,27 @@ export const FILE_TREE: Dir = {
 								},
 								{
 									type: "file",
-									name: "executable",
-									path: "/assets/fancy",
+									name: "main",
+									path: "/assets/main",
 									contentType: "application/x-executable",
+								},
+							],
+						},
+						{
+							type: "dir",
+							name: "black",
+							children: [
+								{
+									type: "file",
+									name: "README",
+									content: `Don't worry, these are just zeros and ones, nothing to be scared of :3`,
+									contentType: "text/plain",
+								},
+								{
+									type: "file",
+									name: "white.bin",
+									path: "/assets/white.bin",
+									contentType: "application/octet-stream",
 								},
 							],
 						},
