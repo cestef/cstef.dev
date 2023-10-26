@@ -184,6 +184,12 @@ export const FILE_TREE: Dir = {
 						},
 						{
 							type: "file",
+							name: "mycert.csr",
+							path: "/assets/mycert.csr",
+							contentType: "text/plain",
+						},
+						{
+							type: "file",
 							name: "silly_cat.png",
 							path: "/assets/silly_cat.png",
 							contentType: "image/png",
