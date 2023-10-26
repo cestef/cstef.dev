@@ -225,7 +225,7 @@ export const useCommands = ({
 							json.success
 								? "The flag was accepted."
 								: json.error === "INVALID_FLAG"
-								? "The flag was invalid."
+								? "The flag is invalid."
 								: "Please submit flags in the format: flag{...}",
 							json.success ? "text-green-500" : "text-destructive"
 						),
@@ -300,6 +300,14 @@ export const useCommands = ({
 							)
 						)
 				);
+			},
+		},
+		{
+			name: "async",
+			description: "async test",
+			run: async () => {
+				await new Promise((resolve) => setTimeout(resolve, 2000));
+				return [new Output("async test")];
 			},
 		},
 	];

@@ -13,6 +13,7 @@ export interface TerminalState {
 	history: string[];
 	historyIndex: number;
 	cwd: string;
+	running: boolean;
 }
 
 export class Output {
@@ -41,6 +42,7 @@ const useTerminalState = (): {
 		history: [],
 		historyIndex: -1,
 		cwd: "/",
+		running: false,
 	});
 
 	const set = useCallback(
@@ -75,27 +77,38 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 				set("input", "");
 				set("history", [...state.history, state.input]);
 				set("historyIndex", state.history.length + 1);
-				2;
+				let output = state.output;
+				const addText = (text: Output) => {
+					output = [...output, text];
+					set("output", output);
+				};
+				addText(new Output(`> ${state.input}`));
 				const [command, ...args] = state.input.split(" ");
 
 				const foundCommand = commands.find((e) => e.name === command);
 				if (!foundCommand) {
 					set("output", [
 						...state.output,
-						new Output(`> ${state.input}`),
 						new Output(`Command not found: ${command}`, "text-destructive"),
 					]);
 					set("input", "");
 					return;
 				}
+				set("running", true);
 				const res = await foundCommand.run(args);
+				set("running", false);
 				if (res === ControlCodes.RESET) set("output", []);
 				else if (res === ControlCodes.EXIT) {
 					onExit();
 				} else
 					set(
 						"output",
-						[...state.output, new Output(`> ${state.input}`)].concat(res ?? [])
+						output.concat(
+							res.map((e) => {
+								if (typeof e === "string") return new Output(e);
+								return e;
+							})
+						)
 					);
 			} else if (e.key === "ArrowUp") {
 				if (state.historyIndex > 0) {
@@ -119,6 +132,13 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 		}
 	}, [state.output]);
 
+	useEffect(() => {
+		const input = document.querySelector("#terminal input");
+		if (input) {
+			(input as HTMLInputElement).focus();
+		}
+	}, [state.running]);
+
 	const { user } = useUser();
 
 	return (
@@ -140,7 +160,11 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 						{line.toElement()}
 					</div>
 				))}
-				<div className="flex flex-row gap-2">
+				<div
+					className={cn("flex flex-row gap-2", {
+						hidden: state.running,
+					})}
+				>
 					<span className="text-muted-foreground">{formatCWD(state.cwd)}</span>
 					<span>$</span>
 					<input
@@ -149,6 +173,7 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 						value={state.input}
 						onChange={handleInputChange}
 						onKeyDown={handleInputKeyDown}
+						disabled={state.running}
 					/>
 				</div>
 			</div>
