@@ -278,6 +278,8 @@ export const useCommands = ({
 			description: "List all flags you have submitted",
 			run: async () => {
 				if (!user) return [new Output("Not logged in.", "text-destructive")];
+				if (!user.flags || user.flags.length === 0)
+					return [new Output("No flags submitted.", "text-muted-foreground")];
 				return user.flags.map(
 					(flag) =>
 						new Output(
