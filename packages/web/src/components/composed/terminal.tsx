@@ -72,7 +72,8 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 				}
 			} else if (e.key === "Enter") {
 				set("history", [...state.history, state.input]);
-				set("historyIndex", state.history.length);
+				set("historyIndex", state.history.length + 1);
+				2;
 				const [command, ...args] = state.input.split(" ");
 
 				const foundCommand = commands.find((e) => e.name === command);

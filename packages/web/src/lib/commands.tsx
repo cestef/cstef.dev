@@ -206,6 +206,7 @@ export const useCommands = ({
 					const json = (await res.json()) as {
 						statusCode?: number;
 						success: boolean;
+						error?: unknown;
 					};
 					if (json.statusCode === 429)
 						return [
@@ -219,7 +220,9 @@ export const useCommands = ({
 						new Output(
 							json.success
 								? "The genie is pleased."
-								: "The genie is displeased. Try again.",
+								: json.error === "INVALID_FLAG"
+								? "The genie is displeased."
+								: "Please submit flags in the format: flag{...}",
 							json.success ? "text-green-500" : "text-destructive"
 						),
 					];

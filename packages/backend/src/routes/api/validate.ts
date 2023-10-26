@@ -21,7 +21,7 @@ const validate: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
 		const flag = res.data.flag.slice(FLAG_PREFIX.length + 1, -1);
 		const flagIndex = flags.indexOf(flag);
 		if (flagIndex === -1) {
-			return { success: false, error: "Invalid flag" };
+			return { success: false, error: "INVALID_FLAG" };
 		}
 		return { success: true };
 	});

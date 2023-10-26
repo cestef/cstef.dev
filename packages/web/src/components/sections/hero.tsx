@@ -83,7 +83,7 @@ export default function Hero() {
 				<ContextMenuContent>
 					<ContextMenuItem onClick={() => setTerminalOpen(true)}>
 						<TerminalIcon className="w-4 h-4 mr-2 inline-block" />
-						Hack into this machine
+						Open Terminal
 					</ContextMenuItem>
 				</ContextMenuContent>
 			</ContextMenu>
