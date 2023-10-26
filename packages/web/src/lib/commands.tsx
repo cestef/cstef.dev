@@ -52,7 +52,6 @@ export const useCommands = ({
 						),
 					];
 				}
-				console.log(dir.children);
 				return dir.children.map(
 					(file) =>
 						new Output(
@@ -279,7 +278,6 @@ export const useCommands = ({
 			description: "List all flags you have submitted",
 			run: async () => {
 				if (!user) return [new Output("Not logged in.", "text-destructive")];
-				console.log(user);
 				return user.flags.map(
 					(flag) =>
 						new Output(

@@ -163,7 +163,7 @@ export const FILE_TREE: Dir = {
 							name: "README",
 							content: `Hi there 👋
 It looks like you found this file, I'm not sure how you did it but congrats !
-I may or may not have hidden some other secrets in this website, try to find them all !
+I may or may not have hidden some other secrets on this website, try to find them all !
 Hint: Type "help" in the terminal to get started.`,
 							contentType: "text/plain",
 						},
