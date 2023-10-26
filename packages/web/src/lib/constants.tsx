@@ -141,6 +141,24 @@ export const FILE_TREE: Dir = {
 					name: "cstef",
 					children: [
 						{
+							type: "dir",
+							name: "projects",
+							children: [
+								{
+									type: "file",
+									name: "README",
+									content: `I don't think I even need to explain what this is, do I ?`,
+									contentType: "text/plain",
+								},
+								{
+									type: "file",
+									name: "executable",
+									path: "/assets/fancy",
+									contentType: "application/x-executable",
+								},
+							],
+						},
+						{
 							type: "file",
 							name: "poem.txt",
 							path: "/assets/poem.txt",
