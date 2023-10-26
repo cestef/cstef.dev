@@ -4,18 +4,8 @@ export default fp<FastifyEnvOptions>(async (fastify) => {
 	fastify.register(env, {
 		schema: {
 			type: "object",
-			required: [
-				"CTF_FLAGS",
-				"SECRET",
-				"APP_URL",
-				"API_URL",
-				"GITHUB_CLIENT_ID",
-				"GITHUB_CLIENT_SECRET",
-			],
+			required: ["SECRET", "APP_URL", "API_URL", "GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET"],
 			properties: {
-				CTF_FLAGS: {
-					type: "string",
-				},
 				SECRET: {
 					type: "string",
 				},
