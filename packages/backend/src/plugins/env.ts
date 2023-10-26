@@ -4,15 +4,37 @@ export default fp<FastifyEnvOptions>(async (fastify) => {
 	fastify.register(env, {
 		schema: {
 			type: "object",
-			required: ["CTF_FLAGS"],
+			required: [
+				"CTF_FLAGS",
+				"SECRET",
+				"APP_URL",
+				"API_URL",
+				"GITHUB_CLIENT_ID",
+				"GITHUB_CLIENT_SECRET",
+			],
 			properties: {
 				CTF_FLAGS: {
+					type: "string",
+				},
+				SECRET: {
+					type: "string",
+				},
+				APP_URL: {
+					type: "string",
+				},
+				API_URL: {
+					type: "string",
+				},
+				GITHUB_CLIENT_ID: {
+					type: "string",
+				},
+				GITHUB_CLIENT_SECRET: {
 					type: "string",
 				},
 			},
 		},
 		dotenv: {
-			path: ".env.local",
+			path: ".env",
 		},
 		confKey: "config",
 	});

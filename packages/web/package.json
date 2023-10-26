@@ -25,6 +25,7 @@
 		"react-icons": "^4.11.0",
 		"react-moment": "^1.1.3",
 		"react-terminal-ui": "^1.0.5",
+		"swr": "^2.2.4",
 		"tailwind-merge": "^1.14.0",
 		"tailwindcss-animate": "^1.0.7",
 		"three": "^0.157.0",

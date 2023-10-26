@@ -5,6 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import { Loader2 } from "lucide-react";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { Model } from "./Computer";
+import { useUser } from "@/lib/user";
 
 export interface TerminalState {
 	input: string;
@@ -71,6 +72,7 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 					set("input", "");
 				}
 			} else if (e.key === "Enter") {
+				set("input", "");
 				set("history", [...state.history, state.input]);
 				set("historyIndex", state.history.length + 1);
 				2;
@@ -95,7 +97,6 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 						"output",
 						[...state.output, new Output(`> ${state.input}`)].concat(res ?? [])
 					);
-				set("input", "");
 			} else if (e.key === "ArrowUp") {
 				if (state.historyIndex > 0) {
 					set("historyIndex", state.historyIndex - 1);
@@ -118,6 +119,8 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 		}
 	}, [state.output]);
 
+	const { user } = useUser();
+
 	return (
 		<div
 			className={cn("h-full w-full overflow-y-auto rounded-md font-mono", className)}
@@ -129,7 +132,7 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 			}}
 		>
 			<div className="flex flex-col bg-background justify-center items-center text-gray-400 select-none sticky top-0">
-				root@cstef.dev
+				{user?.login ?? "guest"}@cstef.dev
 			</div>
 			<div id="terminal" className="p-4">
 				{state.output.map((line, index) => (

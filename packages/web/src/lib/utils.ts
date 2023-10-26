@@ -136,3 +136,10 @@ export const getAtPath = (path: string, dir: Dir): Dir | File | undefined => {
 	if (found.type !== "dir") return undefined;
 	return getAtPath(rest.join("/"), found);
 };
+
+export const getJSON = async <T>(path: string): Promise<T> => {
+	const res = await fetch(import.meta.env.VITE_API_URL + path, {
+		credentials: "include",
+	});
+	return await res.json();
+};

@@ -1,7 +1,9 @@
 import { Output, TerminalState } from "@/components/composed/terminal";
-import { getAtPath } from "./utils";
+import { getAtPath, getJSON } from "./utils";
 import path from "path";
 import { FILE_TREE } from "./constants";
+import { getUser, useUser } from "./user";
+import { match } from "ts-pattern";
 
 export enum ControlCodes {
 	RESET,
@@ -21,16 +23,12 @@ export const useCommands = ({
 	state: TerminalState;
 	set: (key: keyof TerminalState, value: unknown) => void;
 }) => {
+	const { user, mutate: mutateUser } = useUser();
 	const commands: Command[] = [
 		{
 			name: "clear",
 			description: "Clear the terminal",
 			run: () => ControlCodes.RESET,
-		},
-		{
-			name: "echo",
-			description: "Display a message",
-			run: (args) => [new Output(args.join(" "))],
 		},
 		{
 			name: "ls",
@@ -115,14 +113,9 @@ export const useCommands = ({
 			},
 		},
 		{
-			name: "pwd",
-			description: "Print working directory",
-			run: () => [new Output(state.cwd)],
-		},
-		{
 			name: "whoami",
 			description: "Print current user",
-			run: () => [new Output("root")],
+			run: () => [new Output(user?.login ?? "guest")],
 		},
 		{
 			name: "help",
@@ -194,6 +187,17 @@ export const useCommands = ({
 			name: "submit",
 			description: "Send a string to the genie",
 			run: async (args) => {
+				if (!user)
+					return [
+						new Output(
+							(
+								<>
+									<span className="text-destructive">Not logged in.</span>{" "}
+									<span>Please log in to submit flags.</span>
+								</>
+							)
+						),
+					];
 				try {
 					const string = args.join(" ");
 					const res = await fetch(import.meta.env.VITE_API_URL + "/validate", {
@@ -202,6 +206,7 @@ export const useCommands = ({
 						headers: {
 							"Content-Type": "application/json",
 						},
+						credentials: "include",
 					});
 					const json = (await res.json()) as {
 						statusCode?: number;
@@ -215,7 +220,7 @@ export const useCommands = ({
 								"text-destructive"
 							),
 						];
-
+					mutateUser();
 					return [
 						new Output(
 							json.success
@@ -234,6 +239,67 @@ export const useCommands = ({
 						),
 					];
 				}
+			},
+		},
+		{
+			name: "login",
+			description: "Login with your GitHub account to save your progress",
+			run: async () => {
+				if (user)
+					return [new Output(`Already logged in as ${user.login}.`, "text-green-500")];
+				const url = import.meta.env.VITE_API_URL + "/login";
+				window.open(url, "_blank", "width=500,height=500");
+
+				await new Promise<void>((resolve) => {
+					window.addEventListener("message", (e) => {
+						if (e.data === "github:success") {
+							resolve();
+						}
+					});
+				});
+				const newUser = await getUser();
+				mutateUser(newUser, false); // false to prevent revalidation
+				if (!newUser) return [new Output("Login failed.", "text-destructive")];
+				return [new Output(`Logged in as ${newUser.login}.`, "text-green-500")];
+			},
+		},
+		{
+			name: "logout",
+			description: "Logout of your GitHub account",
+			run: async () => {
+				if (!user) return [new Output("Not logged in.", "text-destructive")];
+				const res = await getJSON<{ success: boolean }>("/logout");
+				if (!res.success) return [new Output("Logout failed.", "text-destructive")];
+				mutateUser(undefined, false); // false to prevent revalidation
+				return [new Output(`Logged out.`, "text-green-500")];
+			},
+		},
+		{
+			name: "flags",
+			description: "List all flags you have submitted",
+			run: async () => {
+				if (!user) return [new Output("Not logged in.", "text-destructive")];
+				console.log(user);
+				return user.flags.map(
+					(flag) =>
+						new Output(
+							(
+								<>
+									<span className="font-bold">{flag.name}</span> -{" "}
+									<span className="text-muted-foreground">{flag.value}</span> -{" "}
+									{match(flag.level)
+										.with(1, () => <span className="text-green-500">Easy</span>)
+										.with(2, () => (
+											<span className="text-yellow-500">Medium</span>
+										))
+										.with(3, () => <span className="text-red-500">Hard</span>)
+										.otherwise(() => (
+											<span className="text-muted-foreground">Unknown</span>
+										))}
+								</>
+							)
+						)
+				);
 			},
 		},
 	];
