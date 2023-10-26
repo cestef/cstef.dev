@@ -302,14 +302,6 @@ export const useCommands = ({
 				);
 			},
 		},
-		{
-			name: "async",
-			description: "async test",
-			run: async () => {
-				await new Promise((resolve) => setTimeout(resolve, 2000));
-				return [new Output("async test")];
-			},
-		},
 	];
 
 	return commands;

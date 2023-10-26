@@ -88,7 +88,7 @@ export default function Hero() {
 				</ContextMenuContent>
 			</ContextMenu>
 			<Dialog open={terminalOpen} onOpenChange={(e) => setTerminalOpen(e)}>
-				<DialogContent className="max-w-3xl h-[35rem]">
+				<DialogContent className="max-w-7xl h-[55rem]">
 					<Terminal onExit={() => setTerminalOpen(false)} />
 				</DialogContent>
 			</Dialog>
