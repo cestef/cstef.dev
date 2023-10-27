@@ -177,6 +177,24 @@ export const FILE_TREE: Dir = {
 							],
 						},
 						{
+							type: "dir",
+							name: "music",
+							children: [
+								{
+									type: "file",
+									name: "README",
+									content: `I wonder how people managed to fit images in audio back in the day... 🤔`,
+									contentType: "text/plain",
+								},
+								{
+									type: "file",
+									name: "beep.wav",
+									path: "/assets/beep.wav",
+									contentType: "application/octet-stream",
+								},
+							],
+						},
+						{
 							type: "file",
 							name: "poem.txt",
 							path: "/assets/poem.txt",
