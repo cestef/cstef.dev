@@ -4,6 +4,7 @@ import path from "path";
 import { FILE_TREE } from "./constants";
 import { getUser, useUser } from "./user";
 import { match } from "ts-pattern";
+import Spoiler from "@/components/composed/spoiler";
 
 export enum ControlCodes {
 	RESET,
@@ -286,7 +287,7 @@ export const useCommands = ({
 							(
 								<>
 									<span className="font-bold">{flag.name}</span> -{" "}
-									<span className="text-muted-foreground">{flag.value}</span> -{" "}
+									<Spoiler>{flag.value}</Spoiler> -{" "}
 									{match(flag.level)
 										.with(1, () => <span className="text-green-500">Easy</span>)
 										.with(2, () => (
