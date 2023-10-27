@@ -8,6 +8,12 @@ async function main() {
 		value: string;
 		level: number;
 	}[];
+
+	// Remove all flags
+	await prisma.flag.deleteMany({});
+
+	console.log(`Removed all flags`);
+
 	for (const flag of parsedFlags) {
 		if (!flag.name || !flag.value || !flag.level) throw new Error("Invalid flag");
 		await prisma.flag.upsert({
