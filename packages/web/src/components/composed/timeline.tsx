@@ -32,7 +32,7 @@ export function Timeline() {
 							{item.date}
 						</h3>
 					</div>
-					<div className="z-20 flex items-center order-1 bg-muted-foreground shadow-xl w-6 h-6 rounded-full" />
+					<div className="z-[9] flex items-center order-1 bg-muted-foreground shadow-xl w-6 h-6 rounded-full" />
 					<motion.div
 						className={cn(
 							"order-1 w-5/12 px-8 py-6 rounded-lg border bg-card text-card-foreground flex flex-col justify-center cursor-pointer",
