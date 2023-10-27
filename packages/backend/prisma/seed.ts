@@ -9,18 +9,25 @@ async function main() {
 		level: number;
 	}[];
 
-	// Remove all flags
-	await prisma.flag.deleteMany({});
-
-	console.log(`Removed all flags`);
+	if (process.argv.some((e) => e === "--reset")) {
+		console.log("Resetting all flags...");
+		await prisma.flag.deleteMany({});
+	}
 
 	for (const flag of parsedFlags) {
 		if (!flag.name || !flag.value || !flag.level) throw new Error("Invalid flag");
-		await prisma.flag.create({
-			data: {
+		await prisma.flag.upsert({
+			create: {
 				name: flag.name,
 				value: flag.value,
 				level: flag.level,
+			},
+			update: {
+				value: flag.value,
+				level: flag.level,
+			},
+			where: {
+				name: flag.name,
 			},
 		});
 	}
@@ -34,6 +41,5 @@ main()
 	.catch(async (e) => {
 		console.error(e);
 		await prisma.$disconnect();
-		// @ts-ignore
 		process.exit(1);
 	});
