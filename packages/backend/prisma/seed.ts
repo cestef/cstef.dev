@@ -16,19 +16,11 @@ async function main() {
 
 	for (const flag of parsedFlags) {
 		if (!flag.name || !flag.value || !flag.level) throw new Error("Invalid flag");
-		await prisma.flag.upsert({
-			create: {
+		await prisma.flag.create({
+			data: {
 				name: flag.name,
 				value: flag.value,
 				level: flag.level,
-			},
-			update: {
-				name: flag.name,
-				value: flag.value,
-				level: flag.level,
-			},
-			where: {
-				name: flag.name,
 			},
 		});
 	}
