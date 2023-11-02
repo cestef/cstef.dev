@@ -1,4 +1,5 @@
 import { Link } from "@/components/ui/link";
+import Twemoji from "@/components/ui/twemoji";
 import { FaDiscord, FaGithub, FaSpotify, FaSteam } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
@@ -36,6 +37,12 @@ export const SOCIALS: {
 		name: "Steam",
 		url: "https://steamcommunity.com/id/cishtef",
 		icon: <FaSteam className="sm:w-10 sm:h-10 w-8 h-8 text-blue-950 dark:text-white" />,
+		variant: "link",
+	},
+	{
+		name: "Blog",
+		url: "https://blog.cstef.dev",
+		icon: <Twemoji emoji="📝" className="sm:w-10 sm:h-10 w-8 h-8" />,
 		variant: "link",
 	},
 ];

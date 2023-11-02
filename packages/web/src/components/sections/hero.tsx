@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Twemoji from "@/components/ui/twemoji";
 import { motion } from "framer-motion";
 import { Mail, TerminalIcon } from "lucide-react";
+import { useState } from "react";
 import { Bold } from "../ui/bold";
 import {
 	ContextMenu,
@@ -10,7 +11,6 @@ import {
 	ContextMenuItem,
 	ContextMenuTrigger,
 } from "../ui/context-menu";
-import { useState } from "react";
 import { Dialog, DialogContent } from "../ui/dialog";
 
 export default function Hero() {
@@ -55,7 +55,7 @@ export default function Hero() {
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{
-						delay: 2.5,
+						delay: 2.25,
 					}}
 				>
 					<Button
