@@ -13,13 +13,16 @@ export const useRepositories = (user: string) => {
 	const [repositories, setRepositories] = useState<Repository[]>([]);
 	const [page, setPage] = useState(1);
 	const [isMore, setIsMore] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
+		setIsLoading(true);
 		fetch(
 			`https://api.github.com/users/${user}/repos?sort=pushed&direction=desc&per_page=8&page=${page}`
 		)
 			.then((res) => res.json())
 			.then((data) => {
+				setIsLoading(false);
 				if (data.length < 8) {
 					setIsMore(false);
 					return;
@@ -49,6 +52,9 @@ export const useRepositories = (user: string) => {
 							.filter((repo: Repository) => !e.find((r) => r.name === repo.name))
 					)
 				);
+			})
+			.catch(() => {
+				setIsLoading(false);
 			});
 	}, [user, page]);
 
@@ -56,5 +62,5 @@ export const useRepositories = (user: string) => {
 		setPage((e) => e + 1);
 	}, []);
 
-	return { repositories, page, loadMore, isMore };
+	return { repositories, page, loadMore, isMore, loading: isLoading };
 };
