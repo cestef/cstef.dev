@@ -96,7 +96,7 @@ export const EVENTS: {
 		date: "2020",
 	},
 	{
-		title: "First job as a web-dev !",
+		title: "First job as a dev !",
 		description:
 			"I managed to find another small job, this time at Swisscom, the biggest IT company in Switzerland. My project was to develop a Full-Stack app using React, the team there was amazing and we got along pretty well !",
 		date: "2021",

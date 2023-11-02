@@ -34,7 +34,7 @@ export default function Contact({
 	const puzzle = usePuzzle();
 	return (
 		<div className="flex flex-col items-center justify-center gap-8">
-			<div className="w-full flex flex-row justify-center items-center gap-8" id="contact">
+			<div className="w-full flex flex-wrap justify-center items-center gap-8" id="contact">
 				<motion.h2
 					whileInView={{ scale: [0.2, 1] }}
 					viewport={{ once: true }}
@@ -50,7 +50,7 @@ export default function Contact({
 				>
 					<DialogTrigger>
 						<Button variant="outline" size="jumbo">
-							<Mail className="w-5 h-5 mr-3 inline-block" />
+							<Mail className="w-5 h-5 mr-3" />
 							Contact me
 						</Button>
 					</DialogTrigger>

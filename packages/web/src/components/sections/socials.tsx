@@ -29,7 +29,7 @@ export default function Socials({
 			>
 				Find me on
 			</motion.h2>
-			<div className="flex flex-row justify-center items-center gap-4 mx-4">
+			<div className="flex flex-row justify-center items-center gap-2 md:gap-4 mx-4">
 				{SOCIALS.map((social, index) =>
 					match(social.variant)
 						.with(P.union("link", "copy"), () => (
@@ -40,7 +40,7 @@ export default function Socials({
 								>
 									{social.variant === "copy" ? (
 										<motion.div
-											className="flex flex-row justify-center items-center gap-2 bg-accent rounded-3xl p-4 md:p-6 shadow-sm"
+											className="flex flex-row justify-center items-center bg-accent rounded-2xl md:rounded-3xl p-3 sm:p-4 md:p-6 shadow-sm"
 											whileHover={{ scale: 1.1 }}
 											whileTap={{ scale: 0.9 }}
 											initial={{ opacity: 0 }}
@@ -59,7 +59,7 @@ export default function Socials({
 											href={social.url}
 											children={
 												<motion.div
-													className="flex flex-row justify-center items-center gap-2 bg-accent rounded-3xl p-4 md:p-6 shadow-sm"
+													className="flex flex-row justify-center items-center sm:gap-2 bg-accent rounded-2xl md:rounded-3xl p-3 sm:p-4 md:p-6 shadow-sm"
 													whileHover={{ scale: 1.1 }}
 													whileTap={{ scale: 0.9 }}
 													initial={{ opacity: 0 }}
@@ -107,7 +107,7 @@ export default function Socials({
 										href={social.url}
 										children={
 											<motion.div
-												className="flex flex-row justify-center items-center gap-2 bg-accent rounded-3xl p-4 md:p-6 shadow-sm"
+												className="flex flex-row justify-center items-center gap-1 sm:gap-2 bg-accent rounded-2xl md:rounded-3xl p-3 sm:p-4 md:p-6 shadow-sm"
 												whileHover={{ scale: 1.1 }}
 												whileTap={{ scale: 0.9 }}
 												initial={{ opacity: 0 }}
