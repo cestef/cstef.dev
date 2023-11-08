@@ -45,6 +45,8 @@ export const useLastFM = (
 	if (!lastFMData) return null;
 
 	const { recenttracks } = lastFMData;
+
+	if (!recenttracks) return null;
 	const { track } = recenttracks;
 
 	if (track[0]["@attr"] && track[0]["@attr"].nowplaying !== "true" && current) return null;

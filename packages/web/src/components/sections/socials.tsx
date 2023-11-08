@@ -146,8 +146,8 @@ export default function Socials({
 										>
 											<div className="flex flex-row justify-between items-center gap-2 w-full">
 												<FaSpotify className="w-8 h-8 mr-2 inline-block" />
-												<p className="truncate text-lg">
-													<b>Not listening</b>
+												<p className="truncate">
+													<b>Not listening to anything</b>
 												</p>
 												<Music className="w-16 h-16 ml-2 border-2 p-4 rounded-sm shadow-sm text-muted-foreground" />
 											</div>

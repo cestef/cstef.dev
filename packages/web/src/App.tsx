@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AboutMe from "./components/sections/about";
 import Header from "./components/sections/header";
 import Hero from "./components/sections/hero";
@@ -8,14 +8,22 @@ import { Separator } from "./components/ui/separator";
 import { cn } from "./lib/utils";
 import Contact from "./components/sections/contact";
 import { useKonami } from "./lib/konami";
+import { Loader } from "./components/ui/loader";
 
 export default function App() {
 	const [copied, setCopied] = useState(false);
 	const [open, setOpen] = useState<string | false>(false);
+	const [loaded, setLoaded] = useState(false);
+
+	useEffect(() => {
+		setLoaded(true);
+	}, []);
 
 	useKonami(() => {
 		window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 	});
+
+	if (!loaded) return <Loader />;
 
 	return (
 		<>
