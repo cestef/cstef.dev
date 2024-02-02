@@ -11,4 +11,10 @@ export default defineConfig({
 		},
 		mainFields: ["global", "module", "main"],
 	},
+	// Redirect /discord to the discord invite link
+	server: {
+		proxy: {
+			"/discord": "https://discord.gg/CYQwAW2Yuq",
+		},
+	},
 });
