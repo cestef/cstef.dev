@@ -3,7 +3,7 @@ import { Timeline } from "../composed/timeline";
 
 export default function AboutMe() {
 	return (
-		<div className="mt-32 w-full flex flex-col justify-center items-center">
+		<div className="mt-32 w-full flex flex-col justify-center items-center overflow-x-hidden">
 			<motion.h2
 				whileInView={{ scale: [0.2, 1] }}
 				viewport={{ once: true }}
