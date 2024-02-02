@@ -129,12 +129,10 @@ export const EVENTS: {
 	},
 ];
 
-export const EMAIL =
-	"99,111,108,105,110,64,112,101,116,105,116,45,115,117,105,115,115,101,46,102,114"
-		.split(",")
-		.map((char) => String.fromCharCode(parseInt(char)))
-		.join("");
-
+export const EMAIL = "114,111,111,116,64,99,115,116,101,102,46,100,101,118"
+	.split(",")
+	.map((char) => String.fromCharCode(parseInt(char)))
+	.join("");
 export const FILE_TREE: Dir = {
 	type: "dir",
 	name: "root",
