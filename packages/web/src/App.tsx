@@ -30,7 +30,7 @@ export default function App() {
 			<Header />
 			<main
 				className={cn(
-					"container mx-2 xl:mx-auto px-6 flex flex-col justify-between items-center overflow-x-hidden"
+					"container md:mx-2 xl:mx-auto px-6 flex flex-col justify-between items-center overflow-x-hidden"
 				)}
 			>
 				<Hero />
