@@ -33,8 +33,19 @@ const useTerminalState = (): {
 			new Output(
 				(
 					<>
-						Last login: <span className="text-green-500">Sun Sep 12 2021 12:00:00</span>{" "}
-						on ttys000
+						Last login:{" "}
+						<span className="text-green-500">
+							{new Date(Math.floor(Math.random() * Date.now())).toUTCString()}
+						</span>{" "}
+						on ttys
+						{Math.floor(Math.random() * 10)}
+					</>
+				)
+			),
+			new Output(
+				(
+					<>
+						Type <span className="font-bold">help</span> to see available commands
 					</>
 				)
 			),
