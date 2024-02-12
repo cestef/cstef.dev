@@ -1,0 +1,3 @@
+{
+	"rewrites": [{ "source": "/discord", "destination": "https://discord.gg/CYQwAW2Yuq" }]
+}
