@@ -2,7 +2,7 @@ import { getLanguageColor } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "../ui/card";
 import { Tooltip, TooltipTrigger, TooltipContent } from "../ui/tooltip";
 import { useRepositories } from "@/lib/repositories";
 import Twemoji from "../ui/twemoji";
@@ -32,7 +32,7 @@ export default function Repositories() {
 									whileInView={{ opacity: 1 }}
 									viewport={{ once: true }}
 								>
-									<Card className="w-72 h-36">
+									<Card className="w-72 h-44 flex flex-col">
 										<CardHeader className="-mb-2">
 											<CardTitle className="truncate">
 												{repo.forked && (
@@ -46,11 +46,14 @@ export default function Repositories() {
 												{repo.name}
 											</CardTitle>
 										</CardHeader>
-										<CardContent>
-											<p className="truncate text-muted-foreground">
+										<CardContent className="flex flex-col gap-2 items-center justify-center h-full pb-4">
+											<p className="text-muted-foreground line-clamp-2">
 												{repo.description ?? "No description"}
 											</p>
-											<div className="flex flex-row justify-between items-center mt-2">
+										</CardContent>
+										<div className="flex-grow w-full" />
+										<CardFooter>
+											<div className="flex flex-row justify-between items-center w-full">
 												<p>
 													{repo.stars} <Twemoji emoji="⭐" />
 												</p>
@@ -66,7 +69,7 @@ export default function Repositories() {
 													{repo.language}
 												</p>
 											</div>
-										</CardContent>
+										</CardFooter>
 									</Card>
 								</motion.div>
 							</a>
