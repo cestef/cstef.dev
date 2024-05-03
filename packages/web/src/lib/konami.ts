@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { KONAMI } from "./constants";
 
 export const useKonami = (callback: () => void) => {
 	const [keys, setKeys] = useState<string[]>([]);
@@ -15,7 +16,8 @@ export const useKonami = (callback: () => void) => {
 
 	// If the keys array matches the konami code, set konami to true
 	useEffect(() => {
-		if (keys.join("") === "38384040373937396665") {
+		console.log(keys.join(""));
+		if (keys.join("") === KONAMI) {
 			setKonami(true);
 			callback();
 		}
@@ -23,7 +25,7 @@ export const useKonami = (callback: () => void) => {
 
 	// Add the pressed key to the keys array
 	const handleKeyDown = (event: KeyboardEvent) => {
-		setKeys((keys) => [...keys, event.keyCode.toString()]);
+		setKeys((keys) => [...keys, event.code.toString()]);
 	};
 
 	// Add the event listener

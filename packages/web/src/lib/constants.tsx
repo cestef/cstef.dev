@@ -122,6 +122,18 @@ export const EVENTS: {
 		date: "2022",
 	},
 	{
+		title: "Going national !",
+		description: (
+			<>
+				After a lot of work, I managed to get into the SJF (Schweizer Jugend Forscht) with
+				my maturity work <Link href="https://github.com/cestef/meshlink">MeshLink</Link>.
+				This national competition was a great experience and I met a lot of interesting
+				people. I received the <b>"very good"</b> mention.
+			</>
+		),
+		date: "2024",
+	},
+	{
 		title: "And now what ?",
 		description:
 			"I am currently studying at High School, waiting for the days to finish and get back home programming. I'm planning to continue my studies in the IT branch but I'm not sure which one yet ¯\\_(ツ)_/¯",
@@ -252,3 +264,5 @@ export interface Dir {
 	name: string;
 	children: (File | Dir)[];
 }
+
+export const KONAMI = "38384040373937396665";
