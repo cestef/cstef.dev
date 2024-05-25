@@ -34,7 +34,7 @@ export default function Repositories() {
 								>
 									<Card className="w-72 h-44 flex flex-col">
 										<CardHeader className="-mb-2">
-											<CardTitle className="truncate">
+											<CardTitle>
 												{repo.forked && (
 													<Tooltip delayDuration={0}>
 														<TooltipTrigger>

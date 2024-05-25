@@ -14,6 +14,8 @@ export interface TerminalState {
 	historyIndex: number;
 	cwd: string;
 	running: boolean;
+	completionIndex: number;
+	completionOptions: string[];
 }
 
 export class Output {
@@ -54,6 +56,8 @@ const useTerminalState = (): {
 		historyIndex: -1,
 		cwd: "/",
 		running: false,
+		completionIndex: 0,
+		completionOptions: [],
 	});
 
 	const set = useCallback(
@@ -130,6 +134,31 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 				if (state.historyIndex < state.history.length) {
 					set("historyIndex", state.historyIndex + 1);
 					set("input", state.history[state.historyIndex + 1]);
+				}
+			} else if (e.key === "Tab") {
+				e.preventDefault();
+				if (state.completionOptions.length === 0) {
+					const [command, ...args] = state.input.split(" ");
+					const foundCommand = commands.find((e) => e.name === command);
+					if (!foundCommand) return;
+					const completionOptions = foundCommand.complete?.(args);
+					if (completionOptions?.length === 1) {
+						set("input", `${command} ${completionOptions[0]}`);
+					} else {
+						set("completionOptions", completionOptions);
+						set("completionIndex", 0);
+					}
+				} else {
+					set(
+						"input",
+						state.input.replace(
+							/(\S+)$/,
+							state.completionOptions[
+								state.completionIndex % state.completionOptions.length
+							]
+						)
+					);
+					set("completionIndex", state.completionIndex + 1);
 				}
 			}
 		},

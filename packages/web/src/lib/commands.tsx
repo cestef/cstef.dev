@@ -15,6 +15,7 @@ interface Command {
 	name: string;
 	description: string;
 	run: (args: string[]) => PromiseLike<ControlCodes | Output[]> | ControlCodes | Output[];
+	complete?: (args: string[]) => string[] | undefined;
 }
 
 export const useCommands = ({
@@ -61,6 +62,15 @@ export const useCommands = ({
 						)
 				);
 			},
+			complete: (args) => {
+				const resolvedPath = path.resolve(state.cwd, args[0] ?? ".");
+				const dir = getAtPath(resolvedPath, FILE_TREE);
+				if (!dir || dir.type !== "dir") return [];
+				// Return relative paths
+				return dir.children
+					.filter((file) => file.type === "dir")
+					.map((file) => path.relative(state.cwd, path.resolve(resolvedPath, file.name)));
+			},
 		},
 		{
 			name: "cd",
@@ -78,6 +88,15 @@ export const useCommands = ({
 				}
 				set("cwd", resolvedPath);
 				return [];
+			},
+			complete: (args) => {
+				const resolvedPath = path.resolve(state.cwd, args[0] ?? ".");
+				const dir = getAtPath(resolvedPath, FILE_TREE);
+				if (!dir || dir.type !== "dir") return [];
+				// Return relative paths
+				return dir.children
+					.filter((file) => file.type === "dir")
+					.map((file) => path.relative(state.cwd, path.resolve(resolvedPath, file.name)));
 			},
 		},
 		{
@@ -110,6 +129,15 @@ export const useCommands = ({
 					a.click();
 					return [];
 				}
+			},
+			complete: (args) => {
+				// Only return files
+				const resolvedPath = path.resolve(state.cwd, args[0] ?? ".");
+				const dir = getAtPath(resolvedPath, FILE_TREE);
+				if (!dir || dir.type !== "dir") return [];
+				return dir.children
+					.filter((file) => file.type === "file")
+					.map((file) => path.relative(state.cwd, path.resolve(resolvedPath, file.name)));
 			},
 		},
 		{
@@ -181,6 +209,15 @@ export const useCommands = ({
 					];
 				}
 				return [];
+			},
+			complete: (args) => {
+				// Only return files
+				const resolvedPath = path.resolve(state.cwd, args[0] ?? ".");
+				const dir = getAtPath(resolvedPath, FILE_TREE);
+				if (!dir || dir.type !== "dir") return [];
+				return dir.children
+					.filter((file) => file.type === "file")
+					.map((file) => path.relative(state.cwd, path.resolve(resolvedPath, file.name)));
 			},
 		},
 		{
