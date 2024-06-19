@@ -31,6 +31,7 @@ export default function Contact({
 }) {
 	const { toast } = useToast();
 	const [hoveringEmail, setHoveringEmail] = useState(false);
+	const [status, setStatus] = useState("not-started");
 	const puzzle = usePuzzle();
 	return (
 		<div className="flex flex-col items-center justify-center gap-8">
@@ -70,20 +71,38 @@ export default function Contact({
 								}
 							}
 							onFail={() => {
-								setOpen(false);
 								toast({
-									title: "You failed the puzzle",
+									title: "That was incorrect",
 									description: "Please try again",
 									variant: "destructive",
 								});
+								setStatus("failed");
 							}}
-							onSolve={() => setOpen("email")}
+							onSolve={() => {
+								setOpen("email");
+								setStatus("solved");
+							}}
 						>
 							<ChessPuzzle.Board arePiecesDraggable={false} />
+							<ChessPuzzle.Reset
+								puzzle={puzzle!}
+								showOn={["failed", "in-progress", "not-started"]}
+								onReset={() => setStatus("not-started")}
+							>
+								<div className="flex gap-8 items-center justify-center">
+									<p className="text-lg text-center">
+										{puzzle?.turn === "w" ? "White to move" : "Black to move"}
+									</p>
+									<Button
+										variant="outline"
+										size="sm"
+										disabled={status !== "failed"}
+									>
+										Try again
+									</Button>
+								</div>
+							</ChessPuzzle.Reset>
 						</ChessPuzzle.Root>
-						<p className="text-lg text-center mt-2">
-							{puzzle?.turn === "w" ? "White to move" : "Black to move"}
-						</p>
 					</DialogContent>
 				</Dialog>
 				<Dialog open={open === "email"} onOpenChange={(e) => setOpen(e ? "email" : false)}>
