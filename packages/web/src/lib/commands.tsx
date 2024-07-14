@@ -1,6 +1,6 @@
-import { Output, TerminalState } from "@/components/composed/terminal";
+import { Output, type TerminalState } from "@/components/composed/editor";
 import { getAtPath, getJSON } from "./utils";
-import path from "path";
+import path from "path-browserify";
 import { FILE_TREE } from "./constants";
 import { getUser, useUser } from "./user";
 import { match } from "ts-pattern";
@@ -14,7 +14,9 @@ export enum ControlCodes {
 interface Command {
 	name: string;
 	description: string;
-	run: (args: string[]) => PromiseLike<ControlCodes | Output[]> | ControlCodes | Output[];
+	run: (
+		args: string[],
+	) => PromiseLike<ControlCodes | Output[]> | ControlCodes | Output[];
 	complete?: (args: string[]) => string[] | undefined;
 }
 
@@ -42,7 +44,7 @@ export const useCommands = ({
 					return [
 						new Output(
 							`ls: cannot access '${args[0]}': No such file or directory`,
-							"text-destructive"
+							"text-destructive",
 						),
 					];
 				}
@@ -50,7 +52,7 @@ export const useCommands = ({
 					return [
 						new Output(
 							`ls: cannot access '${args[0]}': Not a directory`,
-							"text-destructive"
+							"text-destructive",
 						),
 					];
 				}
@@ -58,8 +60,8 @@ export const useCommands = ({
 					(file) =>
 						new Output(
 							`${file.name}${file.type === "dir" ? "/" : ""}`,
-							file.type === "dir" ? "font-bold" : ""
-						)
+							file.type === "dir" ? "font-bold" : "",
+						),
 				);
 			},
 			complete: (args) => {
@@ -69,7 +71,9 @@ export const useCommands = ({
 				// Return relative paths
 				return dir.children
 					.filter((file) => file.type === "dir")
-					.map((file) => path.relative(state.cwd, path.resolve(resolvedPath, file.name)));
+					.map((file) =>
+						path.relative(state.cwd, path.resolve(resolvedPath, file.name)),
+					);
 			},
 		},
 		{
@@ -80,11 +84,16 @@ export const useCommands = ({
 				const dir = getAtPath(resolvedPath, FILE_TREE);
 				if (!dir) {
 					return [
-						new Output(`cd: no such file or directory: ${args[0]}`, "text-destructive"),
+						new Output(
+							`cd: no such file or directory: ${args[0]}`,
+							"text-destructive",
+						),
 					];
 				}
 				if (dir.type !== "dir") {
-					return [new Output(`cd: not a directory: ${args[0]}`, "text-destructive")];
+					return [
+						new Output(`cd: not a directory: ${args[0]}`, "text-destructive"),
+					];
 				}
 				set("cwd", resolvedPath);
 				return [];
@@ -96,7 +105,9 @@ export const useCommands = ({
 				// Return relative paths
 				return dir.children
 					.filter((file) => file.type === "dir")
-					.map((file) => path.relative(state.cwd, path.resolve(resolvedPath, file.name)));
+					.map((file) =>
+						path.relative(state.cwd, path.resolve(resolvedPath, file.name)),
+					);
 			},
 		},
 		{
@@ -109,15 +120,22 @@ export const useCommands = ({
 					return [
 						new Output(
 							`cat: no such file or directory: ${args[0]}`,
-							"text-destructive"
+							"text-destructive",
 						),
 					];
 				}
 				if (file.type !== "file") {
-					return [new Output(`cat: not a file: ${args[0]}`, "text-destructive")];
+					return [
+						new Output(`cat: not a file: ${args[0]}`, "text-destructive"),
+					];
 				}
 				if (!file.content && !file.path) {
-					return [new Output(`cat: file has no content: ${args[0]}`, "text-destructive")];
+					return [
+						new Output(
+							`cat: file has no content: ${args[0]}`,
+							"text-destructive",
+						),
+					];
 				}
 
 				if (file.content)
@@ -137,7 +155,9 @@ export const useCommands = ({
 				if (!dir || dir.type !== "dir") return [];
 				return dir.children
 					.filter((file) => file.type === "file")
-					.map((file) => path.relative(state.cwd, path.resolve(resolvedPath, file.name)));
+					.map((file) =>
+						path.relative(state.cwd, path.resolve(resolvedPath, file.name)),
+					);
 			},
 		},
 		{
@@ -153,14 +173,12 @@ export const useCommands = ({
 					new Output("Available commands:", "font-bold"),
 					...commands.map((command) => {
 						return new Output(
-							(
-								<>
-									<span className="font-bold">{command.name}</span> -{" "}
-									<span className="text-muted-foreground">
-										{command.description}
-									</span>
-								</>
-							)
+							<>
+								<span className="font-bold">{command.name}</span> -{" "}
+								<span className="text-muted-foreground">
+									{command.description}
+								</span>
+							</>,
 						);
 					}),
 				];
@@ -181,12 +199,14 @@ export const useCommands = ({
 					return [
 						new Output(
 							`download: no such file or directory: ${args[0]}`,
-							"text-destructive"
+							"text-destructive",
 						),
 					];
 				}
 				if (file.type !== "file") {
-					return [new Output(`download: not a file: ${args[0]}`, "text-destructive")];
+					return [
+						new Output(`download: not a file: ${args[0]}`, "text-destructive"),
+					];
 				}
 				if (file.content) {
 					const blob = new Blob([file.content], {
@@ -205,7 +225,10 @@ export const useCommands = ({
 					a.click();
 				} else {
 					return [
-						new Output(`download: file has no content: ${args[0]}`, "text-destructive"),
+						new Output(
+							`download: file has no content: ${args[0]}`,
+							"text-destructive",
+						),
 					];
 				}
 				return [];
@@ -217,7 +240,9 @@ export const useCommands = ({
 				if (!dir || dir.type !== "dir") return [];
 				return dir.children
 					.filter((file) => file.type === "file")
-					.map((file) => path.relative(state.cwd, path.resolve(resolvedPath, file.name)));
+					.map((file) =>
+						path.relative(state.cwd, path.resolve(resolvedPath, file.name)),
+					);
 			},
 		},
 		{
@@ -227,12 +252,10 @@ export const useCommands = ({
 				if (!user)
 					return [
 						new Output(
-							(
-								<>
-									<span className="text-destructive">Not logged in.</span>{" "}
-									<span>Please log in to submit flags.</span>
-								</>
-							)
+							<>
+								<span className="text-destructive">Not logged in.</span>{" "}
+								<span>Please log in to submit flags.</span>
+							</>,
 						),
 					];
 				try {
@@ -254,7 +277,7 @@ export const useCommands = ({
 						return [
 							new Output(
 								"Please wait a few minutes before submitting another flag.",
-								"text-destructive"
+								"text-destructive",
 							),
 						];
 					mutateUser();
@@ -263,16 +286,16 @@ export const useCommands = ({
 							json.success
 								? "The flag was accepted."
 								: json.error === "INVALID_FLAG"
-								? "The flag is invalid."
-								: "Please submit flags in the format: flag{...}",
-							json.success ? "text-green-500" : "text-destructive"
+									? "The flag is invalid."
+									: "Please submit flags in the format: flag{...}",
+							json.success ? "text-green-500" : "text-destructive",
 						),
 					];
 				} catch (e) {
 					return [
 						new Output(
 							"An error occurred while submitting the flag. Please try again later.",
-							"text-destructive"
+							"text-destructive",
 						),
 					];
 				}
@@ -283,7 +306,9 @@ export const useCommands = ({
 			description: "Login with your GitHub account to save your progress",
 			run: async () => {
 				if (user)
-					return [new Output(`Already logged in as ${user.login}.`, "text-green-500")];
+					return [
+						new Output(`Already logged in as ${user.login}.`, "text-green-500"),
+					];
 				const url = import.meta.env.VITE_API_URL + "/login";
 				window.open(url, "_blank", "width=500,height=500");
 
@@ -306,7 +331,8 @@ export const useCommands = ({
 			run: async () => {
 				if (!user) return [new Output("Not logged in.", "text-destructive")];
 				const res = await getJSON<{ success: boolean }>("/logout");
-				if (!res.success) return [new Output("Logout failed.", "text-destructive")];
+				if (!res.success)
+					return [new Output("Logout failed.", "text-destructive")];
 				mutateUser(undefined, false); // false to prevent revalidation
 				return [new Output(`Logged out.`, "text-green-500")];
 			},
@@ -321,22 +347,20 @@ export const useCommands = ({
 				return user.flags.map(
 					(flag) =>
 						new Output(
-							(
-								<>
-									<span className="font-bold">{flag.name}</span> -{" "}
-									<Spoiler>{flag.value}</Spoiler> -{" "}
-									{match(flag.level)
-										.with(1, () => <span className="text-green-500">Easy</span>)
-										.with(2, () => (
-											<span className="text-yellow-500">Medium</span>
-										))
-										.with(3, () => <span className="text-red-500">Hard</span>)
-										.otherwise(() => (
-											<span className="text-muted-foreground">Unknown</span>
-										))}
-								</>
-							)
-						)
+							<>
+								<span className="font-bold">{flag.name}</span> -{" "}
+								<Spoiler>{flag.value}</Spoiler> -{" "}
+								{match(flag.level)
+									.with(1, () => <span className="text-green-500">Easy</span>)
+									.with(2, () => (
+										<span className="text-yellow-500">Medium</span>
+									))
+									.with(3, () => <span className="text-red-500">Hard</span>)
+									.otherwise(() => (
+										<span className="text-muted-foreground">Unknown</span>
+									))}
+							</>,
+						),
 				);
 			},
 		},

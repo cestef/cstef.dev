@@ -1,0 +1,57 @@
+diff --git a/dist/index.mjs b/dist/index.mjs
+index 5ca59c91b196330972b47972c879d6c78f854092..dc057d0b8fa6aea6ea9cdaa881d96c323fc7de4c 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -4,7 +4,7 @@ import React3 from "react";
+ // src/utils/index.ts
+ import { Chess } from "chess.js";
+ import React from "react";
+-import _ from "lodash";
++
+ var FAIL_COLOR = "rgba(201, 52, 48, 0.5)";
+ var SUCCESS_COLOR = "rgba(172, 206, 89, 0.5)";
+ var HINT_COLOR = "rgba(27, 172, 166, 0.5)";
+@@ -19,7 +19,7 @@ var getOrientation = (puzzle) => {
+ var isClickableElement = (element) => React.isValidElement(element);
+ var getCustomSquareStyles = (status, hint, isPlayerTurn, game, nextMove) => {
+   const customSquareStyles = {};
+-  const lastMove = _.last(game.history({ verbose: true }));
++  const lastMove = game.history({ verbose: true }).slice(-1)[0];
+   if (status === "failed" && lastMove) {
+     customSquareStyles[lastMove.from] = {
+       backgroundColor: FAIL_COLOR
+diff --git a/package.json b/package.json
+index 2f86cef9bd07a2491f08c460905d0520a5d04d79..9e2d8d99d247d3b9ec54831a496560e368863865 100644
+--- a/package.json
++++ b/package.json
+@@ -33,8 +33,7 @@
+   "license": "MIT",
+   "dependencies": {
+     "@react-chess-tools/react-chess-game": "0.2.1",
+-    "chess.js": "^1.0.0-beta.6",
+-    "lodash": "^4.17.21"
++    "chess.js": "^1.0.0-beta.6"
+   },
+   "devDependencies": {
+     "react": "^18.2.0",
+diff --git a/src/utils/index.ts b/src/utils/index.ts
+index 051357765ebc4b11b6c7f71e046a85b6371615b5..e3efc38dd30ce80b4c14335a6114c26a49b344d8 100644
+--- a/src/utils/index.ts
++++ b/src/utils/index.ts
+@@ -1,6 +1,6 @@
+ import { type Color, Chess, Move } from "chess.js";
+ import React, { CSSProperties, ReactElement, ReactNode } from "react";
+-import _ from "lodash";
++
+ 
+ export type Status = "not-started" | "in-progress" | "solved" | "failed";
+ 
+@@ -45,7 +45,7 @@ export const getCustomSquareStyles = (
+ ) => {
+   const customSquareStyles: Record<string, CSSProperties> = {};
+ 
+-  const lastMove = _.last(game.history({ verbose: true }));
++  const lastMove = game.history({ verbose: true }).slice(-1)[0];
+ 
+   if (status === "failed" && lastMove) {
+     customSquareStyles[lastMove.from] = {

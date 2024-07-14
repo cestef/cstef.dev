@@ -36,7 +36,9 @@ export const SOCIALS: {
 	{
 		name: "Steam",
 		url: "https://steamcommunity.com/id/cishtef",
-		icon: <FaSteam className="sm:w-10 sm:h-10 w-8 h-8 text-blue-950 dark:text-white" />,
+		icon: (
+			<FaSteam className="sm:w-10 sm:h-10 w-8 h-8 text-blue-950 dark:text-white" />
+		),
 		variant: "link",
 	},
 	{
@@ -62,8 +64,8 @@ export const EVENTS: {
 		title: "Messing around",
 		description: (
 			<>
-				Where it all began. My father showed me a block-programming platform named{" "}
-				<Link href="https://scratch.mit.edu">Scratch</Link>.
+				Where it all began. My father showed me a block-programming platform
+				named <Link href="https://scratch.mit.edu">Scratch</Link>.
 			</>
 		),
 		date: "2013",
@@ -112,11 +114,13 @@ export const EVENTS: {
 		title: "Experiencing other domains",
 		description: (
 			<>
-				Out of curiosity, I started to learn about new domains such as Game Development,
-				which lead me to join{" "}
-				<Link href="https://itch.io/jam/brackeys-8/rate/1680462">Brackey's jam</Link> and
-				collaborate with amazing people on a game. We were very proud of the result (Placed{" "}
-				<b>6th</b> out of <b>1000+</b> games).
+				Out of curiosity, I started to learn about new domains such as Game
+				Development, which lead me to join{" "}
+				<Link href="https://itch.io/jam/brackeys-8/rate/1680462">
+					Brackey's jam
+				</Link>{" "}
+				and collaborate with amazing people on a game. We were very proud of the
+				result (Placed <b>6th</b> out of <b>1000+</b> games).
 			</>
 		),
 		date: "2022",
@@ -125,10 +129,11 @@ export const EVENTS: {
 		title: "Going national !",
 		description: (
 			<>
-				After a lot of work, I managed to get into the SJF (Schweizer Jugend Forscht) with
-				my maturity work <Link href="https://github.com/cestef/meshlink">MeshLink</Link>.
-				This national competition was a great experience and I met a lot of interesting
-				people. I received the <b>"very good"</b> mention.
+				After a lot of work, I managed to get into the SJF (Schweizer Jugend
+				Forscht) with my maturity work{" "}
+				<Link href="https://github.com/cestef/meshlink">MeshLink</Link>. This
+				national competition was a great experience and I met a lot of
+				interesting people. I received the <b>"very good"</b> mention.
 			</>
 		),
 		date: "2024",
@@ -136,14 +141,14 @@ export const EVENTS: {
 	{
 		title: "And now what ?",
 		description:
-			"I am currently studying at High School, waiting for the days to finish and get back home programming. I'm planning to continue my studies in the IT branch but I'm not sure which one yet ¯\\_(ツ)_/¯",
+			"I am now waiting for the next semester to start, I should be going to Univesity to study Computer Science and Cybersecurity.",
 		date: "Today",
 	},
 ];
 
 export const EMAIL = "114,111,111,116,64,99,115,116,101,102,46,100,101,118"
 	.split(",")
-	.map((char) => String.fromCharCode(parseInt(char)))
+	.map((char) => String.fromCharCode(Number.parseInt(char)))
 	.join("");
 export const FILE_TREE: Dir = {
 	type: "dir",
@@ -200,7 +205,8 @@ export const FILE_TREE: Dir = {
 								{
 									type: "file",
 									name: "README",
-									content: `I wonder how people managed to fit images in audio back in the day... 🤔`,
+									content:
+										"I wonder how people managed to fit images in audio back in the day... 🤔",
 									contentType: "text/plain",
 								},
 								{

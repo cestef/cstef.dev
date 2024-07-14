@@ -1,11 +1,12 @@
 import { ControlCodes, useCommands } from "@/lib/commands";
 import { cn } from "@/lib/utils";
-import { Html, PerspectiveCamera, Stage } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import { Loader2 } from "lucide-react";
-import { Suspense, useCallback, useEffect, useState } from "react";
-import { Model } from "./Computer";
+import { Play } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useUser } from "@/lib/user";
+import MonacoEditor from "@monaco-editor/react";
+
+import { Skeleton } from "../ui/skeleton";
+import { useColorScheme } from "@/lib/theme";
 
 export interface TerminalState {
 	input: string;
@@ -19,7 +20,10 @@ export interface TerminalState {
 }
 
 export class Output {
-	constructor(public content: React.ReactNode, public className: string = "") {}
+	constructor(
+		public content: React.ReactNode,
+		public className = "",
+	) {}
 	toElement() {
 		return <p className={cn(this.className)}>{this.content}</p>;
 	}
@@ -33,23 +37,19 @@ const useTerminalState = (): {
 		input: "",
 		output: [
 			new Output(
-				(
-					<>
-						Last login:{" "}
-						<span className="text-green-500">
-							{new Date(Math.floor(Math.random() * Date.now())).toUTCString()}
-						</span>{" "}
-						on ttys
-						{Math.floor(Math.random() * 10)}
-					</>
-				)
+				<>
+					Last login:{" "}
+					<span className="text-green-500">
+						{new Date(Math.floor(Math.random() * Date.now())).toUTCString()}
+					</span>{" "}
+					on ttys
+					{Math.floor(Math.random() * 10)}
+				</>,
 			),
 			new Output(
-				(
-					<>
-						Type <span className="font-bold">help</span> to see available commands
-					</>
-				)
+				<>
+					Type <span className="font-bold">help</span> to see available commands
+				</>,
 			),
 		],
 		history: [],
@@ -60,24 +60,24 @@ const useTerminalState = (): {
 		completionOptions: [],
 	});
 
-	const set = useCallback(
-		(key: keyof TerminalState, value: unknown) => {
-			setState((state) => ({ ...state, [key]: value }));
-		},
-		[setState]
-	);
+	const set = useCallback((key: keyof TerminalState, value: unknown) => {
+		setState((state) => ({ ...state, [key]: value }));
+	}, []);
 
 	return { state, set };
 };
 
-export function Terminal({ className, onExit }: { className?: string; onExit: () => void }) {
+export function Terminal({
+	className,
+	onExit,
+}: { className?: string; onExit: () => void }) {
 	const { state, set } = useTerminalState();
 	const commands = useCommands({ state, set });
 	const handleInputChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
 			set("input", e.target.value);
 		},
-		[set]
+		[set],
 	);
 
 	const handleInputKeyDown = useCallback(
@@ -122,8 +122,8 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 							res.map((e) => {
 								if (typeof e === "string") return new Output(e);
 								return e;
-							})
-						)
+							}),
+						),
 					);
 			} else if (e.key === "ArrowUp") {
 				if (state.historyIndex > 0) {
@@ -155,16 +155,17 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 							/(\S+)$/,
 							state.completionOptions[
 								state.completionIndex % state.completionOptions.length
-							]
-						)
+							],
+						),
 					);
 					set("completionIndex", state.completionIndex + 1);
 				}
 			}
 		},
-		[state, set]
+		[state, set, commands, onExit],
 	);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const terminal = document.getElementById("terminal");
 		if (terminal) {
@@ -172,6 +173,7 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 		}
 	}, [state.output]);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const input = document.querySelector("#terminal input");
 		if (input) {
@@ -183,7 +185,10 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 
 	return (
 		<div
-			className={cn("h-full w-full overflow-y-auto rounded-md font-mono", className)}
+			className={cn(
+				"h-full w-full overflow-y-auto rounded-md font-mono",
+				className,
+			)}
 			onClick={() => {
 				const input = document.querySelector("#terminal input");
 				if (input) {
@@ -196,7 +201,7 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 			</div>
 			<div id="terminal" className="p-4">
 				{state.output.map((line, index) => (
-					<div key={index} className="">
+					<div key={index.toString()} className="">
 						{line.toElement()}
 					</div>
 				))}
@@ -221,32 +226,106 @@ export function Terminal({ className, onExit }: { className?: string; onExit: ()
 	);
 }
 
-export function Macintosh() {
-	return (
-		<div className="lg:!w-[30vw] lg:!h-[40svh] !w-[75vw] !h-[50svh]">
-			<Canvas className="w-full h-full">
-				<Element />
-			</Canvas>
-		</div>
-	);
+const DEFAULT_CODE = `// Welcome to my portfolio!
+// Feel free to play around with the code below
+// and see the results in the console!
+
+class Visitor {
+    constructor(isSmart) {
+        this.isSmart = isSmart;
+    }
 }
 
-function Element() {
+const me = new Visitor(false);
+
+openConsole(me);
+`;
+
+export function Editor({
+	openConsole,
+}: {
+	openConsole: (person: any) => void;
+}) {
+	openConsole;
+	const [result, setResult] = useState<string | null>(null);
+	const ref = useRef<any>(null);
+	const { resolvedColorScheme } = useColorScheme();
+
+	useEffect(() => {
+		ref.current?.monaco.editor.setTheme(
+			resolvedColorScheme === "dark" ? "default-dark" : "default-light",
+		);
+	}, [resolvedColorScheme]);
 	return (
-		<>
-			<Suspense
-				fallback={
-					<Html>
-						<Loader2 className="w-12 h-12 animate-spin" />
-					</Html>
+		<div className="relative">
+			<MonacoEditor
+				className="lg:!w-[40vw] lg:!h-[40svh] !w-[75vw] !h-[50svh] lg:mt-0 mt-8 mb-8 lg:mb-0"
+				defaultLanguage="javascript"
+				theme={resolvedColorScheme === "dark" ? "vs-dark" : "vs"}
+				defaultValue={DEFAULT_CODE}
+				options={{
+					minimap: { enabled: false },
+					fontSize: 16,
+					glyphMargin: false,
+					padding: { top: 16, bottom: 16 },
+					scrollbar: { vertical: "hidden", horizontal: "hidden" },
+				}}
+				loading={
+					<Skeleton className="lg:!w-[40vw] lg:!h-[40svh] !w-[75vw] !h-[50svh] mt-8 mb-8 lg:mb-0 lg:mt-0" />
 				}
+				onMount={(editor, monaco) => {
+					ref.current = {
+						monaco,
+						editor,
+					};
+					monaco.editor.defineTheme("default-dark", {
+						base: "vs-dark",
+						inherit: true,
+						colors: {
+							"editor.background": "#292524",
+						},
+						rules: [],
+					});
+					monaco.editor.defineTheme("default-light", {
+						base: "vs",
+						inherit: true,
+						colors: {
+							"editor.background": "#F4F4F5",
+						},
+						rules: [],
+					});
+					monaco.editor.setTheme(
+						resolvedColorScheme === "dark" ? "default-dark" : "default-light",
+					);
+					// Add a completion for the openConsole function
+					monaco.languages.typescript.javascriptDefaults.addExtraLib(
+						`
+declare class Visitor {
+    isSmart: boolean;
+}
+declare function openConsole(person: Visitor): void;`,
+						"file:///src/types.d.ts",
+					);
+				}}
+			/>
+			<button
+				type="button"
+				className="absolute top-8 lg:top-0 right-0 p-2 hover:bg-gray-800 hover:bg-opacity-50 rounded-md m-2"
+				onClick={async () => {
+					console.log("Run code", ref.current.editor.getValue());
+					const res = await eval(ref.current.editor.getValue());
+					setResult(res);
+				}}
 			>
-				<Stage environment="city" intensity={0.6}>
-					<Model />
-				</Stage>
-			</Suspense>
-			<PerspectiveCamera makeDefault position={[1, 1, 25]} fov={50} zoom={0.5} />
-		</>
+				<Play className="w-6 h-6 text-gray-400" />
+			</button>
+			<pre className="bg-accent bg-opacity-80 p-4 rounded-md mt-2 mb-4 lg:mb-0">
+				{"> "}
+				<span className="dark:text-gray-400 text-gray-600">
+					{result ?? "Run the code to see the result"}
+				</span>
+			</pre>
+		</div>
 	);
 }
 

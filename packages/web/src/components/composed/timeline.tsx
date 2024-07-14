@@ -11,7 +11,7 @@ export function Timeline() {
 					style={{
 						left: "50%",
 					}}
-				></div>
+				/>
 				{EVENTS.map((item, index) => (
 					<motion.div
 						key={index}
@@ -40,7 +40,7 @@ export function Timeline() {
 								{
 									"items-start": index % 2 === 0,
 									"items-end": index % 2 === 1,
-								}
+								},
 							)}
 							whileHover={{ scale: 1.05 }}
 						>
@@ -53,7 +53,9 @@ export function Timeline() {
 			<div className="flex flex-col gap-4 items-center justify-center p-4 w-full sm:hidden">
 				{EVENTS.map((item, index) => (
 					<>
-						<h2 className="font-bold text-2xl text-muted-foreground">{item.date}</h2>
+						<h2 className="font-bold text-2xl text-muted-foreground">
+							{item.date}
+						</h2>
 						<motion.div
 							className="px-8 py-6 rounded-lg border bg-card text-card-foreground flex flex-col justify-center"
 							whileInView={{

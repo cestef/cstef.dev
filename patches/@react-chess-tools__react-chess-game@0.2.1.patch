@@ -1,0 +1,53 @@
+diff --git a/dist/index.mjs b/dist/index.mjs
+index f86de6ae0e513d2fcb017fc9d8b51edd9ecef111..dac4459afb2b826f86e6e2f86acd06bf1bd67382 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -7,7 +7,7 @@ import { Chess as Chess2 } from "chess.js";
+ 
+ // src/utils/chess.ts
+ import { Chess } from "chess.js";
+-import _ from "lodash";
++
+ var cloneGame = (game) => {
+   const copy = new Chess();
+   copy.loadPgn(game.pgn());
+@@ -18,7 +18,7 @@ var getGameInfo = (game, orientation) => {
+   const isPlayerTurn = turn === orientation;
+   const isOpponentTurn = !isPlayerTurn;
+   const moveNumber = game.history().length;
+-  const lastMove = _.last(game.history({ verbose: true }));
++  const lastMove = game.history({ verbose: true }).slice(-1)[0];
+   const isCheck = game.isCheck();
+   const isCheckmate = game.isCheckmate();
+   const isDraw = game.isDraw();
+diff --git a/package.json b/package.json
+index 3971448b85a3859b7274d48722be8015407dfec6..74f87a5bbcd024f60814f9191657421f9d6474ef 100644
+--- a/package.json
++++ b/package.json
+@@ -31,7 +31,6 @@
+   "license": "MIT",
+   "dependencies": {
+     "chess.js": "^1.0.0-beta.6",
+-    "lodash": "^4.17.21",
+     "react-chessboard": "^3.2.0"
+   },
+   "devDependencies": {
+diff --git a/src/utils/chess.ts b/src/utils/chess.ts
+index 5c359ce508f5b8c56faf55ce6455f351ce8a4925..1777d31b9cbe559a0f658b83404ad3878dd1823e 100644
+--- a/src/utils/chess.ts
++++ b/src/utils/chess.ts
+@@ -1,5 +1,4 @@
+ import { Chess, Color, Square } from "chess.js";
+-import _ from "lodash";
+ 
+ /**
+  * Creates a clone of the given Chess.js instance. This is needed to update the state
+@@ -25,7 +24,7 @@ export const getGameInfo = (game: Chess, orientation: Color) => {
+   const isPlayerTurn = turn === orientation;
+   const isOpponentTurn = !isPlayerTurn;
+   const moveNumber = game.history().length;
+-  const lastMove = _.last(game.history({ verbose: true }));
++  const lastMove = game.history({ verbose: true }).slice(-1)[0];
+   const isCheck = game.isCheck();
+   const isCheckmate = game.isCheckmate();
+   const isDraw = game.isDraw();

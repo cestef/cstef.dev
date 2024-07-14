@@ -1,16 +1,11 @@
-import { Macintosh, Terminal } from "@/components/composed/terminal";
+import { Editor, Terminal } from "@/components/composed/editor";
 import { Button } from "@/components/ui/button";
 import Twemoji from "@/components/ui/twemoji";
 import { motion } from "framer-motion";
-import { Mail, TerminalIcon } from "lucide-react";
+import { Mail } from "lucide-react";
 import { useState } from "react";
 import { Bold } from "../ui/bold";
-import {
-	ContextMenu,
-	ContextMenuContent,
-	ContextMenuItem,
-	ContextMenuTrigger,
-} from "../ui/context-menu";
+
 import { Dialog, DialogContent } from "../ui/dialog";
 
 export default function Hero() {
@@ -47,7 +42,8 @@ export default function Hero() {
 					<div className="flex flex-wrap gap-2 justify-center md:justify-start">
 						I'm a <Bold>developer</Bold> from{" "}
 						<Bold>
-							Switzerland <Twemoji emoji="🇨🇭" className="sm:w-10 sm:h-10 w-8 h-8" />
+							Switzerland{" "}
+							<Twemoji emoji="🇨🇭" className="sm:w-10 sm:h-10 w-8 h-8" />
 						</Bold>
 					</div>
 				</p>
@@ -74,19 +70,18 @@ export default function Hero() {
 					</Button>
 				</motion.div>
 			</div>
-			<ContextMenu>
-				<ContextMenuTrigger asChild>
-					<div className="lg:float-right flex items-center justify-center lg:block">
-						<Macintosh />
-					</div>
-				</ContextMenuTrigger>
-				<ContextMenuContent>
-					<ContextMenuItem onClick={() => setTerminalOpen(true)}>
-						<TerminalIcon className="w-4 h-4 mr-2 inline-block" />
-						Open Terminal
-					</ContextMenuItem>
-				</ContextMenuContent>
-			</ContextMenu>
+
+			<div className="lg:float-right flex items-center justify-center lg:block">
+				<Editor
+					openConsole={(person: any) => {
+						if (!person.isSmart) {
+							return "You are not smart enough to open the console.";
+						}
+						setTerminalOpen(true);
+					}}
+				/>
+			</div>
+
 			<Dialog open={terminalOpen} onOpenChange={(e) => setTerminalOpen(e)}>
 				<DialogContent className="max-w-7xl h-[55rem]">
 					<Terminal onExit={() => setTerminalOpen(false)} />

@@ -6,11 +6,18 @@
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
+		"@biomejs/biome": "^1.8.3",
 		"concurrently": "^8.2.2",
 		"husky": "^8.0.0"
 	},
 	"scripts": {
 		"prepare": "husky install",
 		"dev": "concurrently \"pnpm --filter=web dev\" \"pnpm --filter=backend dev\""
+	},
+	"pnpm": {
+		"patchedDependencies": {
+			"@react-chess-tools/react-chess-puzzle@0.2.1": "patches/@react-chess-tools__react-chess-puzzle@0.2.1.patch",
+			"@react-chess-tools/react-chess-game@0.2.1": "patches/@react-chess-tools__react-chess-game@0.2.1.patch"
+		}
 	}
 }

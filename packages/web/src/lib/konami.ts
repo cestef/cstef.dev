@@ -16,7 +16,7 @@ export const useKonami = (callback: () => void) => {
 
 	// If the keys array matches the konami code, set konami to true
 	useEffect(() => {
-		console.log(keys.join(""));
+		// console.log(keys.join(""));
 		if (keys.join("") === KONAMI) {
 			setKonami(true);
 			callback();

@@ -69,3 +69,8 @@
 .spell-error:hover {
 	animation-play-state: running;
 }
+
+.monaco-editor .overflow-guard,
+.monaco-editor {
+	border-radius: calc(1rem - 1px);
+}
