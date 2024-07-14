@@ -20,7 +20,7 @@ export function Timeline() {
 						})}
 						initial={{ opacity: 0 }}
 						whileInView={{ opacity: 1 }}
-						transition={{ delay: 0.5 }}
+						transition={{ delay: 0.125 }}
 						viewport={{ once: true }}
 					>
 						<div
