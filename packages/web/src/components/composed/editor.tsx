@@ -1,7 +1,7 @@
 import { ControlCodes, useCommands } from "@/lib/commands";
 import { cn } from "@/lib/utils";
 import { Play } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useUser } from "@/lib/user";
 import { useColorScheme } from "@/lib/theme";
 import { javascript } from "@codemirror/lang-javascript";
@@ -196,6 +196,11 @@ export function Terminal({
 					(input as HTMLInputElement).focus();
 				}
 			}}
+			onKeyDown={(e) => {
+				if (e.key === "Escape") {
+					onExit();
+				}
+			}}
 		>
 			<div className="flex flex-col bg-background justify-center items-center text-gray-400 select-none sticky top-0">
 				{user?.login ?? "guest"}@cstef.dev
@@ -242,22 +247,18 @@ const me = new Visitor(false);
 openConsole(me);
 `;
 
+export interface Visitor {
+	isSmart: boolean;
+}
+
 export function Editor({
 	openConsole,
 }: {
-	openConsole: (person: any) => void;
+	openConsole: (person: Visitor) => void;
 }) {
 	const [result, setResult] = useState<string | null>(null);
 	const [value, setValue] = useState(DEFAULT_CODE);
-	const ref = useRef<any>(null);
 	const { resolvedColorScheme } = useColorScheme();
-
-	useEffect(() => {
-		ref.current?.editor.setOption(
-			"theme",
-			resolvedColorScheme === "dark" ? "dark" : "light",
-		);
-	}, [resolvedColorScheme]);
 
 	// min-width: 1024px
 	const [shouldDisplayEditor, setShouldDisplayEditor] = useState(false);
@@ -275,14 +276,7 @@ export function Editor({
 			window.removeEventListener("resize", handleResize);
 		};
 	}, []);
-	function myCompletions(context: any) {
-		const word = context.matchBefore(/\w*/);
-		if (word.from === word.to && !context.explicit) return null;
-		return {
-			from: word.from,
-			options: [{ label: "openConsole", type: "function" }],
-		};
-	}
+
 	return (
 		<>
 			{shouldDisplayEditor && (
@@ -316,6 +310,7 @@ export function Editor({
 							className="absolute top-8 lg:top-0 right-0 p-2 m-2 border-none bg-transparent"
 							onClick={async () => {
 								console.log("Run code", value);
+								// biome-ignore lint/security/noGlobalEval: this is a "controlled" environment
 								const res = await eval(value);
 								setResult(res);
 							}}

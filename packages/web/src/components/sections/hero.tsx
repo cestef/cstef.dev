@@ -1,4 +1,4 @@
-import { Editor, Terminal } from "@/components/composed/editor";
+import { Editor, Terminal, type Visitor } from "@/components/composed/editor";
 import { Button } from "@/components/ui/button";
 import Twemoji from "@/components/ui/twemoji";
 import { motion } from "framer-motion";
@@ -74,7 +74,7 @@ export default function Hero() {
 
 			<div className="lg:float-right flex items-center justify-center lg:block">
 				<Editor
-					openConsole={(person: any) => {
+					openConsole={(person: Visitor) => {
 						if (!person.isSmart) {
 							return "You are not smart enough to open the console.";
 						}
