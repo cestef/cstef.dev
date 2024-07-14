@@ -53,6 +53,7 @@ export default function Hero() {
 					transition={{
 						delay: 2.25,
 					}}
+					className="lg:mb-0 mb-8"
 				>
 					<Button
 						variant="outline"

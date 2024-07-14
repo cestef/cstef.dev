@@ -18,12 +18,27 @@ export const useRepositories = (user: string) => {
 	useEffect(() => {
 		setIsLoading(true);
 		fetch(
-			`https://api.github.com/users/${user}/repos?sort=pushed&direction=desc&per_page=8&page=${page}`
+			`https://api.github.com/users/${user}/repos?sort=pushed&direction=desc&per_page=8&page=${page}`,
 		)
 			.then((res) => res.json())
 			.then((data) => {
 				setIsLoading(false);
 				if (data.length < 8) {
+					setIsMore(false);
+					return;
+				}
+				if (data.message) {
+					setRepositories([
+						{
+							name: "Error",
+							url: "",
+							description: data.message,
+							stars: 0,
+							lastUpdate: "",
+							forked: false,
+							language: "",
+						},
+					]);
 					setIsMore(false);
 					return;
 				}
@@ -47,14 +62,17 @@ export const useRepositories = (user: string) => {
 									lastUpdate: repo.updated_at,
 									forked: repo.fork,
 									language: repo.language,
-								})
+								}),
 							)
-							.filter((repo: Repository) => !e.find((r) => r.name === repo.name))
-					)
+							.filter(
+								(repo: Repository) => !e.find((r) => r.name === repo.name),
+							),
+					),
 				);
 			})
 			.catch(() => {
 				setIsLoading(false);
+				return [];
 			});
 	}, [user, page]);
 

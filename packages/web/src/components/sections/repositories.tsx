@@ -2,7 +2,13 @@ import { getLanguageColor } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "../ui/card";
+import {
+	Card,
+	CardHeader,
+	CardTitle,
+	CardContent,
+	CardFooter,
+} from "../ui/card";
 import { Tooltip, TooltipTrigger, TooltipContent } from "../ui/tooltip";
 import { useRepositories } from "@/lib/repositories";
 import Twemoji from "../ui/twemoji";
@@ -11,7 +17,7 @@ export default function Repositories() {
 	const { isMore, loadMore, repositories, loading } = useRepositories("cestef");
 
 	return (
-		<div className="mt-32 flex flex-col justify-center items-center">
+		<div className="lg:mt-32 mt-8 flex flex-col justify-center items-center">
 			<motion.h2
 				whileInView={{ scale: [0.2, 1] }}
 				viewport={{ once: true }}
@@ -61,9 +67,7 @@ export default function Repositories() {
 													<div
 														className="w-3 h-3 rounded-full"
 														style={{
-															backgroundColor: getLanguageColor(
-																repo.language
-															),
+															backgroundColor: getLanguageColor(repo.language),
 														}}
 													/>
 													{repo.language}
@@ -82,8 +86,15 @@ export default function Repositories() {
 				))}
 			</div>
 			{isMore && (
-				<Button variant="outline" size="jumbo" onClick={loadMore} className="mt-10">
-					{loading && <Loader2 className="w-5 h-5 mr-3 inline-block animate-spin" />}
+				<Button
+					variant="outline"
+					size="jumbo"
+					onClick={loadMore}
+					className="mt-10"
+				>
+					{loading && (
+						<Loader2 className="w-5 h-5 mr-3 inline-block animate-spin" />
+					)}
 					Load more
 				</Button>
 			)}

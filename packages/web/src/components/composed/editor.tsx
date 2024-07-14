@@ -257,7 +257,7 @@ export function Editor({
 		);
 	}, [resolvedColorScheme]);
 	return (
-		<div className="relative">
+		<div className="relative hidden lg:block">
 			<MonacoEditor
 				className="lg:!w-[40vw] lg:!h-[40svh] !w-[75vw] !h-[50svh] lg:mt-0 mt-8 mb-8 lg:mb-0"
 				defaultLanguage="javascript"
