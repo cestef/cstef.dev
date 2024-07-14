@@ -3,10 +3,11 @@ import { cn } from "@/lib/utils";
 import { Play } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useUser } from "@/lib/user";
-import MonacoEditor from "@monaco-editor/react";
-
-import { Skeleton } from "../ui/skeleton";
 import { useColorScheme } from "@/lib/theme";
+import { javascript } from "@codemirror/lang-javascript";
+import CodeMirror from "@uiw/react-codemirror";
+import { githubLightInit, githubDarkInit } from "@uiw/codemirror-theme-github";
+import { Button } from "../ui/button";
 
 export interface TerminalState {
 	input: string;
@@ -246,86 +247,91 @@ export function Editor({
 }: {
 	openConsole: (person: any) => void;
 }) {
-	openConsole;
 	const [result, setResult] = useState<string | null>(null);
+	const [value, setValue] = useState(DEFAULT_CODE);
 	const ref = useRef<any>(null);
 	const { resolvedColorScheme } = useColorScheme();
 
 	useEffect(() => {
-		ref.current?.monaco.editor.setTheme(
-			resolvedColorScheme === "dark" ? "default-dark" : "default-light",
+		ref.current?.editor.setOption(
+			"theme",
+			resolvedColorScheme === "dark" ? "dark" : "light",
 		);
 	}, [resolvedColorScheme]);
+
+	// min-width: 1024px
+	const [shouldDisplayEditor, setShouldDisplayEditor] = useState(false);
+	useEffect(() => {
+		const handleResize = () => {
+			if (window.innerWidth >= 1024) {
+				setShouldDisplayEditor(true);
+			} else {
+				setShouldDisplayEditor(false);
+			}
+		};
+		handleResize();
+		window.addEventListener("resize", handleResize);
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, []);
+	function myCompletions(context: any) {
+		const word = context.matchBefore(/\w*/);
+		if (word.from === word.to && !context.explicit) return null;
+		return {
+			from: word.from,
+			options: [{ label: "openConsole", type: "function" }],
+		};
+	}
 	return (
-		<div className="relative hidden lg:block">
-			<MonacoEditor
-				className="lg:!w-[40vw] lg:!h-[40svh] !w-[75vw] !h-[50svh] lg:mt-0 mt-8 mb-8 lg:mb-0"
-				defaultLanguage="javascript"
-				theme={resolvedColorScheme === "dark" ? "vs-dark" : "vs"}
-				defaultValue={DEFAULT_CODE}
-				options={{
-					minimap: { enabled: false },
-					fontSize: 16,
-					glyphMargin: false,
-					padding: { top: 16, bottom: 16 },
-					scrollbar: { vertical: "hidden", horizontal: "hidden" },
-				}}
-				loading={
-					<Skeleton className="lg:!w-[40vw] lg:!h-[40svh] !w-[75vw] !h-[50svh] mt-8 mb-8 lg:mb-0 lg:mt-0" />
-				}
-				onMount={(editor, monaco) => {
-					ref.current = {
-						monaco,
-						editor,
-					};
-					monaco.editor.defineTheme("default-dark", {
-						base: "vs-dark",
-						inherit: true,
-						colors: {
-							"editor.background": "#292524",
-						},
-						rules: [],
-					});
-					monaco.editor.defineTheme("default-light", {
-						base: "vs",
-						inherit: true,
-						colors: {
-							"editor.background": "#F4F4F5",
-						},
-						rules: [],
-					});
-					monaco.editor.setTheme(
-						resolvedColorScheme === "dark" ? "default-dark" : "default-light",
-					);
-					// Add a completion for the openConsole function
-					monaco.languages.typescript.javascriptDefaults.addExtraLib(
-						`
-declare class Visitor {
-    isSmart: boolean;
-}
-declare function openConsole(person: Visitor): void;`,
-						"file:///src/types.d.ts",
-					);
-				}}
-			/>
-			<button
-				type="button"
-				className="absolute top-8 lg:top-0 right-0 p-2 hover:bg-gray-800 hover:bg-opacity-50 rounded-md m-2"
-				onClick={async () => {
-					console.log("Run code", ref.current.editor.getValue());
-					const res = await eval(ref.current.editor.getValue());
-					setResult(res);
-				}}
-			>
-				<Play className="w-6 h-6 text-gray-400" />
-			</button>
-			<pre className="bg-accent bg-opacity-80 p-4 rounded-md mt-2 mb-4 lg:mb-0">
-				{"> "}
-				<span className="dark:text-gray-400 text-gray-600">
-					{result ?? "Run the code to see the result"}
-				</span>
-			</pre>
-		</div>
+		<>
+			{shouldDisplayEditor && (
+				<>
+					<div className="relative hidden lg:block">
+						<div className="lg:!w-[40vw] lg:!h-[40svh] !w-[75vw] !h-[50svh] lg:mt-0 mt-8 mb-8 lg:mb-0 rounded-md">
+							<CodeMirror
+								value={value}
+								onChange={(value) => {
+									setValue(value);
+								}}
+								extensions={[javascript({})]}
+								theme={(resolvedColorScheme === "dark"
+									? githubDarkInit
+									: githubLightInit)({
+									settings: {
+										background:
+											resolvedColorScheme === "dark" ? "#292524" : "#F4F4F5",
+										gutterBackground:
+											resolvedColorScheme === "dark" ? "#332E2D" : "#E2E2E5",
+									},
+								})}
+								width="100%"
+								height="100%"
+								className="text-lg"
+							/>
+						</div>
+
+						<Button
+							variant="secondary"
+							className="absolute top-8 lg:top-0 right-0 p-2 m-2 border-none bg-transparent"
+							onClick={async () => {
+								console.log("Run code", value);
+								const res = await eval(value);
+								setResult(res);
+							}}
+						>
+							<Play className="w-6 h-6 text-gray-400" />
+						</Button>
+					</div>
+					<pre className="bg-accent bg-opacity-80 p-4 rounded-md mt-2 mb-4 lg:mb-0">
+						{"> "}
+						<span className="dark:text-gray-400 text-gray-600">
+							{result ?? "Run the code to see the result"}
+						</span>
+					</pre>
+				</>
+			)}
+		</>
 	);
 }
 

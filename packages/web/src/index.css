@@ -70,7 +70,19 @@
 	animation-play-state: running;
 }
 
-.monaco-editor .overflow-guard,
-.monaco-editor {
-	border-radius: calc(1rem - 1px);
+.cm-editor {
+	border-radius: calc(1rem - 2px);
+}
+
+.cm-content {
+	padding: 0.5rem 0rem 0.5rem 0rem !important;
+}
+
+.cm-gutters {
+	border-radius: calc(1rem - 2px) 0rem 0rem calc(1rem - 2px);
+	padding-left: 0.5rem;
+}
+
+.cm-theme {
+	height: 100%;
 }

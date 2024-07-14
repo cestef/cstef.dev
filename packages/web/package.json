@@ -9,9 +9,11 @@
 		"preview": "farm preview"
 	},
 	"dependencies": {
-		"@monaco-editor/react": "^4.6.0",
+		"@codemirror/lang-javascript": "^6.2.2",
 		"@radix-ui/react-collapsible": "^1.0.3",
 		"@react-chess-tools/react-chess-puzzle": "^0.2.1",
+		"@uiw/codemirror-theme-github": "^4.23.0",
+		"@uiw/react-codemirror": "^4.23.0",
 		"chess.js": "1.0.0-beta.6",
 		"framer-motion": "^10.16.4",
 		"lucide-react": "^0.288.0",
