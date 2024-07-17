@@ -22,12 +22,6 @@ export const SOCIALS: {
 		variant: "copy",
 	},
 	{
-		name: "X",
-		url: "https://x.com/cishtef",
-		icon: <FaXTwitter className="sm:w-10 sm:h-10 w-8 h-8" />,
-		variant: "link",
-	},
-	{
 		name: "Spotify",
 		url: "https://open.spotify.com/user/dyt7pgmjts2a5u8mtttix4jho",
 		icon: <FaSpotify className="sm:w-10 sm:h-10 w-8 h-8 text-[#1DB954]" />,
@@ -35,7 +29,7 @@ export const SOCIALS: {
 	},
 	{
 		name: "Steam",
-		url: "https://steamcommunity.com/id/cishtef",
+		url: "https://steamcommunity.com/id/craintes",
 		icon: (
 			<FaSteam className="sm:w-10 sm:h-10 w-8 h-8 text-blue-950 dark:text-white" />
 		),
