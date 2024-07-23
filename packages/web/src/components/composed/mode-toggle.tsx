@@ -27,9 +27,15 @@ export function ModeToggle({ className }: { className?: string }) {
 				</Button>
 			</ContextMenuTrigger>
 			<ContextMenuContent>
-				<ContextMenuItem onClick={() => setColorScheme("light")}>Light</ContextMenuItem>
-				<ContextMenuItem onClick={() => setColorScheme("dark")}>Dark</ContextMenuItem>
-				<ContextMenuItem onClick={() => setColorScheme("system")}>System</ContextMenuItem>
+				<ContextMenuItem onClick={() => setColorScheme("light")}>
+					Light
+				</ContextMenuItem>
+				<ContextMenuItem onClick={() => setColorScheme("dark")}>
+					Dark
+				</ContextMenuItem>
+				<ContextMenuItem onClick={() => setColorScheme("system")}>
+					System
+				</ContextMenuItem>
 			</ContextMenuContent>
 		</ContextMenu>
 	);

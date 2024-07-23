@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 // Rewrite using tailwindcss
 export default function Spoiler({
@@ -17,13 +17,17 @@ export default function Spoiler({
 			}}
 			className={cn(
 				"p-px rounded cursor-pointer transition-all duration-200 ease-in-out",
-				hidden ? "bg-gray-200 dark:bg-gray-800" : "bg-gray-300 dark:bg-gray-600"
+				hidden
+					? "bg-gray-200 dark:bg-gray-800"
+					: "bg-gray-300 dark:bg-gray-600",
 			)}
 		>
 			<span
 				className={cn(
-					hidden ? "text-transparent select-none" : "text-gray-900 dark:text-gray-100",
-					className
+					hidden
+						? "text-transparent select-none"
+						: "text-gray-900 dark:text-gray-100",
+					className,
 				)}
 			>
 				{children}

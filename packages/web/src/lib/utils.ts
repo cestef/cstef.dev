@@ -1,7 +1,7 @@
-import { clsx, type ClassValue } from "clsx";
+import { type ClassValue, clsx } from "clsx";
 import { useCallback, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { Dir, File } from "./constants";
+import type { Dir, File } from "./constants";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -12,7 +12,10 @@ interface UseLocalStorageProps<T = unknown> {
 	defaultValue?: T;
 }
 
-export function useLocalStorage<T = unknown>({ key, defaultValue }: UseLocalStorageProps<T>) {
+export function useLocalStorage<T = unknown>({
+	key,
+	defaultValue,
+}: UseLocalStorageProps<T>) {
 	const [value, setValue] = useState<T>(() => {
 		const storedValue = localStorage.getItem(key);
 
@@ -28,7 +31,7 @@ export function useLocalStorage<T = unknown>({ key, defaultValue }: UseLocalStor
 			localStorage.setItem(key, JSON.stringify(newValue));
 			setValue(newValue);
 		},
-		[key]
+		[key],
 	);
 
 	return [value, setLocalStorageValue] as const;
@@ -53,7 +56,10 @@ export const getRandomHexColor = () => {
 	return COLORS[Math.floor(Math.random() * COLORS.length)];
 };
 
-export const shallowMerge = <T extends Record<string, unknown>>(a: T, b: Partial<T>): T => {
+export const shallowMerge = <T extends Record<string, unknown>>(
+	a: T,
+	b: Partial<T>,
+): T => {
 	return Object.entries(b).reduce((acc, [key, value]) => {
 		if (typeof value === "object" && value !== null) {
 			return {
@@ -69,7 +75,10 @@ export const shallowMerge = <T extends Record<string, unknown>>(a: T, b: Partial
 	}, a);
 };
 
-export const shallowEqual = <T extends Record<string, unknown>>(a: T, b: T): boolean => {
+export const shallowEqual = <T extends Record<string, unknown>>(
+	a: T,
+	b: T,
+): boolean => {
 	return Object.entries(a).every(([key, value]) => {
 		if (typeof value === "object" && value !== null) {
 			return shallowEqual(value as T, b[key] as T);
@@ -79,20 +88,26 @@ export const shallowEqual = <T extends Record<string, unknown>>(a: T, b: T): boo
 	});
 };
 
-export const shallowDiff = <T extends Record<string, unknown>>(a: T, b: T): Partial<T> => {
-	return Object.entries(a).reduce((acc, [key, value]) => {
-		if (typeof value === "object" && value !== null) {
+export const shallowDiff = <T extends Record<string, unknown>>(
+	a: T,
+	b: T,
+): Partial<T> => {
+	return Object.entries(a).reduce(
+		(acc, [key, value]) => {
+			if (typeof value === "object" && value !== null) {
+				return {
+					...acc,
+					[key]: shallowDiff(value as T, b[key] as T),
+				};
+			}
+
 			return {
 				...acc,
-				[key]: shallowDiff(value as T, b[key] as T),
+				[key]: value === b[key] ? undefined : value,
 			};
-		}
-
-		return {
-			...acc,
-			[key]: value === b[key] ? undefined : value,
-		};
-	}, {} as Partial<T>);
+		},
+		{} as Partial<T>,
+	);
 };
 
 const languagesToColors = {
@@ -112,16 +127,18 @@ const languagesToColors = {
 	"objective-c++": "#6866fb",
 	shell: "#89e051",
 	swift: "#F05137",
+	mdx: "#f9ac00",
 };
 
 export function getLanguageColor(language: string) {
 	return (
-		languagesToColors[(language ?? "").toLowerCase() as keyof typeof languagesToColors] ??
-		"#00000000"
+		languagesToColors[
+			(language ?? "").toLowerCase() as keyof typeof languagesToColors
+		] ?? "#00000000"
 	);
 }
 export const truncate = (str: string, n: number) =>
-	str.length > n ? str.slice(0, n - 1) + "..." : str;
+	str.length > n ? `${str.slice(0, n - 1)}...` : str;
 export const getAtPath = (path: string, dir: Dir): Dir | File | undefined => {
 	path = path.trim();
 	if (path === "/") return dir;

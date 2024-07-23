@@ -1,16 +1,16 @@
+import { useRepositories } from "@/lib/repositories";
 import { getLanguageColor } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
 import {
 	Card,
-	CardHeader,
-	CardTitle,
 	CardContent,
 	CardFooter,
+	CardHeader,
+	CardTitle,
 } from "../ui/card";
-import { Tooltip, TooltipTrigger, TooltipContent } from "../ui/tooltip";
-import { useRepositories } from "@/lib/repositories";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import Twemoji from "../ui/twemoji";
 
 export default function Repositories() {

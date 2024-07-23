@@ -1,14 +1,14 @@
 import { Output, type TerminalState } from "@/components/composed/editor";
-import { getAtPath, getJSON } from "./utils";
+import Spoiler from "@/components/composed/spoiler";
 import path from "path-browserify";
+import { match } from "ts-pattern";
 import { FILE_TREE } from "./constants";
 import { getUser, useUser } from "./user";
-import { match } from "ts-pattern";
-import Spoiler from "@/components/composed/spoiler";
+import { getAtPath, getJSON } from "./utils";
 
 export enum ControlCodes {
-	RESET,
-	EXIT,
+	RESET = 0,
+	EXIT = 1,
 }
 
 interface Command {
@@ -140,13 +140,12 @@ export const useCommands = ({
 
 				if (file.content)
 					return file.content.split("\n").map((line) => new Output(line)) ?? [];
-				else {
-					const a = document.createElement("a");
-					a.href = file.path as string;
-					a.target = "_blank";
-					a.click();
-					return [];
-				}
+
+				const a = document.createElement("a");
+				a.href = file.path as string;
+				a.target = "_blank";
+				a.click();
+				return [];
 			},
 			complete: (args) => {
 				// Only return files
@@ -260,7 +259,7 @@ export const useCommands = ({
 					];
 				try {
 					const string = args.join(" ");
-					const res = await fetch(import.meta.env.VITE_API_URL + "/validate", {
+					const res = await fetch(`${import.meta.env.VITE_API_URL}/validate`, {
 						method: "POST",
 						body: JSON.stringify({ flag: string }),
 						headers: {
@@ -309,7 +308,7 @@ export const useCommands = ({
 					return [
 						new Output(`Already logged in as ${user.login}.`, "text-green-500"),
 					];
-				const url = import.meta.env.VITE_API_URL + "/login";
+				const url = `${import.meta.env.VITE_API_URL}/login`;
 				window.open(url, "_blank", "width=500,height=500");
 
 				await new Promise<void>((resolve) => {
@@ -334,7 +333,7 @@ export const useCommands = ({
 				if (!res.success)
 					return [new Output("Logout failed.", "text-destructive")];
 				mutateUser(undefined, false); // false to prevent revalidation
-				return [new Output(`Logged out.`, "text-green-500")];
+				return [new Output("Logged out.", "text-green-500")];
 			},
 		},
 		{

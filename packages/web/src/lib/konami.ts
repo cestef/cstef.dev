@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { KONAMI } from "./constants";
 
 export const useKonami = (callback: () => void) => {

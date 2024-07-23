@@ -4,9 +4,13 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Check, Copy, Music } from "lucide-react";
 import { FaSpotify } from "react-icons/fa";
 import { P, match } from "ts-pattern";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import Image from "../composed/image";
+import {
+	HoverCard,
+	HoverCardContent,
+	HoverCardTrigger,
+} from "../ui/hover-card";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 export default function Socials({
 	open,
@@ -33,7 +37,11 @@ export default function Socials({
 				{SOCIALS.map((social, index) =>
 					match(social.variant)
 						.with(P.union("link", "copy"), () => (
-							<Tooltip key={index} delayDuration={0} open={open === social.name}>
+							<Tooltip
+								key={index}
+								delayDuration={0}
+								open={open === social.name}
+							>
 								<TooltipTrigger
 									onPointerEnter={() => setOpen(social.name)}
 									onPointerLeave={() => setOpen(false)}
@@ -83,8 +91,7 @@ export default function Socials({
 													</>
 												) : (
 													<>
-														<Copy className="w-4 h-4 mr-2 inline-block" />{" "}
-														Copy
+														<Copy className="w-4 h-4 mr-2 inline-block" /> Copy
 													</>
 												)}
 											</>
@@ -156,7 +163,7 @@ export default function Socials({
 								</HoverCardContent>
 							</HoverCard>
 						))
-						.exhaustive()
+						.exhaustive(),
 				)}
 			</div>
 		</div>

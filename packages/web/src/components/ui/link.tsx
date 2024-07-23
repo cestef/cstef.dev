@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 
-export function Link({ href, children }: { href: string; children: React.ReactNode }) {
+export function Link({
+	href,
+	children,
+}: { href: string; children: React.ReactNode }) {
 	return (
 		<motion.a
 			// whileHover={{ y: -3 }}

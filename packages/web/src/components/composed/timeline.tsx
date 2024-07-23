@@ -1,6 +1,6 @@
+import { EVENTS } from "@/lib/constants";
 import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
-import { EVENTS } from "@/lib/constants";
 
 export function Timeline() {
 	return (

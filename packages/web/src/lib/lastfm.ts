@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const LASTFM_API_KEY = import.meta.env.VITE_LASTFM_API_KEY;
 
 export const useLastFM = (
 	username: string,
-	interval: number = 5000,
-	size: string = "large",
-	current: boolean = false
+	interval = 5000,
+	size = "large",
+	current = false,
 ) => {
 	const [lastFMData, setLastFMData] = useState<{
 		recenttracks: {
@@ -30,7 +30,7 @@ export const useLastFM = (
 	useEffect(() => {
 		const fetchLastFMData = async () => {
 			const response = await fetch(
-				`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${LASTFM_API_KEY}&format=json`
+				`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${LASTFM_API_KEY}&format=json`,
 			);
 			const data = await response.json();
 			setLastFMData(data);
@@ -49,7 +49,8 @@ export const useLastFM = (
 	if (!recenttracks) return null;
 	const { track } = recenttracks;
 
-	if (track[0]["@attr"] && track[0]["@attr"].nowplaying !== "true" && current) return null;
+	if (track[0]["@attr"] && track[0]["@attr"].nowplaying !== "true" && current)
+		return null;
 
 	const { artist, name, image, url } = track[0];
 

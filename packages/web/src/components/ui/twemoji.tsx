@@ -2,11 +2,14 @@ import { cn } from "@/lib/utils";
 import { memo } from "react";
 import twemoji from "twemoji";
 
-const Twemoji = ({ emoji, className }: { emoji: string; className?: string }) => {
+const Twemoji = ({
+	emoji,
+	className,
+}: { emoji: string; className?: string }) => {
 	return (
 		<span
 			className={cn("inline-block w-6 h-6 align-text-bottom", className)}
-			// rome-ignore lint/security/noDangerouslySetInnerHtml: Need to use dangerouslySetInnerHTML to render twemoji
+			// biome-ignore lint/security/noDangerouslySetInnerHtml: Need to use dangerouslySetInnerHTML to render twemoji
 			dangerouslySetInnerHTML={{
 				__html: twemoji.parse(emoji, {
 					folder: "svg",

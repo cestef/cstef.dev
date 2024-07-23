@@ -1,20 +1,20 @@
 import { EMAIL } from "@/lib/constants";
+import { usePuzzle } from "@/lib/puzzle";
+import { ChessPuzzle } from "@react-chess-tools/react-chess-puzzle";
 import { motion } from "framer-motion";
-import { Mail, Copy, Check } from "lucide-react";
+import { Check, Copy, Mail } from "lucide-react";
+import { useState } from "react";
+import { Bold } from "../ui/bold";
 import { Button } from "../ui/button";
 import {
 	Dialog,
-	DialogTrigger,
 	DialogContent,
+	DialogDescription,
 	DialogHeader,
 	DialogTitle,
-	DialogDescription,
+	DialogTrigger,
 } from "../ui/dialog";
-import { Tooltip, TooltipTrigger, TooltipContent } from "../ui/tooltip";
-import { useState } from "react";
-import { usePuzzle } from "@/lib/puzzle";
-import { ChessPuzzle } from "@react-chess-tools/react-chess-puzzle";
-import { Bold } from "../ui/bold";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import Twemoji from "../ui/twemoji";
 import { useToast } from "../ui/use-toast";
 
@@ -35,7 +35,10 @@ export default function Contact({
 	const puzzle = usePuzzle();
 	return (
 		<div className="flex flex-col items-center justify-center gap-8">
-			<div className="w-full flex flex-wrap justify-center items-center gap-8" id="contact">
+			<div
+				className="w-full flex flex-wrap justify-center items-center gap-8"
+				id="contact"
+			>
 				<motion.h2
 					whileInView={{ scale: [0.2, 1] }}
 					viewport={{ once: true }}
@@ -105,7 +108,10 @@ export default function Contact({
 						</ChessPuzzle.Root>
 					</DialogContent>
 				</Dialog>
-				<Dialog open={open === "email"} onOpenChange={(e) => setOpen(e ? "email" : false)}>
+				<Dialog
+					open={open === "email"}
+					onOpenChange={(e) => setOpen(e ? "email" : false)}
+				>
 					<DialogContent>
 						<DialogHeader>
 							<DialogTitle className="text-2xl">
@@ -154,10 +160,15 @@ export default function Contact({
 			>
 				Can't manage to solve the puzzle ?
 			</motion.p>
-			<Dialog open={open === "help"} onOpenChange={(e) => setOpen(e ? "help" : false)}>
+			<Dialog
+				open={open === "help"}
+				onOpenChange={(e) => setOpen(e ? "help" : false)}
+			>
 				<DialogContent className="w-full">
 					<DialogHeader>
-						<DialogTitle className="text-2xl">So ya don't know chess ?</DialogTitle>
+						<DialogTitle className="text-2xl">
+							So ya don't know chess ?
+						</DialogTitle>
 					</DialogHeader>
 					<div className="text-lg flex flex-col items-center gap-2 justify-center">
 						<iframe

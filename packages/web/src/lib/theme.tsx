@@ -11,15 +11,21 @@ export const ColorSchemeContext = createContext<ColorSchemeContextProps>({
 	setColorScheme: () => {},
 });
 
-const resolveColorScheme = (colorScheme: "dark" | "light" | "system"): "dark" | "light" =>
+const resolveColorScheme = (
+	colorScheme: "dark" | "light" | "system",
+): "dark" | "light" =>
 	colorScheme === "system"
 		? window.matchMedia("(prefers-color-scheme: dark)").matches
 			? "dark"
 			: "light"
 		: colorScheme;
 
-export function ColorSchemeProvider({ children }: { children: React.ReactNode }) {
-	const [colorScheme, setColorScheme] = useLocalStorage<"dark" | "light" | "system">({
+export function ColorSchemeProvider({
+	children,
+}: { children: React.ReactNode }) {
+	const [colorScheme, setColorScheme] = useLocalStorage<
+		"dark" | "light" | "system"
+	>({
 		key: "colorScheme",
 		defaultValue: "system",
 	});
@@ -46,7 +52,9 @@ export function ColorSchemeProvider({ children }: { children: React.ReactNode })
 export function useColorScheme() {
 	const { colorScheme, setColorScheme } = useContext(ColorSchemeContext);
 	const toggleColorScheme = useCallback(() => {
-		setColorScheme(resolveColorScheme(colorScheme) === "light" ? "dark" : "light");
+		setColorScheme(
+			resolveColorScheme(colorScheme) === "light" ? "dark" : "light",
+		);
 	}, [colorScheme]);
 	return {
 		colorScheme,

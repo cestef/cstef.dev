@@ -1,6 +1,6 @@
+import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Skeleton } from "../ui/skeleton";
-import { cn } from "@/lib/utils";
 export default function Image({
 	src,
 	alt,

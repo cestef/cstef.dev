@@ -1,12 +1,12 @@
 import { ControlCodes, useCommands } from "@/lib/commands";
+import { useColorScheme } from "@/lib/theme";
+import { useUser } from "@/lib/user";
 import { cn } from "@/lib/utils";
+import { javascript } from "@codemirror/lang-javascript";
+import { githubDarkInit, githubLightInit } from "@uiw/codemirror-theme-github";
+import CodeMirror from "@uiw/react-codemirror";
 import { Play } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { useUser } from "@/lib/user";
-import { useColorScheme } from "@/lib/theme";
-import { javascript } from "@codemirror/lang-javascript";
-import CodeMirror from "@uiw/react-codemirror";
-import { githubLightInit, githubDarkInit } from "@uiw/codemirror-theme-github";
 import { Button } from "../ui/button";
 
 export interface TerminalState {

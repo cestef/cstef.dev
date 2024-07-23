@@ -1,5 +1,5 @@
 import { Chess } from "chess.js";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export interface Puzzle {
 	fen: string;

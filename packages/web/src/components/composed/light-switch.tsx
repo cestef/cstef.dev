@@ -12,7 +12,7 @@ const LightSwitch = () => {
 			<div className="absolute right-[7.5vw] top-[-40vh] z-[11]">
 				<motion.div
 					animate={{ y: [0, 8, 0] }}
-					transition={{ repeat: Infinity, duration: 3 }}
+					transition={{ repeat: Number.POSITIVE_INFINITY, duration: 3 }}
 					className="hidden md:flex w-[2px] h-[50vh] relative items-end justify-center rounded-[5px] bg-black dark:bg-white"
 					drag="y"
 					dragConstraints={{ top: 0, bottom: 0 }}
@@ -35,7 +35,7 @@ const LightSwitch = () => {
 					/>
 					<motion.div
 						animate={{ y: [0, 8, 0] }}
-						transition={{ repeat: Infinity, duration: 3 }}
+						transition={{ repeat: Number.POSITIVE_INFINITY, duration: 3 }}
 						className="absolute bottom-[-95px]"
 					>
 						<ChevronDown />

@@ -17,7 +17,7 @@ export interface User {
 export const useUser = () => {
 	const { data, error, isLoading, mutate } = useSWR<User & { error?: string }>(
 		"/session",
-		getJSON
+		getJSON,
 	);
 	return {
 		user: data?.error ? undefined : data,
