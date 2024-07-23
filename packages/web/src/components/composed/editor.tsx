@@ -282,7 +282,7 @@ export function Editor({
 			{shouldDisplayEditor && (
 				<>
 					<div className="relative hidden lg:block">
-						<div className="lg:!w-[40vw] lg:!h-[40svh] !w-[75vw] !h-[50svh] lg:mt-0 mt-8 mb-8 lg:mb-0 rounded-md">
+						<div className="lg:!w-[35vw] lg:!h-[40svh] !w-[75vw] !h-[50svh] lg:mt-0 mt-8 mb-8 lg:mb-0 rounded-md">
 							<CodeMirror
 								value={value}
 								onChange={(value) => {
