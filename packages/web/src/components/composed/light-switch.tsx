@@ -1,12 +1,12 @@
 import { useColorScheme } from "@/lib/theme";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { useRef } from "react";
+// import { useRef } from "react";
 import { MdLightbulb } from "react-icons/md";
 
 const LightSwitch = () => {
 	const { toggleColorScheme } = useColorScheme();
-	const switching = useRef(false);
+	// const switching = useRef(false);
 	return (
 		<AnimatePresence>
 			<div className="absolute right-[7.5vw] top-[-40vh] z-[11]">
@@ -18,15 +18,16 @@ const LightSwitch = () => {
 					dragConstraints={{ top: 0, bottom: 0 }}
 					onDragEnd={(_, info) => {
 						if (info.point.y > window.innerHeight / 3.5) {
-							switching.current = true;
-						}
-					}}
-					onDragTransitionEnd={() => {
-						if (switching.current) {
 							toggleColorScheme();
-							switching.current = false;
+							// switching.current = true;
 						}
 					}}
+					// onDragTransitionEnd={() => {
+					// 	if (switching.current) {
+					// 		toggleColorScheme();
+					// 		switching.current = false;
+					// 	}
+					// }}
 				>
 					<MdLightbulb
 						className="hidden md:block rotate-180 absolute -bottom-[68px] cursor-pointer text-yellow-400"
