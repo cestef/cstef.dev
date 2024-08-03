@@ -19,5 +19,6 @@
 			"@react-chess-tools/react-chess-puzzle@0.2.1": "patches/@react-chess-tools__react-chess-puzzle@0.2.1.patch",
 			"@react-chess-tools/react-chess-game@0.2.1": "patches/@react-chess-tools__react-chess-game@0.2.1.patch"
 		}
-	}
+	},
+	"packageManager": "pnpm@9.6.0"
 }
