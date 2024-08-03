@@ -1,13 +1,34 @@
 import { PrismaClient } from "@prisma/client";
-import { readFile } from "fs/promises";
+import { readFile } from "node:fs/promises";
 const prisma = new PrismaClient();
 async function main() {
-	const flags = await readFile("./flags.json", "utf-8");
-	const parsedFlags = JSON.parse(flags) as {
+	let parsedFlags: {
 		name: string;
 		value: string;
 		level: number;
-	}[];
+	}[] = [];
+	try {
+		const flags = await readFile("./flags.json", "utf-8");
+		parsedFlags = JSON.parse(flags) as {
+			name: string;
+			value: string;
+			level: number;
+		}[];
+	} catch (e) {
+		console.warn("flags.json not found, trying from env...");
+		if (!process.env.FLAGS) {
+			console.error("No flags found in env, exiting...");
+			return;
+		}
+		parsedFlags = process.env.FLAGS.split(";").map((e) => {
+			const [name, value, level] = e.split(",");
+			return { name, value, level: Number.parseInt(level) };
+		});
+		if (!parsedFlags) {
+			console.error("No flags found in env, exiting...");
+			return;
+		}
+	}
 
 	if (process.argv.some((e) => e === "--reset")) {
 		console.log("Resetting all flags...");
@@ -15,7 +36,8 @@ async function main() {
 	}
 
 	for (const flag of parsedFlags) {
-		if (!flag.name || !flag.value || !flag.level) throw new Error("Invalid flag");
+		if (!flag.name || !flag.value || !flag.level)
+			throw new Error("Invalid flag");
 		await prisma.flag.upsert({
 			create: {
 				name: flag.name,
