@@ -1,0 +1,15 @@
+providers = ["node"]
+
+[phases.install]
+cmds = [
+    "npm install -g corepack",
+    "corepack enable",
+    "corepack prepare pnpm@9.1.0 --activate",
+    "pnpm install",
+]
+
+[phases.build]
+cmds = ["pnpm prisma generate", "pnpm prisma migrate dev", "pnpm build"]
+
+[start]
+cmd = "pnpm start"

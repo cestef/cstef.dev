@@ -1,2 +1,0 @@
-[start]
-cmd = "pnpm --filter=backend start"
