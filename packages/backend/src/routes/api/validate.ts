@@ -51,6 +51,9 @@ const validate: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
 					},
 				},
 			},
+			include: {
+				flags: true,
+			},
 		});
 
 		request.session.set("user", newUser);
