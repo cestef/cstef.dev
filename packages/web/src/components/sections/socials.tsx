@@ -21,7 +21,7 @@ export default function Socials() {
 						.with("copy", () => (
 							<CopyContent content={social.url}>
 								<motion.div
-									className="flex flex-row justify-center items-center bg-accent rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-sm"
+									className="flex flex-row justify-center items-center bg-accent rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-sm cursor-pointer"
 									whileHover={{ scale: 1.1 }}
 									whileTap={{ scale: 0.9 }}
 									initial={{ opacity: 0 }}
@@ -34,16 +34,18 @@ export default function Socials() {
 						))
 						.with("link", () => (
 							<LinkPreview url={social.url}>
-								<motion.div
-									className="flex flex-row justify-center items-center bg-accent rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-sm"
-									whileHover={{ scale: 1.1 }}
-									whileTap={{ scale: 0.9 }}
-									initial={{ opacity: 0 }}
-									whileInView={{ opacity: 1 }}
-									viewport={{ once: true }}
-								>
-									{social.icon}
-								</motion.div>
+								<a href={social.url} target="_blank" rel="noopener noreferrer">
+									<motion.div
+										className="flex flex-row justify-center items-center bg-accent rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-sm"
+										whileHover={{ scale: 1.1 }}
+										whileTap={{ scale: 0.9 }}
+										initial={{ opacity: 0 }}
+										whileInView={{ opacity: 1 }}
+										viewport={{ once: true }}
+									>
+										{social.icon}
+									</motion.div>
+								</a>
 							</LinkPreview>
 						))
 						.with("spotify", () => (
