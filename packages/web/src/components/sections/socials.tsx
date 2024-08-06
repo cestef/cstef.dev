@@ -1,21 +1,11 @@
 import { SOCIALS } from "@/lib/constants";
-import { useLastFM } from "@/lib/lastfm";
 import { motion } from "framer-motion";
-import { Music } from "lucide-react";
-import { FaSpotify } from "react-icons/fa";
 import { match } from "ts-pattern";
-import Image from "../composed/image";
-import {
-	HoverCard,
-	HoverCardContent,
-	HoverCardTrigger,
-} from "../ui/hover-card";
-import { LinkPreview } from "../composed/link-preview";
 import { CopyContent } from "../composed/copy";
+import { LinkPreview } from "../composed/link-preview";
 import { Spotify } from "../composed/spotify";
 
 export default function Socials() {
-	const lastFM = useLastFM("cestef");
 	return (
 		<div className="lg:mt-32 flex flex-col justify-center items-center">
 			<motion.h2
@@ -26,7 +16,7 @@ export default function Socials() {
 				Find me on
 			</motion.h2>
 			<div className="flex flex-wrap justify-center items-center gap-4 mx-4">
-				{SOCIALS.map((social, index) =>
+				{SOCIALS.map((social) =>
 					match(social.variant)
 						.with("copy", () => (
 							<CopyContent content={social.url}>
