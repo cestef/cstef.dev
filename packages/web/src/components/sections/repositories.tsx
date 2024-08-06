@@ -1,7 +1,7 @@
 import { useRepositories } from "@/lib/repositories";
 import { getLanguageColor } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
 import {
 	Card,
@@ -12,6 +12,7 @@ import {
 } from "../ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import Twemoji from "../ui/twemoji";
+import { LinkPreview } from "../composed/link-preview";
 
 export default function Repositories() {
 	const { isMore, loadMore, repositories, loading } = useRepositories("cestef");
@@ -28,61 +29,55 @@ export default function Repositories() {
 			</motion.h2>
 			<div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 mx-4">
 				{repositories.map((repo, index) => (
-					<Tooltip key={index} delayDuration={0}>
-						<TooltipTrigger>
-							<a href={repo.url}>
-								<motion.div
-									whileHover={{ scale: 1.05 }}
-									whileTap={{ scale: 0.95 }}
-									initial={{ opacity: 0 }}
-									whileInView={{ opacity: 1 }}
-									viewport={{ once: true }}
-								>
-									<Card className="w-72 h-44 flex flex-col">
-										<CardHeader className="-mb-2">
-											<CardTitle>
-												{repo.forked && (
-													<Tooltip delayDuration={0}>
-														<TooltipTrigger>
-															<Twemoji emoji="🍴" className="mr-2" />
-														</TooltipTrigger>
-														<TooltipContent>Forked</TooltipContent>
-													</Tooltip>
-												)}
-												{repo.name}
-											</CardTitle>
-										</CardHeader>
-										<CardContent className="flex flex-col gap-2 items-center justify-center h-full pb-4">
-											<p className="text-muted-foreground line-clamp-2">
-												{repo.description ?? "No description"}
+					<LinkPreview url={repo.url} key={index.toString()}>
+						<a href={repo.url} target="_blank" rel="noopener noreferrer">
+							<motion.div
+								whileHover={{ scale: 1.05 }}
+								whileTap={{ scale: 0.95 }}
+								initial={{ opacity: 0 }}
+								whileInView={{ opacity: 1 }}
+								viewport={{ once: true }}
+							>
+								<Card className="w-72 h-44 flex flex-col justify-center">
+									<CardHeader className="-mb-2 flex flex-row items-center justify-center gap-2 text-center">
+										<CardTitle>
+											{repo.forked && (
+												<Tooltip delayDuration={0}>
+													<TooltipTrigger>
+														<Twemoji emoji="🍴" className="mr-2" />
+													</TooltipTrigger>
+													<TooltipContent>Forked</TooltipContent>
+												</Tooltip>
+											)}
+											{repo.name}
+										</CardTitle>
+									</CardHeader>
+									<CardContent className="flex flex-col gap-2 items-center justify-center h-full pb-4">
+										<p className="text-muted-foreground line-clamp-2">
+											{repo.description ?? "No description"}
+										</p>
+									</CardContent>
+									<div className="flex-grow w-full" />
+									<CardFooter>
+										<div className="flex flex-row justify-between items-center w-full">
+											<p>
+												{repo.stars} <Twemoji emoji="⭐" />
 											</p>
-										</CardContent>
-										<div className="flex-grow w-full" />
-										<CardFooter>
-											<div className="flex flex-row justify-between items-center w-full">
-												<p>
-													{repo.stars} <Twemoji emoji="⭐" />
-												</p>
-												<p className="flex flex-row justify-between items-center gap-2">
-													<div
-														className="w-3 h-3 rounded-full"
-														style={{
-															backgroundColor: getLanguageColor(repo.language),
-														}}
-													/>
-													{repo.language}
-												</p>
-											</div>
-										</CardFooter>
-									</Card>
-								</motion.div>
-							</a>
-						</TooltipTrigger>
-						<TooltipContent className="mb-2">
-							<ArrowUpRight className="w-4 h-4 mr-2 inline-block" />
-							GitHub
-						</TooltipContent>
-					</Tooltip>
+											<p className="flex flex-row justify-between items-center gap-2">
+												<div
+													className="w-3 h-3 rounded-full"
+													style={{
+														backgroundColor: getLanguageColor(repo.language),
+													}}
+												/>
+												{repo.language}
+											</p>
+										</div>
+									</CardFooter>
+								</Card>
+							</motion.div>
+						</a>
+					</LinkPreview>
 				))}
 			</div>
 			{isMore && (

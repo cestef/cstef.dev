@@ -34,12 +34,7 @@ export default function App() {
 				)}
 			>
 				<Hero />
-				<Socials
-					open={open}
-					setOpen={setOpen}
-					copied={copied}
-					setCopied={setCopied}
-				/>
+				<Socials />
 				<Repositories />
 				<AboutMe />
 				<Separator className="my-16" />
