@@ -25,7 +25,7 @@ export const useKonami = (callback: () => void) => {
 
 	// Add the pressed key to the keys array
 	const handleKeyDown = (event: KeyboardEvent) => {
-		setKeys((keys) => [...keys, event.code.toString()]);
+		setKeys((keys) => [...keys, event.keyCode.toString()]);
 	};
 
 	// Add the event listener
