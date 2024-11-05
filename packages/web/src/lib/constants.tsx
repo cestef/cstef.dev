@@ -1,7 +1,12 @@
 import { Link } from "@/components/ui/link";
 import Twemoji from "@/components/ui/twemoji";
-import { FaDiscord, FaGithub, FaSpotify, FaSteam } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+import {
+	FaDiscord,
+	FaGithub,
+	FaSpotify,
+	FaSteam,
+	FaItchIo,
+} from "react-icons/fa";
 
 export const SOCIALS: {
 	name: string;
@@ -39,6 +44,12 @@ export const SOCIALS: {
 		name: "Blog",
 		url: "https://blog.cstef.dev",
 		icon: <Twemoji emoji="📝" className="sm:w-10 sm:h-10 w-8 h-8" />,
+		variant: "link",
+	},
+	{
+		name: "Itch.io",
+		url: "https://cstef.itch.io",
+		icon: <FaItchIo className="sm:w-10 sm:h-10 w-8 h-8 text-[#FA5C5C]" />,
 		variant: "link",
 	},
 ];
@@ -140,7 +151,7 @@ export const EVENTS: {
 	},
 ];
 
-export const EMAIL = "114,111,111,116,64,99,115,116,101,102,46,100,101,118"
+export const EMAIL = "104,105,64,99,115,116,101,102,46,100,101,118"
 	.split(",")
 	.map((char) => String.fromCharCode(Number.parseInt(char)))
 	.join("");
