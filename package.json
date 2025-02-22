@@ -1,25 +1,25 @@
 {
-	"name": "cstef.dev",
-	"version": "1.0.0",
-	"description": "",
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"devDependencies": {
-		"@biomejs/biome": "^1.8.3",
-		"@types/node": "^20.8.7",
-		"concurrently": "^8.2.2",
-		"husky": "^8.0.0"
-	},
-	"scripts": {
-		"prepare": "husky install",
-		"dev": "concurrently \"pnpm --filter=web dev\" \"pnpm --filter=backend dev\""
-	},
-	"pnpm": {
-		"patchedDependencies": {
-			"@react-chess-tools/react-chess-puzzle@0.2.1": "patches/@react-chess-tools__react-chess-puzzle@0.2.1.patch",
-			"@react-chess-tools/react-chess-game@0.2.1": "patches/@react-chess-tools__react-chess-game@0.2.1.patch"
-		}
-	},
-	"packageManager": "pnpm@9.6.0"
+    "name": "cstef.dev",
+    "version": "1.0.0",
+    "description": "",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@biomejs/biome": "^1.9.4",
+        "@types/node": "22.13.5",
+        "concurrently": "9.1.2",
+        "husky": "9.1.7"
+    },
+    "scripts": {
+        "prepare": "husky install",
+        "dev": "concurrently \"pnpm --filter=web dev\" \"pnpm --filter=backend dev\""
+    },
+    "pnpm": {
+        "patchedDependencies": {
+            "@react-chess-tools/react-chess-puzzle@0.2.1": "patches/@react-chess-tools__react-chess-puzzle@0.2.1.patch",
+            "@react-chess-tools/react-chess-game@0.2.1": "patches/@react-chess-tools__react-chess-game@0.2.1.patch"
+        }
+    },
+    "packageManager": "pnpm@9.6.0"
 }

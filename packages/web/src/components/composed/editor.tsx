@@ -251,11 +251,7 @@ export interface Visitor {
 	isSmart: boolean;
 }
 
-export function Editor({
-	openConsole,
-}: {
-	openConsole: (person: Visitor) => void;
-}) {
+export function Editor() {
 	const [result, setResult] = useState<string | null>(null);
 	const [value, setValue] = useState(DEFAULT_CODE);
 	const { resolvedColorScheme } = useColorScheme();
@@ -282,7 +278,7 @@ export function Editor({
 			{shouldDisplayEditor && (
 				<>
 					<div className="relative hidden lg:block">
-						<div className="lg:!w-[35vw] lg:!h-[40svh] !w-[75vw] !h-[50svh] lg:mt-0 mt-8 mb-8 lg:mb-0 rounded-md">
+						<div className="lg:!w-[35vw] lg:!h-[40svh] !w-[75vw] !h-[50svh] lg:mt-0 mt-8 mb-8 lg:mb-0 rounded-md xl:!w-[25vw]">
 							<CodeMirror
 								value={value}
 								onChange={(value) => {
