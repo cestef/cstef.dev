@@ -251,7 +251,10 @@ export interface Visitor {
 	isSmart: boolean;
 }
 
-export function Editor() {
+// @ts-ignore: we need to eval the code
+export function Editor({
+	openConsole,
+}: { openConsole: (visitor: Visitor) => void }) {
 	const [result, setResult] = useState<string | null>(null);
 	const [value, setValue] = useState(DEFAULT_CODE);
 	const { resolvedColorScheme } = useColorScheme();
