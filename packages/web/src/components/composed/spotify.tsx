@@ -19,7 +19,7 @@ type SpotifyProps = {
 };
 
 export const Spotify = ({ children, className, url }: SpotifyProps) => {
-	const lastFM = useLastFM("cestef");
+	const lastFM = useLastFM("cestef", 30_000);
 	const [isOpen, setOpen] = React.useState(false);
 	const springConfig = { stiffness: 100, damping: 15 };
 	const x = useMotionValue(0);
